@@ -1,0 +1,1456 @@
+[
+  {
+    "name": "Meter Asset Management",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Procure and manage metering assets",
+    "level": "L2",
+    "parent": "Meter Asset Management",
+    "details": {}
+  },
+  {
+    "name": "Forecast meter and network device demand",
+    "level": "L3",
+    "parent": "Procure and manage metering assets",
+    "details": {
+      "objective": "Estimate meter and communication device needs based on deployment schedules, replacement rates, and growth forecasts.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Issue meter and network device purchase orders",
+    "level": "L3",
+    "parent": "Procure and manage metering assets",
+    "details": {
+      "objective": "Manage purchase orders and vendor coordination for approved metering and communication equipment.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Procure meters and network devices",
+    "level": "L3",
+    "parent": "Procure and manage metering assets",
+    "details": {
+      "objective": "Manage procurement of meters and network equipment from approved vendors.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Receive and inspect delivered assets",
+    "level": "L3",
+    "parent": "Procure and manage metering assets",
+    "details": {
+      "objective": "Receive, inspect, and validate meter and network device shipments for conformance with specifications.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Register devices in asset and head-end systems",
+    "level": "L3",
+    "parent": "Procure and manage metering assets",
+    "details": {
+      "objective": "Record unique device identifiers and link assets across asset management, CIS, and MDMS systems.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage inventory and warehousing",
+    "level": "L2",
+    "parent": "Meter Asset Management",
+    "details": {}
+  },
+  {
+    "name": "Track warehouse inventory and movements",
+    "level": "L3",
+    "parent": "Manage inventory and warehousing",
+    "details": {
+      "objective": "Maintain real-time visibility of meters and network devices through storage, staging, and field issue processes.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Reconcile field inventory and system counts",
+    "level": "L3",
+    "parent": "Manage inventory and warehousing",
+    "details": {
+      "objective": "Validate consistency between warehouse, MIV, and field inventories.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage returns and warranty",
+    "level": "L2",
+    "parent": "Meter Asset Management",
+    "details": {}
+  },
+  {
+    "name": "Manage returns, warranty, and refurbishment (metering devices)",
+    "level": "L3",
+    "parent": "Manage returns and warranty",
+    "details": {
+      "objective": "Handle warranty returns, refurbishment cycles, and inventory reconciliation of defective or decommissioned metering devices.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage returns, warranty, and refurbishment (network devices)",
+    "level": "L3",
+    "parent": "Manage returns and warranty",
+    "details": {
+      "objective": "Handle warranty returns, refurbishment cycles, and inventory reconciliation of defective or decommissioned network devices.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Mass Meter Deployment",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Manage MIV synchronization and file handling",
+    "level": "L2",
+    "parent": "Mass Meter Deployment",
+    "details": {}
+  },
+  {
+    "name": "Manage MIV plan and synchronization",
+    "level": "L3",
+    "parent": "Manage MIV synchronization and file handling",
+    "details": {
+      "objective": "Maintain MIV job plans and ensure synchronization of deployment data between MIV and enterprise systems.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Handle CIS-to-MIV file and interface exceptions",
+    "level": "L3",
+    "parent": "Manage MIV synchronization and file handling",
+    "details": {
+      "objective": "Detect and correct MIV file transfer or format errors to maintain deployment data integrity.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Reconcile installation records between systems",
+    "level": "L3",
+    "parent": "Manage MIV synchronization and file handling",
+    "details": {
+      "objective": "Cross-check installation completion data between Asset Management, CIS MDMS and HES for consistency.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage customer communication during deployment",
+    "level": "L2",
+    "parent": "Mass Meter Deployment",
+    "details": {}
+  },
+  {
+    "name": "Notify customers of installation schedules",
+    "level": "L3",
+    "parent": "Manage customer communication during deployment",
+    "details": {
+      "objective": "Inform customers of upcoming installation dates and access requirements through preferred communication channels.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Coordinate installation and commissioning",
+    "level": "L2",
+    "parent": "Mass Meter Deployment",
+    "details": {}
+  },
+  {
+    "name": "Assign and execute MIV meteer deployment work orders",
+    "level": "L3",
+    "parent": "Coordinate installation and commissioning",
+    "details": {
+      "objective": "Dispatch and complete meter installation work orders via MIV or contractor systems, updating all related records.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Assign and execute utility-owned deployment work orders",
+    "level": "L3",
+    "parent": "Coordinate installation and commissioning",
+    "details": {
+      "objective": "Dispatch and complete meter installation work orders via utility systems, updating all related records.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Close MIV work orders and update dashboards",
+    "level": "L3",
+    "parent": "Coordinate installation and commissioning",
+    "details": {
+      "objective": "Record job completion, capture installer performance data, and synchronize updates across enterprise systems.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Communicate completion and follow-up",
+    "level": "L3",
+    "parent": "Manage customer communication during deployment",
+    "details": {
+      "objective": "Notify customers upon successful installation and provide usage education or contact information for support.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage field exceptions and issue resolution",
+    "level": "L2",
+    "parent": "Mass Meter Deployment",
+    "details": {}
+  },
+  {
+    "name": "Detect and categorize deployment exceptions",
+    "level": "L3",
+    "parent": "Manage field exceptions and issue resolution",
+    "details": {
+      "objective": "Identify and classify installation exceptions such as access issues, data mismatches, or device failures.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage refurbishment and end-of-life disposal (MIV)",
+    "level": "L3",
+    "parent": "Manage returns and warranty",
+    "details": {
+      "objective": "Oversee refurbishment or environmentally compliant disposal of obsolete meters devices removed by MIV.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Field Operations",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Perform provisioning and connectivity validation",
+    "level": "L3",
+    "parent": "Coordinate installation and commissioning",
+    "details": {
+      "objective": "Validate communication and registration of newly installed meters with the head-end and MDMS systems.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Perform commissioning and billing readiness checks",
+    "level": "L3",
+    "parent": "Coordinate installation and commissioning",
+    "details": {
+      "objective": "Confirm that newly installed meters are correctly provisioned, communicating, and fully validated in the MDMS so they are ready to generate billable usage.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Manage meter field operations",
+    "level": "L2",
+    "parent": "Field Operations",
+    "details": {}
+  },
+  {
+    "name": "Perform steady-state meter installation",
+    "level": "L3",
+    "parent": "Manage meter field operations",
+    "details": {
+      "objective": "Execute meter installations as part of new service connections or replacements outside of mass deployment.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Perform meter exchange",
+    "level": "L3",
+    "parent": "Manage meter field operations",
+    "details": {
+      "objective": "Replace AMI 2.0 meter for maintenance, testing, or upgrade purposes.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Conduct meter investigations",
+    "level": "L3",
+    "parent": "Manage meter field operations",
+    "details": {
+      "objective": "Dispatch field investigations for customer complaints, abnormal reads, or communication failures.",
+      "use_case": "Use Case 4 \u2013 Revenue Protection\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Perform meter removal and decommissioning",
+    "level": "L3",
+    "parent": "Manage meter field operations",
+    "details": {
+      "objective": "Remove meters from service, ensure final reads, and update all related systems.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage remote connect/disconnect operations",
+    "level": "L2",
+    "parent": "Field Operations",
+    "details": {}
+  },
+  {
+    "name": "Perform remote disconnect / reconnect for move-out",
+    "level": "L3",
+    "parent": "Manage remote connect/disconnect operations",
+    "details": {
+      "objective": "Execute and validate remote meter disconnect commands in coordination with CIS and MDMS.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Perform remote disconnect / reconnect for move-in",
+    "level": "L3",
+    "parent": "Manage remote connect/disconnect operations",
+    "details": {
+      "objective": "Execute and validate remote meter redisconnect commands in coordination with CIS and MDMS.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Perform remote disconnect for non-payment",
+    "level": "L3",
+    "parent": "Manage remote connect/disconnect operations",
+    "details": {
+      "objective": "Execute remote disconnect commands for delinquent accounts following compliance and notification procedures.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Perform remote reconnect after payment",
+    "level": "L3",
+    "parent": "Manage remote connect/disconnect operations",
+    "details": {
+      "objective": "Validate payment, execute remote reconnect command, and verify service restoration.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage network device lifecycle",
+    "level": "L2",
+    "parent": "Field Operations",
+    "details": {}
+  },
+  {
+    "name": "Install and maintain network access points",
+    "level": "L3",
+    "parent": "Manage network device lifecycle",
+    "details": {
+      "objective": "Coordinate installation of network access points or routers supporting AMI communications.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Remove network access points and decommission interfaces",
+    "level": "L3",
+    "parent": "Manage network device lifecycle",
+    "details": {
+      "objective": "Remove obsolete or faulty network access points or routers and update network configuration.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Meter Data Operations",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Manage AMI data collection and validation",
+    "level": "L2",
+    "parent": "Meter Data Operations",
+    "details": {}
+  },
+  {
+    "name": "Ingest and validate interval and event data (HES)",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Collect and validate usage, voltage, and event data from AMI head-end systems to ensure completeness and accuracy.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Resolve data gaps and anomalies (HES)",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Detect and correct missing or inconsistent AMI data to maintain billing and analytics integrity.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Store validated data in MDMS and analytics repositories",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Persist cleansed and verified AMI data into MDMS for consumption by downstream systems.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Validate and estimate missing data (VEE)",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Validate, estimate, or edit interval data where gaps or anomalies exist to ensure complete and accurate billing determinants.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Resolve VEE Exceptions & Complex Estimations",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Manually investigate and resolve interval data exceptions that fail automated VEE rules, applying human judgment or forced estimates.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Detect Unassigned Interval Usage",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Identify meters drawing load post-disconnect and flag for investigation.",
+      "use_case": "Use Case 4 \u2013 Revenue Protection",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Customer Engagement & Billing",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Manage rate optimization and program enrollment",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Model and recommend personalized rate plans",
+    "level": "L3",
+    "parent": "Manage rate optimization and program enrollment",
+    "details": {
+      "objective": "Analyze usage and behavioral data to recommend optimal rate structures or incentives for customers.",
+      "use_case": "Use Case 2 \u2013 Optimizing Energy Savings with Personalized Incentives",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Simulate customer bill impacts",
+    "level": "L3",
+    "parent": "Manage rate optimization and program enrollment",
+    "details": {
+      "objective": "Estimate and communicate bill impacts of rate plan changes or program participation.",
+      "use_case": "Use Case 2 \u2013 Optimizing Energy Savings with Personalized Incentives",
+      "it_release": "IT Release 1 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Manage meter-to-cash operations",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Calculate and validate interval-based bills",
+    "level": "L3",
+    "parent": "Manage meter-to-cash operations",
+    "details": {
+      "objective": "Execute CIS billing logic for interval-based rates, utilizing summed intervals or time-series calculations to determine billable usage.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Calculate and validate register-based bills",
+    "level": "L3",
+    "parent": "Manage meter-to-cash operations",
+    "details": {
+      "objective": "Execute CIS billing logic for scalar rates, utilizing start and stop register reads to determine billable usage.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Generate and distribute bill print and e-bills",
+    "level": "L3",
+    "parent": "Manage meter-to-cash operations",
+    "details": {
+      "objective": "Produce and issue customer bills through print and electronic delivery channels, ensuring timely distribution and compliance.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage billing exceptions",
+    "level": "L3",
+    "parent": "Manage meter-to-cash operations",
+    "details": {
+      "objective": "Identify, investigate, and resolve billing errors or anomalies to maintain billing accuracy and customer trust.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Cancel and rebill",
+    "level": "L3",
+    "parent": "Manage meter-to-cash operations",
+    "details": {
+      "objective": "Correct previously issued bills due to meter, data, or rate errors and reissue accurate versions.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage complex billing arrangements",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Manage Virtual Net Metering (VNM) Allocations",
+    "level": "L3",
+    "parent": "Manage complex billing arrangements",
+    "details": {
+      "objective": "Configure and maintain allocation percentages between generating accounts and benefiting accounts to ensure accurate credit distribution.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 2 \u2013 Optimizing Energy Savings\nUse Case 7 \u2013 Long-Term Grid Planning",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage NEM Aggregation (NEM-A) Structures",
+    "level": "L3",
+    "parent": "Manage complex billing arrangements",
+    "details": {
+      "objective": "Establish and maintain the linkage between a principal generating account and multiple aggregated usage accounts for unified billing settlement.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 2 \u2013 Optimizing Energy Savings\nUse Case 7 \u2013 Long-Term Grid Planning",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage customer support and inquiries",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Handle AMI-related customer inquiries",
+    "level": "L3",
+    "parent": "Manage customer support and inquiries",
+    "details": {
+      "objective": "Respond to customer questions related to metering data, usage, and AMI benefits.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Escalate unresolved AMI cases and close tickets",
+    "level": "L3",
+    "parent": "Manage customer support and inquiries",
+    "details": {
+      "objective": "Escalate unresolved cases to appropriate support tiers and ensure timely closure.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Resolve AMI billing data mismatches",
+    "level": "L3",
+    "parent": "Manage customer support and inquiries",
+    "details": {
+      "objective": "Investigate and correct discrepancies between AMI interval data, MDMS values, and CIS billing determinants to ensure accurate billing before finalization.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage revenue protection",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Detect Meter Tampering & Energy Diversion",
+    "level": "L3",
+    "parent": "Manage revenue protection",
+    "details": {
+      "objective": "Analyze meter alarms, magnetic sensors, and usage patterns to identify physical tampering, bypass mechanisms, or energy diversion.",
+      "use_case": "Use Case 4 \u2013 Revenue Protection",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Investigate and resolve revenue loss cases",
+    "level": "L3",
+    "parent": "Manage revenue protection",
+    "details": {
+      "objective": "Conduct data-driven and field investigations to confirm theft or loss and take corrective action.",
+      "use_case": "Use Case 4 \u2013 Revenue Protection",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Report revenue protection KPIs and trends",
+    "level": "L3",
+    "parent": "Manage revenue protection",
+    "details": {
+      "objective": "Track and report performance of theft detection and revenue recovery programs.",
+      "use_case": "Use Case 4 \u2013 Revenue Protection",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Manage opt-out and customer choice programs",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Manage Pre-Deployment Opt-Out Exclusions",
+    "level": "L3",
+    "parent": "Manage opt-out and customer choice programs",
+    "details": {
+      "objective": "Record customer opt-out requests prior to installation and update MIV deployment schedules to exclude the premise from mass installation.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage Post-Deployment Opt-Out & Exchange",
+    "level": "L3",
+    "parent": "Manage opt-out and customer choice programs",
+    "details": {
+      "objective": "Process opt-out requests for existing AMI customers and trigger field work orders to exchange the smart meter for a non-communicating device.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Disable AMI communications for opt-out customers",
+    "level": "L3",
+    "parent": "Manage opt-out and customer choice programs",
+    "details": {
+      "objective": "Remotely disable meter communications for customers who have opted out.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Enable AMI communications for re-enrolled customers",
+    "level": "L3",
+    "parent": "Manage opt-out and customer choice programs",
+    "details": {
+      "objective": "Re-enable meter communications for customers who rejoin AMI programs after opting out.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Process opt-out customer move-in / move-out events",
+    "level": "L3",
+    "parent": "Manage opt-out and customer choice programs",
+    "details": {
+      "objective": "Update enrollment and billing settings when opt-out customers move into or out of premises.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage customer communications and experience",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Provide personalized consumption insights",
+    "level": "L3",
+    "parent": "Manage customer communications and experience",
+    "details": {
+      "objective": "Deliver disaggregated energy insights and usage summaries to customers through digital channels.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Manage wholesale settlement",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Aggregate and Transmit Wholesale Settlement Data",
+    "level": "L3",
+    "parent": "Manage wholesale settlement",
+    "details": {
+      "objective": "Aggregating validated interval data by load profile and jurisdiction to submit to the ISO/RTO for wholesale market settlement.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Calculate Unaccounted for Energy (UFE)",
+    "level": "L3",
+    "parent": "Manage wholesale settlement",
+    "details": {
+      "objective": "Compare total substation/feeder energy inputs against aggregated meter consumption to identify system losses or measurement errors.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Manage Demand Response Event Settlement",
+    "level": "L3",
+    "parent": "Manage rate optimization and program enrollment",
+    "details": {
+      "objective": "Calculate baseline usage (CBL) and performance metrics for DR events to determine financial settlement/credits distinct from standard billing.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Manage EV Panel Capacity Limits",
+    "level": "L3",
+    "parent": "Manage rate optimization and program enrollment",
+    "details": {
+      "objective": "Configure panel capacity thresholds and safe-loading limits in the back-office system to enable \"Panel Upgrade Avoidance\" logic at the edge.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience\nUse Case 7 \u2013 Long-Term Grid Planning",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Manage customer data access and transparency",
+    "level": "L2",
+    "parent": "Customer Engagement & Billing",
+    "details": {}
+  },
+  {
+    "name": "Authenticate customer data requests (Green Button)",
+    "level": "L3",
+    "parent": "Manage customer data access and transparency",
+    "details": {
+      "objective": "Verify credentials and authorization for customers and approved third parties requesting usage or generation data.",
+      "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Provide secure consumption data and reports (Green Button)",
+    "level": "L3",
+    "parent": "Manage customer data access and transparency",
+    "details": {
+      "objective": "Generate and deliver usage and generation reports through secure channels or APIs.",
+      "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Monitor API usage and maintain audit logs (Green Button)",
+    "level": "L3",
+    "parent": "Manage customer data access and transparency",
+    "details": {
+      "objective": "Track and log third-party API usage to ensure compliance and detect misuse.",
+      "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Grid & Outage Management",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Manage connectivity and topology",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Establish Meter-to-Transformer Topology",
+    "level": "L3",
+    "parent": "Manage connectivity and topology",
+    "details": {
+      "objective": "Analyze meter voltage correlation data to determine the parent-child physical link between meters and service transformers.",
+      "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring\nUse Case 18 - Grid Ops: Situational Awareness",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Monitor and validate connectivity model accuracy",
+    "level": "L3",
+    "parent": "Manage connectivity and topology",
+    "details": {
+      "objective": "Continuously verify connectivity accuracy using AMI and GIS data feedback.",
+      "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Detect and Reconcile Phase Assignment Errors",
+    "level": "L3",
+    "parent": "Manage connectivity and topology",
+    "details": {
+      "objective": "Analyze voltage angle data or signal injection results to identify and correct mislabeled electrical phases (A/B/C) in the GIS model.",
+      "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Integrate connectivity model with outage and DER tools",
+    "level": "L3",
+    "parent": "Manage connectivity and topology",
+    "details": {
+      "objective": "Provide real-time connectivity data to outage and DER planning applications for situational awareness.",
+      "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring\nUse Case 18 - Grid Ops: Situational Awareness",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Monitor environmental conditions",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Monitor Environmental Sensor Telemetry",
+    "level": "L3",
+    "parent": "Monitor environmental conditions",
+    "details": {
+      "objective": "Collect and monitor non-electrical telemetry (e.g., ambient temperature, seismic activity, air quality) from capable AMI devices to support grid planning and public safety initiatives.",
+      "use_case": "Use Case 9 \u2013 Environmental Monitoring",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Detect and analyze behind-the-meter events",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Identify and classify EV charging signatures",
+    "level": "L3",
+    "parent": "Detect and analyze behind-the-meter events",
+    "details": {
+      "objective": "Detect load patterns associated with EV charging to enhance load forecasting and grid planning.",
+      "use_case": "Use Case 18 \u2013 Grid Ops: Situational Awareness",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Detect rooftop solar and battery generation",
+    "level": "L3",
+    "parent": "Detect and analyze behind-the-meter events",
+    "details": {
+      "objective": "Identify customer-installed DER generation events using AMI interval and harmonic data.",
+      "use_case": "Use Case 18 \u2013 Grid Ops: Situational Awareness",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Correlate load changes with customer profiles",
+    "level": "L3",
+    "parent": "Detect and analyze behind-the-meter events",
+    "details": {
+      "objective": "Analyze BTM load data with customer profiles to refine forecasting and anomaly detection.",
+      "use_case": "Use Case 7 \u2013 Long-Term Grid Planning\nUse Case 18 - Grid Ops: Situational Awareness",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Detect Unapproved DER Interconnection",
+    "level": "L3",
+    "parent": "Detect and analyze behind-the-meter events",
+    "details": {
+      "objective": "Compare detected generation signatures against known interconnection records to identify unauthorized solar or storage back-feeding.",
+      "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM\nUse Case 4 \u2013 Revenue Protection",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Monitor feeder and transformer loading",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Aggregate and monitor feeder and transformer loads",
+    "level": "L3",
+    "parent": "Monitor feeder and transformer loading",
+    "details": {
+      "objective": "Collect and analyze feeder and transformer load data to detect overloads or unbalanced conditions.",
+      "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Trigger corrective switching actions",
+    "level": "L3",
+    "parent": "Monitor feeder and transformer loading",
+    "details": {
+      "objective": "Initiate manual or automated switching actions to balance loads or prevent overloads. Focuses on preventive or load-balancing switching.",
+      "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Detect voltage and power quality issues",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Analyze voltage, frequency, and harmonic data",
+    "level": "L3",
+    "parent": "Detect voltage and power quality issues",
+    "details": {
+      "objective": "Monitor voltage, frequency, and harmonics from AMI data to identify power quality deviations.",
+      "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Classify and report power quality anomalies",
+    "level": "L3",
+    "parent": "Detect voltage and power quality issues",
+    "details": {
+      "objective": "Categorize power quality events (sags, swells, harmonics) and report them to grid operations for resolution.",
+      "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Trigger voltage regulator or capacitor adjustments",
+    "level": "L3",
+    "parent": "Detect voltage and power quality issues",
+    "details": {
+      "objective": "Recommend or automatically trigger voltage regulation adjustments based on AMI measurements.",
+      "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Perform grid fault and incipient failure detection",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Detect incipient faults in distribution components",
+    "level": "L3",
+    "parent": "Perform grid fault and incipient failure detection",
+    "details": {
+      "objective": "Identify early failure indicators in transformers, capacitors, or cables using AMI power quality data.",
+      "use_case": "Use Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Correlate AMI data with other sensor inputs",
+    "level": "L3",
+    "parent": "Perform grid fault and incipient failure detection",
+    "details": {
+      "objective": "Integrate AMI-derived fault indicators with SCADA or IoT sensors for improved fault localization.",
+      "use_case": "Use Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Prioritize maintenance for at-risk assets",
+    "level": "L3",
+    "parent": "Perform grid fault and incipient failure detection",
+    "details": {
+      "objective": "Generate maintenance recommendations for assets showing early fault conditions.",
+      "use_case": "Use Case 15 \u2013 Fault & Incipient Fault Identification\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Detect and manage safety hazards",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Detect and Respond to Hot Socket Alarms",
+    "level": "L3",
+    "parent": "Detect and manage safety hazards",
+    "details": {
+      "objective": "Monitor real-time temperature alarms from meters, validate \"Hot Socket\" conditions, and trigger immediate safety disconnects or field dispatches.",
+      "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM\nUse Case 5 \u2013 Advanced Outage Identification",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Identify and Resolve Neutral Connection Issues",
+    "level": "L3",
+    "parent": "Detect and manage safety hazards",
+    "details": {
+      "objective": "Analyze voltage and impedance data to detect \"Loose Neutral\" conditions and prioritize field investigation to prevent equipment damage.",
+      "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Detect and locate outages",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Detect and validate outage events via AMI telemetry",
+    "level": "L3",
+    "parent": "Detect and locate outages",
+    "details": {
+      "objective": "Identify outages from AMI last-gasp signals, validate through multiple data sources, and flag confirmed events.",
+      "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Cluster and prioritize outage events for dispatch",
+    "level": "L3",
+    "parent": "Detect and locate outages",
+    "details": {
+      "objective": "Group and prioritize outages by severity, location, and customer impact to optimize restoration resources.",
+      "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Coordinate field and customer service alignment during outages",
+    "level": "L3",
+    "parent": "Detect and locate outages",
+    "details": {
+      "objective": "Ensure consistent information between field operations and call centers regarding outage status and restoration progress.",
+      "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Manage outage testing and diagnostics",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Ping meters for outage verification",
+    "level": "L3",
+    "parent": "Manage outage testing and diagnostics",
+    "details": {
+      "objective": "Perform targeted AMI pings to assess outage boundaries or diagnose partial restoration conditions without triggering formal OMS restoration updates.",
+      "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
+      "it_release": "IT Release 2"
+    }
+  },
+  {
+    "name": "Verify restoration and update OMS",
+    "level": "L3",
+    "parent": "Detect and locate outages",
+    "details": {
+      "objective": "Confirm restoration events by validating power status with AMI telemetry and update OMS and customer communication systems with authoritative restoration status.",
+      "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Manage outage communications",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Deliver outage and restoration notifications to customers",
+    "level": "L3",
+    "parent": "Manage outage communications",
+    "details": {
+      "objective": "Send real-time outage and restoration status updates to impacted customers through preferred communication channels.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience\nUse Case 5 \u2013 Advanced Outage Identification",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Perform controlled switching and restoration",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Execute validated switching commands",
+    "level": "L3",
+    "parent": "Perform controlled switching and restoration",
+    "details": {
+      "objective": "Perform operator-approved switching and restoration commands to safely restore service. Focuses on reactive switching to restore power after an outage or network event.",
+      "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Monitor and verify controlled restoration sequence",
+    "level": "L3",
+    "parent": "Perform controlled switching and restoration",
+    "details": {
+      "objective": "Validate staged restoration progress using AMI telemetry and update system status in OMS. Focuses on post-switching verification.",
+      "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Perform event analysis and root-cause investigation",
+    "level": "L2",
+    "parent": "Grid & Outage Management",
+    "details": {}
+  },
+  {
+    "name": "Analyze waveform signatures",
+    "level": "L3",
+    "parent": "Perform event analysis and root-cause investigation",
+    "details": {
+      "objective": "Request and analyze high-resolution waveform captures (pre/post event) to determine the specific electrical signature of complex faults.",
+      "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets\nUse Case 13 \u2013 Post Event Analysis",
+      "it_release": "IT Release 2 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Reconstruct outage and restoration sequences",
+    "level": "L3",
+    "parent": "Perform event analysis and root-cause investigation",
+    "details": {
+      "objective": "Analyze AMI, OMS, and SCADA data to reconstruct outage events and restoration timelines.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Identify root causes of faults or outages",
+    "level": "L3",
+    "parent": "Perform event analysis and root-cause investigation",
+    "details": {
+      "objective": "Determine likely causes of outages or power quality events through data correlation and analytics.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Document and close event investigations",
+    "level": "L3",
+    "parent": "Perform event analysis and root-cause investigation",
+    "details": {
+      "objective": "Record findings, corrective actions, and lessons learned from outage investigations.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Meter Operations & Diagnostics",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Manage device OS firmware and configuration",
+    "level": "L2",
+    "parent": "Meter Operations & Diagnostics",
+    "details": {}
+  },
+  {
+    "name": "Plan and schedule firmware upgrades",
+    "level": "L3",
+    "parent": "Manage device OS firmware and configuration",
+    "details": {
+      "objective": "Schedule and execute firmware updates to maintain meter and network device compliance and functionality.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Validate firmware deployment success",
+    "level": "L3",
+    "parent": "Manage device OS firmware and configuration",
+    "details": {
+      "objective": "Verify successful firmware deployment and device connectivity following updates.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage meter quality and compliance",
+    "level": "L2",
+    "parent": "Meter Operations & Diagnostics",
+    "details": {}
+  },
+  {
+    "name": "Manage Device Security Certificates Lifecycle",
+    "level": "L3",
+    "parent": "Manage meter quality and compliance",
+    "details": {
+      "objective": "Track the expiration and renewal of device security certificates (LDevID) to ensure no asset becomes orphaned due to credential expiry.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage meter operations commands",
+    "level": "L2",
+    "parent": "Meter Operations & Diagnostics",
+    "details": {}
+  },
+  {
+    "name": "Execute on-demand reads or pings",
+    "level": "L3",
+    "parent": "Manage meter operations commands",
+    "details": {
+      "objective": "Perform real-time meter read or ping commands to verify meter connectivity or resolve exceptions.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Send test or diagnostic commands",
+    "level": "L3",
+    "parent": "Manage meter operations commands",
+    "details": {
+      "objective": "Send diagnostic commands to validate meter health or confirm firmware behavior.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Track device reliability and communication performance",
+    "level": "L3",
+    "parent": "Manage meter operations commands",
+    "details": {
+      "objective": "Monitor meter reliability, communication stability, and recurring issue patterns.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Manage edge and distributed intelligence",
+    "level": "L2",
+    "parent": "Meter Operations & Diagnostics",
+    "details": {}
+  },
+  {
+    "name": "Configure Distributed Intelligence (DI) Application Logic",
+    "level": "L3",
+    "parent": "Manage edge and distributed intelligence",
+    "details": {
+      "objective": "Define and tune business parameters for edge applications (e.g., EV detection sensitivity, waveform capture triggers) to align with grid operation goals.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Monitor Edge Application Runtime Performance",
+    "level": "L3",
+    "parent": "Manage edge and distributed intelligence",
+    "details": {
+      "objective": "Monitor the operational health, resource consumption (CPU/Memory), and data latency of specific edge applications to ensure they are running effectively on the meter.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Manage Edge AI Model & App Lifecycle",
+    "level": "L3",
+    "parent": "Manage edge and distributed intelligence",
+    "details": {
+      "objective": "Coordinate the versioning, testing, and deployment of updated AI models and application binaries (e.g., new appliance signatures) independent of base meter firmware.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Data & Analytics Platform Management",
+    "level": "L1",
+    "parent": "",
+    "details": {}
+  },
+  {
+    "name": "Manage enterprise data platform",
+    "level": "L2",
+    "parent": "Data & Analytics Platform Management",
+    "details": {}
+  },
+  {
+    "name": "Coordinate AMI data integration with enterprise data lake",
+    "level": "L3",
+    "parent": "Manage enterprise data platform",
+    "details": {
+      "objective": "Transfer validated AMI datasets to the enterprise data lake for use in analytics and data science.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1 (retouched in IT Release 2 and 3)"
+    }
+  },
+  {
+    "name": "Manage interoperability and event correlation",
+    "level": "L2",
+    "parent": "Data & Analytics Platform Management",
+    "details": {}
+  },
+  {
+    "name": "Analyze AMI event notifications",
+    "level": "L3",
+    "parent": "Manage interoperability and event correlation",
+    "details": {
+      "objective": "Examine AMI-generated events (alarms, last-gasp, reconnects) to derive actionable insights.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 5 \u2013 Advanced Outage Identification and Location Awareness",
+      "it_release": "IT Release 1 (retouched in IT Release 3)"
+    }
+  },
+  {
+    "name": "Manage data security and privacy",
+    "level": "L2",
+    "parent": "Data & Analytics Platform Management",
+    "details": {}
+  },
+  {
+    "name": "Implement role-based access control and encryption",
+    "level": "L3",
+    "parent": "Manage data security and privacy",
+    "details": {
+      "objective": "Enforce access control and data encryption to secure AMI data at rest and in transit.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1 (retouched in IT Release 2 and 3)"
+    }
+  },
+  {
+    "name": "Maintain Operational Device Segments & Groups",
+    "level": "L3",
+    "parent": "Manage edge and distributed intelligence",
+    "details": {
+      "objective": "Define and maintain the business logic for meter groups (e.g., \"Fire Risk Zones,\" \"EV Users\") used to target firmware, configurations, and commands.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability\nUse Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Manage third-party data exchange",
+    "level": "L2",
+    "parent": "Data & Analytics Platform Management",
+    "details": {}
+  },
+  {
+    "name": "Authenticate and authorize third-party data requests",
+    "level": "L3",
+    "parent": "Manage third-party data exchange",
+    "details": {
+      "objective": "Verify credentials and enforce access permissions for third-party data consumers.",
+      "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Transmit datasets securely to authorized third parties",
+    "level": "L3",
+    "parent": "Manage third-party data exchange",
+    "details": {
+      "objective": "Transfer AMI datasets through secure API channels in compliance with privacy and cybersecurity standards.",
+      "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Monitor API usage and maintain audit logs (Third Party)",
+    "level": "L3",
+    "parent": "Manage third-party data exchange",
+    "details": {
+      "objective": "Track and log third-party API usage to ensure compliance and detect misuse.",
+      "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Capture and correlate operational events across AMI, OMS, and CIS",
+    "level": "L3",
+    "parent": "Manage interoperability and event correlation",
+    "details": {
+      "objective": "Correlate operational events to identify cross-domain dependencies and performance insights.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Manage reporting and visualization",
+    "level": "L2",
+    "parent": "Data & Analytics Platform Management",
+    "details": {}
+  },
+  {
+    "name": "Design and maintain AMI dashboards",
+    "level": "L3",
+    "parent": "Manage reporting and visualization",
+    "details": {
+      "objective": "Create and maintain dashboards to visualize AMI performance, reliability, and customer insights.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 18 \u2013 Grid Ops: Situational Awareness",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Automate recurring reports and analytics",
+    "level": "L3",
+    "parent": "Manage reporting and visualization",
+    "details": {
+      "objective": "Automate generation and distribution of recurring performance and compliance reports.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Identify cross-system anomalies",
+    "level": "L3",
+    "parent": "Manage interoperability and event correlation",
+    "details": {
+      "objective": "Detect inconsistencies between AMI, OMS, and SCADA data to enhance reliability.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
+      "it_release": "IT Release 3"
+    }
+  }
+]
