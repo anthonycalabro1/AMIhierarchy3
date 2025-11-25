@@ -15,9 +15,9 @@
     <!-- Navigation Bar -->
     <!-- Increased z-index to 30 to stay above details panel (z-20) -->
     <header class="bg-white shadow-md z-30 relative" role="banner">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full">
             <div class="flex justify-between h-16">
-                <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-6 pl-4 sm:pl-6 lg:pl-8">
                     <h1 class="text-xl font-bold text-gray-800">AMI Process Hierarchy Tool</h1>
                     <div id="process-statistics" class="hidden md:flex items-center space-x-4 text-sm text-gray-600">
                         <span id="l1-count" class="font-medium">L1 Processes: <span class="text-gray-800">-</span></span>
@@ -25,27 +25,29 @@
                         <span id="l3-count" class="font-medium">L3 Processes: <span class="text-gray-800">-</span></span>
                     </div>
                 </div>
-                <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Toggle navigation menu" aria-expanded="false">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex items-center space-x-4" role="navigation" aria-label="Main navigation">
-                    <button id="nav-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-w-[44px] min-h-[44px]" onclick="switchView('navigation')" aria-label="Switch to Navigation View">
-                        Navigation View
+                <div class="flex items-center pr-4 sm:pr-6 lg:pr-8">
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
                     </button>
-                    <button id="tree-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="switchView('tree')" aria-label="Switch to Tree View">
-                        Tree View
-                    </button>
-                    <button id="search-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="switchView('search')" aria-label="Switch to Search View">
-                        Search
-                    </button>
-                </nav>
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden md:flex items-center space-x-4" role="navigation" aria-label="Main navigation">
+                        <button id="nav-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-w-[44px] min-h-[44px]" onclick="switchView('navigation')" aria-label="Switch to Navigation View">
+                            Navigation View
+                        </button>
+                        <button id="tree-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="switchView('tree')" aria-label="Switch to Tree View">
+                            Tree View
+                        </button>
+                        <button id="search-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="switchView('search')" aria-label="Switch to Search View">
+                            Search
+                        </button>
+                    </nav>
+                </div>
             </div>
             <!-- Mobile Navigation Menu -->
-            <nav id="mobile-menu" class="hidden md:hidden pb-4" role="navigation" aria-label="Mobile navigation">
+            <nav id="mobile-menu" class="hidden md:hidden pb-4 px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Mobile navigation">
                 <div class="flex flex-col space-y-2">
                     <button class="w-full px-4 py-3 rounded-md text-sm font-medium text-left text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]" onclick="switchView('navigation'); toggleMobileMenu();" aria-label="Switch to Navigation View">
                         Navigation View
