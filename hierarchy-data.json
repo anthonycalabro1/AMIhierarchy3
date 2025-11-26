@@ -10,23 +10,9 @@
           "level": "L2",
           "children": [
             {
-              "name": "Forecast meter and network device demand",
+              "name": "Plan and Procure Metering Assets",
               "level": "L3",
-              "objective": "Estimate meter and communication device needs based on deployment schedules, replacement rates, and growth forecasts.",
-              "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
-              "it_release": "IT Release 1"
-            },
-            {
-              "name": "Issue meter and network device purchase orders",
-              "level": "L3",
-              "objective": "Manage purchase orders and vendor coordination for approved metering and communication equipment.",
-              "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
-              "it_release": "IT Release 1"
-            },
-            {
-              "name": "Procure meters and network devices",
-              "level": "L3",
-              "objective": "Manage procurement of meters and network equipment from approved vendors.",
+              "objective": "Analyze deployment schedules, replacement rates, and network growth to forecast device demand, and execute necessary procurement actions, including purchase order issuance and vendor coordination, to ensure adequate inventory supply.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
@@ -53,14 +39,14 @@
             {
               "name": "Track warehouse inventory and movements",
               "level": "L3",
-              "objective": "Maintain real-time visibility of meters and network devices through storage, staging, and field issue processes.",
+              "objective": "Manage the physical location and status of assets within the warehouse (e.g., staging, quarantine) and ensures that any changes in asset condition or availability are automatically propagated to the Head-End System and other integrated IT platforms. This ensures only available, healthy assets are released for deployment.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
             {
               "name": "Reconcile field inventory and system counts",
               "level": "L3",
-              "objective": "Validate consistency between warehouse, MIV, and field inventories.",
+              "objective": "Perform comprehensive periodic audits to balance total asset quantities across utility warehouses, vendor (MIV) storage, and deployed field locations against central system records. This process identifies lost, stolen, or unaccounted-for assets that are not captured by individual installation transactions.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             }
@@ -71,9 +57,16 @@
           "level": "L2",
           "children": [
             {
-              "name": "Manage returns, warranty, and refurbishment (metering devices)",
+              "name": "Manage Vendor Warranty Claims and Returns",
               "level": "L3",
-              "objective": "Handle warranty returns, refurbishment cycles, and inventory reconciliation of defective or decommissioned metering devices.",
+              "objective": "Manage the commercial lifecycle of metering devices under warranty, including validating warranty status, executing return merchandise authorization (RMA) shipments to the vendor, and reconciling financial credits or replacement asset receipts.",
+              "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+              "it_release": "IT Release 1"
+            },
+            {
+              "name": "Manage Meter Refurbishment and Testing Cycles",
+              "level": "L3",
+              "objective": "Manage the operational workflow for devices requiring testing, cleaning, or repair (internal or third-party) to determine if they can be refurbished and returned to available inventory stock or must be scrapped.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
@@ -97,16 +90,9 @@
           "level": "L2",
           "children": [
             {
-              "name": "Manage MIV plan and synchronization",
+              "name": "Manage MIV Data Synchronization & Exception Handling",
               "level": "L3",
-              "objective": "Maintain MIV job plans and ensure synchronization of deployment data between MIV and enterprise systems.",
-              "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
-              "it_release": "IT Release 1"
-            },
-            {
-              "name": "Handle CIS-to-MIV file and interface exceptions",
-              "level": "L3",
-              "objective": "Detect and correct MIV file transfer or format errors to maintain deployment data integrity.",
+              "objective": "Maintain MIV deployment job plans and ensure the accurate, bi-directional synchronization of deployment data between MIV and enterprise systems, including the detection and resolution of any file transfer or interface exceptions.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
@@ -171,9 +157,16 @@
           "level": "L2",
           "children": [
             {
-              "name": "Detect and categorize deployment exceptions",
+              "name": "Resolve Physical Field Installation Exceptions (Unable to Complete)",
               "level": "L3",
-              "objective": "Identify and classify installation exceptions such as access issues, data mismatches, or device failures.",
+              "objective": "Manage the resolution workflow for physical barriers preventing MIV installation, such as access issues (e.g., locked gates, hazards), unsafe meter sockets, or customer refusals, requiring coordination with field ops or customer service.",
+              "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+              "it_release": "IT Release 1"
+            },
+            {
+              "name": "Resolve Deployment Data and System Exceptions",
+              "level": "L3",
+              "objective": "Investigate and resolve back-office data exceptions where a physical installation occurred, but system records fail to synchronize due to data errors (e.g., serial number mismatches, incorrect premise association) between MIV, Asset Management, and CIS.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             }
@@ -237,11 +230,18 @@
               "it_release": "IT Release 1"
             },
             {
-              "name": "Conduct meter investigations",
+              "name": "Conduct AMI Network & Communication Field Investigations",
               "level": "L3",
-              "objective": "Dispatch field investigations for customer complaints, abnormal reads, or communication failures.",
-              "use_case": "Use Case 4 \u2013 Revenue Protection\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
+              "objective": "Dispatch and execute field investigations specifically tasked with diagnosing and resolving persistent meter communication failures, utilizing RF diagnostic tools and coordinating with head-end system operators.",
+              "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 1"
+            },
+            {
+              "name": "Conduct Field Revenue Protection & Tampering Investigations",
+              "level": "L3",
+              "objective": "Dispatch specialized field personnel to investigate physical sites flagged for potential energy diversion, tampering, or abnormal consumption patterns, requiring specific evidence gathering and safety protocols.",
+              "use_case": "Use Case 4 \u2013 Revenue Protection",
+              "it_release": "IT Release 1 (retouched in IT Release 2)"
             },
             {
               "name": "Perform meter removal and decommissioning",
@@ -317,37 +317,16 @@
           "level": "L2",
           "children": [
             {
-              "name": "Ingest and validate interval and event data (HES)",
+              "name": "Execute AMI Data Acquisition & Initial Validation (HES)",
               "level": "L3",
-              "objective": "Collect and validate usage, voltage, and event data from AMI head-end systems to ensure completeness and accuracy.",
-              "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
+              "objective": "Manage the end-to-end acquisition of interval, voltage, and event data from Head-End Systems, including initial intake validation, automated resolution of transmission gaps or anomalies, and the final persistence of validated data into the MDMS and analytics repositories for downstream use.",
+              "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 10 \u2013 Performance and Health of Distribution System Assets\nUse Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             },
             {
-              "name": "Resolve data gaps and anomalies (HES)",
+              "name": "Execute VEE and Exception Management",
               "level": "L3",
-              "objective": "Detect and correct missing or inconsistent AMI data to maintain billing and analytics integrity.",
-              "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
-              "it_release": "IT Release 1 (retouched in IT Release 2)"
-            },
-            {
-              "name": "Store validated data in MDMS and analytics repositories",
-              "level": "L3",
-              "objective": "Persist cleansed and verified AMI data into MDMS for consumption by downstream systems.",
-              "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
-              "it_release": "IT Release 1"
-            },
-            {
-              "name": "Validate and estimate missing data (VEE)",
-              "level": "L3",
-              "objective": "Validate, estimate, or edit interval data where gaps or anomalies exist to ensure complete and accurate billing determinants.",
-              "use_case": "Use Case 1 \u2013 Meter-to-Cash",
-              "it_release": "IT Release 1 (retouched in IT Release 2)"
-            },
-            {
-              "name": "Resolve VEE Exceptions & Complex Estimations",
-              "level": "L3",
-              "objective": "Manually investigate and resolve interval data exceptions that fail automated VEE rules, applying human judgment or forced estimates.",
+              "objective": "Apply automated Validation, Estimation, and Editing (VEE) rules to interval data to ensure billing completeness and accuracy, and manually investigate and resolve any complex data exceptions that fail automated processing.",
               "use_case": "Use Case 1 \u2013 Meter-to-Cash",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             },
@@ -367,49 +346,36 @@
       "level": "L1",
       "children": [
         {
-          "name": "Manage rate optimization and program enrollment",
-          "level": "L2",
-          "children": [
-            {
-              "name": "Model and recommend personalized rate plans",
-              "level": "L3",
-              "objective": "Analyze usage and behavioral data to recommend optimal rate structures or incentives for customers.",
-              "use_case": "Use Case 2 \u2013 Optimizing Energy Savings with Personalized Incentives",
-              "it_release": "IT Release 1"
-            },
-            {
-              "name": "Simulate customer bill impacts",
-              "level": "L3",
-              "objective": "Estimate and communicate bill impacts of rate plan changes or program participation.",
-              "use_case": "Use Case 2 \u2013 Optimizing Energy Savings with Personalized Incentives",
-              "it_release": "IT Release 1 (retouched in IT Release 3)"
-            },
-            {
-              "name": "Manage Demand Response Event Settlement",
-              "level": "L3",
-              "objective": "Calculate baseline usage (CBL) and performance metrics for DR events to determine financial settlement/credits distinct from standard billing.",
-              "use_case": "Use Case 3 \u2013 Improve Customer Experience",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Manage EV Panel Capacity Limits",
-              "level": "L3",
-              "objective": "Configure panel capacity thresholds and safe-loading limits in the back-office system to enable \"Panel Upgrade Avoidance\" logic at the edge.",
-              "use_case": "Use Case 3 \u2013 Improve Customer Experience\nUse Case 7 \u2013 Long-Term Grid Planning",
-              "it_release": "IT Release 3"
-            }
-          ]
-        },
-        {
           "name": "Manage meter-to-cash operations",
           "level": "L2",
           "children": [
             {
-              "name": "Calculate and validate interval-based bills",
+              "name": "Resolve AMI billing data mismatches",
               "level": "L3",
-              "objective": "Execute CIS billing logic for interval-based rates, utilizing summed intervals or time-series calculations to determine billable usage.",
+              "objective": "Establish a traceable audit trail verifying that 100% of validated billable determinants are successfully transmitted from the MDMS to the CIS prior to bill calculation. This process mitigates the fundamental business risk of \"silent data loss\" inherent in high-volume AMI integrations, providing necessary assurance for financial reporting and regulatory compliance that testing alone cannot guarantee.",
+              "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 3 \u2013 Improve Customer Experience",
+              "it_release": "IT Release 1"
+            },
+            {
+              "name": "Calculate and validate time-varying (TOU/TVP) energy bills",
+              "level": "L3",
+              "objective": "Execute CIS billing logic for rates where interval energy usage (kWh) is aggregated into pre-defined time-based buckets (e.g., On-Peak, Off-Peak, Seasonal periods) according to fixed schedules.",
               "use_case": "Use Case 1 \u2013 Meter-to-Cash",
               "it_release": "IT Release 1"
+            },
+            {
+              "name": "Calculate and validate Demand (kW) and Coincident Peak bills",
+              "level": "L3",
+              "objective": "Execute CIS billing logic that requires time-series analysis to determine peak power demand (kW), including non-coincident peaks, coincident system peaks, and complex structures like demand ratchets or power factor adjustments.",
+              "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+              "it_release": "IT Release 2"
+            },
+            {
+              "name": "Calculate and validate Dynamic and Real-Time Pricing (RTP) bills",
+              "level": "L3",
+              "objective": "Execute CIS billing logic for rates subject to dynamic triggers or rapidly changing price signals (e.g., Critical Peak Pricing events, hourly wholesale market pricing) often requiring integration with external price signal feeds.",
+              "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+              "it_release": "IT Release 3"
             },
             {
               "name": "Calculate and validate register-based bills",
@@ -426,11 +392,25 @@
               "it_release": "IT Release 1"
             },
             {
-              "name": "Manage billing exceptions",
+              "name": "Manage System-Detected Data Anomalies & Technical Exceptions",
               "level": "L3",
-              "objective": "Identify, investigate, and resolve billing errors or anomalies to maintain billing accuracy and customer trust.",
+              "objective": "Investigate and resolve high-volume, system-generated exceptions triggered by pre-billing validation failures related to missing, incomplete, or technically invalid metering data inputs (e.g., register mismatches, stopped meter flags) to allow the billing cycle to proceed.",
               "use_case": "Use Case 1 \u2013 Meter-to-Cash",
               "it_release": "IT Release 1"
+            },
+            {
+              "name": "Manage Rate Application & Business Logic Exceptions",
+              "level": "L3",
+              "objective": "Analyze and correct complex system exceptions stemming from failures in applying business rules or rate configurations during bill calculation (e.g., missing rate determinants, proration errors, net energy metering setup issues) to ensure accurate final bill generation.",
+              "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+              "it_release": "IT Release 2"
+            },
+            {
+              "name": "Manage Customer Billing Disputes & High Bill Investigations",
+              "level": "L3",
+              "objective": "Manage the end-to-end workflow for customer-initiated inquiries disputing billed amounts, requiring deep-dive investigations into usage history, rate application, and potential meter issues to provide satisfactory explanations or initiate necessary adjustments.",
+              "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+              "it_release": "IT Release 3"
             },
             {
               "name": "Cancel and rebill",
@@ -448,14 +428,14 @@
             {
               "name": "Manage Virtual Net Metering (VNM) Allocations",
               "level": "L3",
-              "objective": "Configure and maintain allocation percentages between generating accounts and benefiting accounts to ensure accurate credit distribution.",
+              "objective": "Manage the end-to-end lifecycle of Virtual Net Metering arrangements, defining the complex virtual relationships between a central generating facility and multiple non-colocated beneficiary accounts (e.g., tenants), and maintaining the dynamic percentage-based credit allocation schedules required to distribute generation credits accurately on ongoing monthly bills.",
               "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 2 \u2013 Optimizing Energy Savings\nUse Case 7 \u2013 Long-Term Grid Planning",
               "it_release": "IT Release 1"
             },
             {
               "name": "Manage NEM Aggregation (NEM-A) Structures",
               "level": "L3",
-              "objective": "Establish and maintain the linkage between a principal generating account and multiple aggregated usage accounts for unified billing settlement.",
+              "objective": "Establish and maintain the complex account hierarchies required for regulatory NEM Aggregation, linking a principal generating account with multiple eligible, often contiguous, usage premises under a single customer ownership to enable a unified, aggregated billing settlement where total generation offsets total combined load.",
               "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 2 \u2013 Optimizing Energy Savings\nUse Case 7 \u2013 Long-Term Grid Planning",
               "it_release": "IT Release 1"
             }
@@ -466,24 +446,17 @@
           "level": "L2",
           "children": [
             {
-              "name": "Handle AMI-related customer inquiries",
+              "name": "Handle General AMI Customer Inquiries (Tier 1)",
               "level": "L3",
-              "objective": "Respond to customer questions related to metering data, usage, and AMI benefits.",
+              "objective": "Respond to high-volume, general customer questions regarding AMI deployment schedules, meter functionality, basic usage education, and AMI program benefits using standard knowledge base tools and scripts.",
               "use_case": "Use Case 3 \u2013 Improve Customer Experience",
               "it_release": "IT Release 1"
             },
             {
-              "name": "Escalate unresolved AMI cases and close tickets",
+              "name": "Resolve Complex Technical Billing & Usage Inquiries (Tier 2/3)",
               "level": "L3",
-              "objective": "Escalate unresolved cases to appropriate support tiers and ensure timely closure.",
+              "objective": "Manage escalated customer inquiries that require deep technical investigation into interval usage data, meter event logs (HES), and VEE history (MDMS) to resolve complex billing disputes or perceived metering inaccuracies.",
               "use_case": "Use Case 3 \u2013 Improve Customer Experience",
-              "it_release": "IT Release 1"
-            },
-            {
-              "name": "Resolve AMI billing data mismatches",
-              "level": "L3",
-              "objective": "Investigate and correct discrepancies between AMI interval data, MDMS values, and CIS billing determinants to ensure accurate billing before finalization.",
-              "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 3 \u2013 Improve Customer Experience",
               "it_release": "IT Release 1"
             }
           ]
@@ -493,23 +466,9 @@
           "level": "L2",
           "children": [
             {
-              "name": "Detect Meter Tampering & Energy Diversion",
+              "name": "Manage Revenue Protection Lifecycle",
               "level": "L3",
-              "objective": "Analyze meter alarms, magnetic sensors, and usage patterns to identify physical tampering, bypass mechanisms, or energy diversion.",
-              "use_case": "Use Case 4 \u2013 Revenue Protection",
-              "it_release": "IT Release 1 (retouched in IT Release 2)"
-            },
-            {
-              "name": "Investigate and resolve revenue loss cases",
-              "level": "L3",
-              "objective": "Conduct data-driven and field investigations to confirm theft or loss and take corrective action.",
-              "use_case": "Use Case 4 \u2013 Revenue Protection",
-              "it_release": "IT Release 1 (retouched in IT Release 2)"
-            },
-            {
-              "name": "Report revenue protection KPIs and trends",
-              "level": "L3",
-              "objective": "Track and report performance of theft detection and revenue recovery programs.",
+              "objective": "Manage the end-to-end revenue protection lifecycle by analyzing meter alarms and usage patterns to detect potential energy diversion, conducting data-driven and field investigations to confirm and resolve theft cases, and tracking program performance through KPI reporting and trend analysis.",
               "use_case": "Use Case 4 \u2013 Revenue Protection",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             }
@@ -548,9 +507,16 @@
               "it_release": "IT Release 1"
             },
             {
-              "name": "Process opt-out customer move-in / move-out events",
+              "name": "Process Opt-Out Customer Move-In Requests",
               "level": "L3",
-              "objective": "Update enrollment and billing settings when opt-out customers move into or out of premises.",
+              "objective": "Manage service initiation requests for customers electing to opt-out at a new premise, including validating eligibility, configuring account enrollment settings, and triggering necessary field work orders to ensure a non-communicating meter is installed at the start of service.",
+              "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+              "it_release": "IT Release 1"
+            },
+            {
+              "name": "Process Opt-Out Customer Move-Out and Asset Disposition",
+              "level": "L3",
+              "objective": "Manage service termination for existing opt-out customers, including finalizing billing and executing business rules to determine the immediate disposition of the non-communicating meter remaining at the vacated premise (e.g., scheduling replacement or flagging for the next occupant).",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             }
@@ -574,18 +540,38 @@
           "level": "L2",
           "children": [
             {
-              "name": "Aggregate and Transmit Wholesale Settlement Data",
+              "name": "Perform Wholesale Aggregation and Settlement Reconciliation",
               "level": "L3",
-              "objective": "Aggregating validated interval data by load profile and jurisdiction to submit to the ISO/RTO for wholesale market settlement.",
+              "objective": "Manage the end-to-end wholesale settlement process by aggregating validated interval data according to market rules for submission to the ISO/RTO, and performing balancing calculations against top-down substation inputs to determine and allocate Unaccounted for Energy (UFE).",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 2"
+            }
+          ]
+        },
+        {
+          "name": "Manage rate optimization and program enrollment",
+          "level": "L2",
+          "children": [
+            {
+              "name": "Provide Personalized Rate Recommendations and Bill Simulations",
+              "level": "L3",
+              "objective": "Analyze customer usage patterns and behavioral data to model and recommend optimal rate structures, and generate simulated bill comparisons to clearly communicate the financial impact of potential rate changes or program participation.",
+              "use_case": "Use Case 2 \u2013 Optimizing Energy Savings with Personalized Incentives",
+              "it_release": "IT Release 1 (retouched in IT Release 3)"
             },
             {
-              "name": "Calculate Unaccounted for Energy (UFE)",
+              "name": "Manage Demand Response Event Settlement",
               "level": "L3",
-              "objective": "Compare total substation/feeder energy inputs against aggregated meter consumption to identify system losses or measurement errors.",
-              "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
-              "it_release": "IT Release 2"
+              "objective": "Calculate baseline usage (CBL) and performance metrics for DR events to determine financial settlement/credits distinct from standard billing.",
+              "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+              "it_release": "IT Release 3"
+            },
+            {
+              "name": "Manage EV Panel Capacity Limits",
+              "level": "L3",
+              "objective": "Configure panel capacity thresholds and safe-loading limits in the back-office system to enable \"Panel Upgrade Avoidance\" logic at the edge.",
+              "use_case": "Use Case 3 \u2013 Improve Customer Experience\nUse Case 7 \u2013 Long-Term Grid Planning",
+              "it_release": "IT Release 3"
             }
           ]
         },
@@ -594,23 +580,9 @@
           "level": "L2",
           "children": [
             {
-              "name": "Authenticate customer data requests (Green Button)",
+              "name": "Manage Secure Third-Party Data Access (Green Button)",
               "level": "L3",
-              "objective": "Verify credentials and authorization for customers and approved third parties requesting usage or generation data.",
-              "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Provide secure consumption data and reports (Green Button)",
-              "level": "L3",
-              "objective": "Generate and deliver usage and generation reports through secure channels or APIs.",
-              "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Monitor API usage and maintain audit logs (Green Button)",
-              "level": "L3",
-              "objective": "Track and log third-party API usage to ensure compliance and detect misuse.",
+              "objective": "Manage the end-to-end lifecycle of secure third-party data access, including authenticating requests from customers and authorized third parties, securely generating and delivering usage and generation data via APIs, and maintaining comprehensive audit logs to ensure compliance and detect misuse.",
               "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
               "it_release": "IT Release 3"
             }
@@ -627,17 +599,10 @@
           "level": "L2",
           "children": [
             {
-              "name": "Establish Meter-to-Transformer Topology",
+              "name": "Manage Distribution Connectivity Model Lifecycle",
               "level": "L3",
-              "objective": "Analyze meter voltage correlation data to determine the parent-child physical link between meters and service transformers.",
+              "objective": "Establish and refine parent-child physical links between meters and service transformers using AMI voltage correlation data, continuously validate model accuracy through AMI and GIS feedback loops, and integrate the verified connectivity model with outage management and DER planning tools for enhanced situational awareness and operational decision-making.",
               "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring\nUse Case 18 - Grid Ops: Situational Awareness",
-              "it_release": "IT Release 2"
-            },
-            {
-              "name": "Monitor and validate connectivity model accuracy",
-              "level": "L3",
-              "objective": "Continuously verify connectivity accuracy using AMI and GIS data feedback.",
-              "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring",
               "it_release": "IT Release 2 (retouched in IT Release 3)"
             },
             {
@@ -645,13 +610,6 @@
               "level": "L3",
               "objective": "Analyze voltage angle data or signal injection results to identify and correct mislabeled electrical phases (A/B/C) in the GIS model.",
               "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring",
-              "it_release": "IT Release 2"
-            },
-            {
-              "name": "Integrate connectivity model with outage and DER tools",
-              "level": "L3",
-              "objective": "Provide real-time connectivity data to outage and DER planning applications for situational awareness.",
-              "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring\nUse Case 18 - Grid Ops: Situational Awareness",
               "it_release": "IT Release 2"
             }
           ]
@@ -681,9 +639,16 @@
               "it_release": "IT Release 3"
             },
             {
-              "name": "Detect rooftop solar and battery generation",
+              "name": "Detect rooftop solar (PV) generation",
               "level": "L3",
-              "objective": "Identify customer-installed DER generation events using AMI interval and harmonic data.",
+              "objective": "Identify customer-installed photovoltaic (PV) generation events by analyzing AMI interval data for reverse power flow signatures during daylight hours and correlating inverter harmonic signatures.",
+              "use_case": "Use Case 18 \u2013 Grid Ops: Situational Awareness",
+              "it_release": "IT Release 3"
+            },
+            {
+              "name": "Detect battery storage operation",
+              "level": "L3",
+              "objective": "Identify behind-the-meter battery storage systems by analyzing AMI data for characteristic charging and discharging load patterns that are distinct from solar generation profiles, such as load shifting or peak shaving behavior.",
               "use_case": "Use Case 18 \u2013 Grid Ops: Situational Awareness",
               "it_release": "IT Release 3"
             },
@@ -715,9 +680,16 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             },
             {
-              "name": "Trigger corrective switching actions",
+              "name": "Perform Manual/Advisory Corrective Switching for Load Balancing",
               "level": "L3",
-              "objective": "Initiate manual or automated switching actions to balance loads or prevent overloads. Focuses on preventive or load-balancing switching.",
+              "objective": "Manage the operational workflow where AMI-driven loading insights trigger alerts or recommendations for grid operators, who then manually analyze and execute preventative switching actions to balance feeder or transformer loads.",
+              "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
+              "it_release": "IT Release 3"
+            },
+            {
+              "name": "Execute Automated Corrective Switching (FLISR/ADMS)",
+              "level": "L3",
+              "objective": "Manage the fully autonomous, machine-speed process where the ADMS/FLISR system utilizes real-time AMI and SCADA data to automatically detect imminent overload conditions and execute complex switching sequences to reconfigure the grid without human intervention.",
               "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
               "it_release": "IT Release 3"
             }
@@ -730,23 +702,30 @@
             {
               "name": "Analyze voltage, frequency, and harmonic data",
               "level": "L3",
-              "objective": "Monitor voltage, frequency, and harmonics from AMI data to identify power quality deviations.",
+              "objective": "Continuously monitor and ingest high-resolution voltage, frequency, and harmonic data from diverse AMI endpoints to establish baseline grid performance and identify statistical deviations that indicate potential power quality issues.",
               "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             },
             {
               "name": "Classify and report power quality anomalies",
               "level": "L3",
-              "objective": "Categorize power quality events (sags, swells, harmonics) and report them to grid operations for resolution.",
+              "objective": "Apply analytical rules to categorize identified deviations into specific power quality events (e.g., sags, swells, harmonic distortion) and generate prioritized alerts and reports for grid operations engineering to investigate.",
               "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             },
             {
-              "name": "Trigger voltage regulator or capacitor adjustments",
+              "name": "Perform Open-Loop (Advisory) Volt/VAR Optimization",
               "level": "L3",
-              "objective": "Recommend or automatically trigger voltage regulation adjustments based on AMI measurements.",
+              "objective": "Utilize aggregated AMI edge voltage data to model grid conditions and generate optimized control recommendations for regulators and capacitor banks, which are presented to grid operators for manual review and execution.",
               "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 2 (retouched in IT Release 3)"
+            },
+            {
+              "name": "Execute Closed-Loop (Autonomous) Volt/VAR Optimization",
+              "level": "L3",
+              "objective": "Manage the fully autonomous, continuous process where the ADMS utilizes real-time AMI voltage feedback to automatically calculate and execute control commands for grid assets to maintain optimal voltage profiles (e.g., CVR) without operator intervention.",
+              "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
+              "it_release": "IT Release 3"
             }
           ]
         },
@@ -755,24 +734,10 @@
           "level": "L2",
           "children": [
             {
-              "name": "Detect incipient faults in distribution components",
+              "name": "Perform AMI-Driven Fault Detection and Predictive Maintenance",
               "level": "L3",
-              "objective": "Identify early failure indicators in transformers, capacitors, or cables using AMI power quality data.",
+              "objective": "Utilize advanced analytics to detect incipient failure signatures in distribution assets using AMI power quality data, correlate these findings with SCADA and other sensor inputs for precise fault localization, and generate prioritized maintenance recommendations to prevent equipment failures.",
               "use_case": "Use Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
-              "it_release": "IT Release 2 (retouched in IT Release 3)"
-            },
-            {
-              "name": "Correlate AMI data with other sensor inputs",
-              "level": "L3",
-              "objective": "Integrate AMI-derived fault indicators with SCADA or IoT sensors for improved fault localization.",
-              "use_case": "Use Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
-              "it_release": "IT Release 2"
-            },
-            {
-              "name": "Prioritize maintenance for at-risk assets",
-              "level": "L3",
-              "objective": "Generate maintenance recommendations for assets showing early fault conditions.",
-              "use_case": "Use Case 15 \u2013 Fault & Incipient Fault Identification\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 2 (retouched in IT Release 3)"
             }
           ]
@@ -802,37 +767,23 @@
           "level": "L2",
           "children": [
             {
-              "name": "Detect and validate outage events via AMI telemetry",
+              "name": "Perform AMI Outage Detection, Validation, and Prioritization",
               "level": "L3",
-              "objective": "Identify outages from AMI last-gasp signals, validate through multiple data sources, and flag confirmed events.",
+              "objective": "Manage the automated technical process of ingesting raw AMI telemetry (e.g., last gasps, power restoration signals), filtering false positives, validating events against existing grid conditions, and applying algorithmic rules to cluster individual meter events into prioritized outage incident records for dispatch.",
               "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
               "it_release": "IT Release 2"
             },
             {
-              "name": "Cluster and prioritize outage events for dispatch",
+              "name": "Coordinate Operational Response and Cross-Team Alignment",
               "level": "L3",
-              "objective": "Group and prioritize outages by severity, location, and customer impact to optimize restoration resources.",
+              "objective": "Manage the operational workflow that occurs once an outage incident is confirmed, ensuring real-time synchronization of outage status, estimated restoration times (ERTs), and crew progress between the control room, field operations, and customer service platforms to maintain situational awareness across teams.",
               "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
               "it_release": "IT Release 2"
-            },
-            {
-              "name": "Coordinate field and customer service alignment during outages",
-              "level": "L3",
-              "objective": "Ensure consistent information between field operations and call centers regarding outage status and restoration progress.",
-              "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
-              "it_release": "IT Release 2"
-            },
-            {
-              "name": "Verify restoration and update OMS",
-              "level": "L3",
-              "objective": "Confirm restoration events by validating power status with AMI telemetry and update OMS and customer communication systems with authoritative restoration status.",
-              "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
-              "it_release": "IT Release 2 (retouched in IT Release 3)"
             }
           ]
         },
         {
-          "name": "Manage outage testing and diagnostics",
+          "name": "Perform controlled switching and restoration",
           "level": "L2",
           "children": [
             {
@@ -840,7 +791,14 @@
               "level": "L3",
               "objective": "Perform targeted AMI pings to assess outage boundaries or diagnose partial restoration conditions without triggering formal OMS restoration updates.",
               "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
-              "it_release": "IT Release 2"
+              "it_release": "IT Release 3"
+            },
+            {
+              "name": "Execute and Verify Power Restoration",
+              "level": "L3",
+              "objective": "Execute operator-approved switching commands to restore service after an outage, monitor the staged restoration sequence using AMI telemetry, and verify final power restoration status to update the OMS and customer communication systems with authoritative confirmation.",
+              "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
+              "it_release": "IT Release 3"
             }
           ]
         },
@@ -858,26 +816,6 @@
           ]
         },
         {
-          "name": "Perform controlled switching and restoration",
-          "level": "L2",
-          "children": [
-            {
-              "name": "Execute validated switching commands",
-              "level": "L3",
-              "objective": "Perform operator-approved switching and restoration commands to safely restore service. Focuses on reactive switching to restore power after an outage or network event.",
-              "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Monitor and verify controlled restoration sequence",
-              "level": "L3",
-              "objective": "Validate staged restoration progress using AMI telemetry and update system status in OMS. Focuses on post-switching verification.",
-              "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
-              "it_release": "IT Release 3"
-            }
-          ]
-        },
-        {
           "name": "Perform event analysis and root-cause investigation",
           "level": "L2",
           "children": [
@@ -889,23 +827,9 @@
               "it_release": "IT Release 2 (retouched in IT Release 3)"
             },
             {
-              "name": "Reconstruct outage and restoration sequences",
+              "name": "Perform Post-Event Forensic Analysis and Root Cause Investigation",
               "level": "L3",
-              "objective": "Analyze AMI, OMS, and SCADA data to reconstruct outage events and restoration timelines.",
-              "use_case": "Use Case 13 \u2013 Post Event Analysis",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Identify root causes of faults or outages",
-              "level": "L3",
-              "objective": "Determine likely causes of outages or power quality events through data correlation and analytics.",
-              "use_case": "Use Case 13 \u2013 Post Event Analysis",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Document and close event investigations",
-              "level": "L3",
-              "objective": "Record findings, corrective actions, and lessons learned from outage investigations.",
+              "objective": "Systematically reconstruct outage and restoration sequences using multi-source data (AMI, OMS, SCADA), analyze data correlations to determine root causes of faults or power quality events, and formally document findings, corrective actions, and lessons learned to close the investigation loop.",
               "use_case": "Use Case 13 \u2013 Post Event Analysis",
               "it_release": "IT Release 3"
             }
@@ -922,16 +846,9 @@
           "level": "L2",
           "children": [
             {
-              "name": "Plan and schedule firmware upgrades",
+              "name": "Manage Device Firmware Upgrade Campaigns",
               "level": "L3",
-              "objective": "Schedule and execute firmware updates to maintain meter and network device compliance and functionality.",
-              "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
-              "it_release": "IT Release 1"
-            },
-            {
-              "name": "Validate firmware deployment success",
-              "level": "L3",
-              "objective": "Verify successful firmware deployment and device connectivity following updates.",
+              "objective": "Manage the end-to-end lifecycle of firmware upgrade campaigns for meters and network devices, including planning target populations, scheduling deployment jobs, executing the upgrades, and validating successful deployment and subsequent device connectivity.",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1"
             }
@@ -982,23 +899,9 @@
           "level": "L2",
           "children": [
             {
-              "name": "Configure Distributed Intelligence (DI) Application Logic",
+              "name": "Manage Distributed Intelligence (DI) Application Lifecycle & Operations",
               "level": "L3",
-              "objective": "Define and tune business parameters for edge applications (e.g., EV detection sensitivity, waveform capture triggers) to align with grid operation goals.",
-              "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
-              "it_release": "IT Release 1 (retouched in IT Release 2)"
-            },
-            {
-              "name": "Monitor Edge Application Runtime Performance",
-              "level": "L3",
-              "objective": "Monitor the operational health, resource consumption (CPU/Memory), and data latency of specific edge applications to ensure they are running effectively on the meter.",
-              "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
-              "it_release": "IT Release 1 (retouched in IT Release 2)"
-            },
-            {
-              "name": "Manage Edge AI Model & App Lifecycle",
-              "level": "L3",
-              "objective": "Coordinate the versioning, testing, and deployment of updated AI models and application binaries (e.g., new appliance signatures) independent of base meter firmware.",
+              "objective": "Manage the end-to-end lifecycle of distributed intelligence applications on the edge, including defining and tuning business logic parameters, coordinating the versioning, testing, and deployment of AI models and application binaries, and monitoring runtime performance and resource consumption to ensure operational health.",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             }
@@ -1037,14 +940,14 @@
             {
               "name": "Capture and correlate operational events across AMI, OMS, and CIS",
               "level": "L3",
-              "objective": "Correlate operational events to identify cross-domain dependencies and performance insights.",
+              "objective": "Establish and maintain a centralized, real-time event correlation engine that ingests and synthesizes disparate data streams from AMI (e.g., alarms, voltage), OMS (e.g., switching, outages), and CIS (e.g., customer calls), applying complex, multi-variable logic to identify cross-domain relationships and generate validated, actionable intelligence that drives automated operational responses and reveals performance insights invisible to individual siloed systems.",
               "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 3"
             },
             {
               "name": "Identify cross-system anomalies",
               "level": "L3",
-              "objective": "Detect inconsistencies between AMI, OMS, and SCADA data to enhance reliability.",
+              "objective": "Establish and maintain a continuous, automated detective control that constantly compares real-time operational states across OT systems (e.g., AMI voltage vs. SCADA breaker status) to proactively identify, flag, and prioritize data inconsistencies, thereby revealing latent errors in the grid connectivity model (GIS) or sensor failures before they can impact outage management, safety operations, or grid planning.",
               "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
               "it_release": "IT Release 3"
             }
@@ -1070,7 +973,7 @@
             {
               "name": "Maintain Operational Device Segments & Groups",
               "level": "L3",
-              "objective": "Define and maintain the business logic for meter groups (e.g., \"Fire Risk Zones,\" \"EV Users\") used to target firmware, configurations, and commands.",
+              "objective": "Establish and dynamically maintain logical groupings of meters and grid devices based on specific business criteria (e.g., \"High Fire Risk Areas,\" \"EV Owners,\" \"Critical Infrastructure\") to enable precise, targeted execution of firmware updates, edge application deployments, and operational commands, ensuring grid management actions are tailored to specific operational contexts and customer segments.",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability\nUse Case 3 \u2013 Improve Customer Experience",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             }
@@ -1081,23 +984,9 @@
           "level": "L2",
           "children": [
             {
-              "name": "Authenticate and authorize third-party data requests",
+              "name": "Manage Secure Third-Party Data Exchange Lifecycle (Supplier, Research Instituion)",
               "level": "L3",
-              "objective": "Verify credentials and enforce access permissions for third-party data consumers.",
-              "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Transmit datasets securely to authorized third parties",
-              "level": "L3",
-              "objective": "Transfer AMI datasets through secure API channels in compliance with privacy and cybersecurity standards.",
-              "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
-              "it_release": "IT Release 3"
-            },
-            {
-              "name": "Monitor API usage and maintain audit logs (Third Party)",
-              "level": "L3",
-              "objective": "Track and log third-party API usage to ensure compliance and detect misuse.",
+              "objective": "Manage the end-to-end lifecycle of secure data exchange with institutional third parties, including authenticating and authorizing requests, transmitting datasets via secure API channels in compliance with privacy standards, and maintaining comprehensive audit logs to monitor usage and ensure compliance.",
               "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
               "it_release": "IT Release 3"
             }
