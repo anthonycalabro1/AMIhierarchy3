@@ -1260,6 +1260,26 @@
     }
   },
   {
+    "name": "Capture and correlate operational events across AMI, OMS, and CIS",
+    "level": "L3",
+    "parent": "Manage interoperability and event correlation",
+    "details": {
+      "objective": "Establish and maintain a centralized, real-time event correlation engine that ingests and synthesizes disparate data streams from AMI (e.g., alarms, voltage), OMS (e.g., switching, outages), and CIS (e.g., customer calls), applying complex, multi-variable logic to identify cross-domain relationships and generate validated, actionable intelligence that drives automated operational responses and reveals performance insights invisible to individual siloed systems.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
+    "name": "Identify cross-system anomalies",
+    "level": "L3",
+    "parent": "Manage interoperability and event correlation",
+    "details": {
+      "objective": "Establish and maintain a continuous, automated detective control that constantly compares real-time operational states across OT systems (e.g., AMI voltage vs. SCADA breaker status) to proactively identify, flag, and prioritize data inconsistencies, thereby revealing latent errors in the grid connectivity model (GIS) or sensor failures before they can impact outage management, safety operations, or grid planning.",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
+      "it_release": "IT Release 3"
+    }
+  },
+  {
     "name": "Manage data security and privacy",
     "level": "L2",
     "parent": "Data & Analytics Platform Management",
@@ -1308,16 +1328,6 @@
     }
   },
   {
-    "name": "Capture and correlate operational events across AMI, OMS, and CIS",
-    "level": "L3",
-    "parent": "Manage interoperability and event correlation",
-    "details": {
-      "objective": "Establish and maintain a centralized, real-time event correlation engine that ingests and synthesizes disparate data streams from AMI (e.g., alarms, voltage), OMS (e.g., switching, outages), and CIS (e.g., customer calls), applying complex, multi-variable logic to identify cross-domain relationships and generate validated, actionable intelligence that drives automated operational responses and reveals performance insights invisible to individual siloed systems.",
-      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 14 \u2013 AMI 2.0 Interoperability",
-      "it_release": "IT Release 3"
-    }
-  },
-  {
     "name": "Manage reporting and visualization",
     "level": "L2",
     "parent": "Data & Analytics Platform Management",
@@ -1340,16 +1350,6 @@
     "details": {
       "objective": "Automate generation and distribution of recurring performance and compliance reports.",
       "use_case": "Use Case 13 \u2013 Post Event Analysis",
-      "it_release": "IT Release 3"
-    }
-  },
-  {
-    "name": "Identify cross-system anomalies",
-    "level": "L3",
-    "parent": "Manage interoperability and event correlation",
-    "details": {
-      "objective": "Establish and maintain a continuous, automated detective control that constantly compares real-time operational states across OT systems (e.g., AMI voltage vs. SCADA breaker status) to proactively identify, flag, and prioritize data inconsistencies, thereby revealing latent errors in the grid connectivity model (GIS) or sensor failures before they can impact outage management, safety operations, or grid planning.",
-      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
       "it_release": "IT Release 3"
     }
   }
