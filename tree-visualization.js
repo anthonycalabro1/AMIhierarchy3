@@ -69,6 +69,7 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
     let root;
 
     // Declare a tree layout and assign the size
+    // Vertical spacing: 30px, Horizontal spacing: 200px (base, will be overridden for deeper levels)
     const treeMap = d3.tree().nodeSize([30, 200]); 
 
     // Assign Parent, Children, Height, Depth
@@ -255,9 +256,23 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
         const nodes = treeData.descendants();
         const links = treeData.descendants().slice(1);
 
-        // Normalize for fixed-depth.
-        // Reduced spacing from 250 to 200 to keep it more compact
-        nodes.forEach(d => { d.y = d.depth * 200; }); 
+        // Normalize for fixed-depth with progressive spacing to prevent text overlap
+        // L1: 200px, L2: 450px (200 + 250), L3: 750px (450 + 300)
+        // This ensures L3 processes have enough space to avoid overlapping with L2 text
+        nodes.forEach(d => { 
+            if (d.depth === 0) {
+                d.y = 0;
+            } else if (d.depth === 1) {
+                d.y = 200; // L1 processes
+            } else if (d.depth === 2) {
+                d.y = 450; // L2 processes - increased spacing
+            } else if (d.depth === 3) {
+                d.y = 750; // L3 processes - even more spacing to prevent overlap
+            } else {
+                // For any deeper levels, continue with 300px increments
+                d.y = 750 + (d.depth - 3) * 300;
+            }
+        }); 
 
         // ****************** Nodes section ******************
 
