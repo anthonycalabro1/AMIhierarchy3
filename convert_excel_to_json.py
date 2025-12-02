@@ -69,44 +69,50 @@ def convert_excel_to_json():
             
             hierarchy_data["children"].append(l1_node)
 
-        # Build Search Index (Flat list)
+        # Build Search Index (Flat list) - maintaining hierarchical order
+        # L1 entries should be followed by their L2 children, which should be followed by their L3 children
         search_index = []
-        for _, row in df.iterrows():
-            # Add L1
-            search_index.append({
-                "name": row['L1 Process Name'],
-                "level": "L1",
-                "parent": "",
-                "details": {}
-            })
-            # Add L2
-            search_index.append({
-                "name": row['L2 Process Name'],
-                "level": "L2",
-                "parent": row['L1 Process Name'],
-                "details": {}
-            })
-            # Add L3
-            search_index.append({
-                "name": row['L3 Process Name'],
-                "level": "L3",
-                "parent": row['L2 Process Name'],
-                "details": {
-                    "objective": row['L3 Process Objective'],
-                    "use_case": row['Use Case Mapping'],
-                    "it_release": row['IT Release']
-                }
-            })
+        seen_l1 = set()
+        seen_l2 = set()
         
-        # Remove duplicates from search index (since L1 and L2 repeat in rows)
-        unique_search_index = []
-        seen = set()
-        for item in search_index:
-            # Create a unique key based on name and level
-            key = (item['name'], item['level'])
-            if key not in seen and item['name']: # Ensure name is not empty
-                seen.add(key)
-                unique_search_index.append(item)
+        # Group by L1, preserving order
+        for l1_name, l1_group in df.groupby('L1 Process Name', sort=False):
+            # Add L1 (only once per L1)
+            if l1_name not in seen_l1:
+                search_index.append({
+                    "name": l1_name,
+                    "level": "L1",
+                    "parent": "",
+                    "details": {}
+                })
+                seen_l1.add(l1_name)
+            
+            # Group by L2 within L1, preserving order
+            for l2_name, l2_group in l1_group.groupby('L2 Process Name', sort=False):
+                # Add L2 (only once per L2, immediately after its L1)
+                if l2_name not in seen_l2:
+                    search_index.append({
+                        "name": l2_name,
+                        "level": "L2",
+                        "parent": l1_name,
+                        "details": {}
+                    })
+                    seen_l2.add(l2_name)
+                
+                # Add all L3 entries for this L2 immediately after the L2 entry
+                for _, row in l2_group.iterrows():
+                    search_index.append({
+                        "name": row['L3 Process Name'],
+                        "level": "L3",
+                        "parent": l2_name,
+                        "details": {
+                            "objective": row['L3 Process Objective'],
+                            "use_case": row['Use Case Mapping'],
+                            "it_release": row['IT Release']
+                        }
+                    })
+        
+        unique_search_index = search_index
 
         # Save files
         with open(hierarchy_output, 'w', encoding='utf-8') as f:

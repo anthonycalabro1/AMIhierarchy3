@@ -168,6 +168,16 @@
     }
   },
   {
+    "name": "Communicate completion and follow-up",
+    "level": "L3",
+    "parent": "Manage customer communication during deployment",
+    "details": {
+      "objective": "Notify customers upon successful installation and provide usage education or contact information for support.",
+      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
     "name": "Coordinate installation and commissioning",
     "level": "L2",
     "parent": "Mass Meter Deployment",
@@ -200,16 +210,6 @@
     "details": {
       "objective": "Record job completion, capture installer performance data, and synchronize updates across enterprise systems.",
       "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
-      "it_release": "IT Release 1"
-    }
-  },
-  {
-    "name": "Communicate completion and follow-up",
-    "level": "L3",
-    "parent": "Manage customer communication during deployment",
-    "details": {
-      "objective": "Notify customers upon successful installation and provide usage education or contact information for support.",
-      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
       "it_release": "IT Release 1"
     }
   },
