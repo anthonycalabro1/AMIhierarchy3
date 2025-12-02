@@ -104,6 +104,22 @@
     }
   },
   {
+    "name": "Manage meter sample testing and acceptance",
+    "level": "L2",
+    "parent": "Meter Asset Management",
+    "details": {}
+  },
+  {
+    "name": "Perform New Meter Lot Acceptance Testing",
+    "level": "L3",
+    "parent": "Manage meter sample testing and acceptance",
+    "details": {
+      "objective": "Define and execute statistical sampling and testing protocols for newly received meter shipments, driving requirements for automated workflows to manage test selection logic, record results against asset records, and enforce pass/fail criteria before releasing lots into inventory.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
     "name": "Mass Meter Deployment",
     "level": "L1",
     "parent": "",
@@ -417,6 +433,26 @@
       "objective": "Apply automated Validation, Estimation, and Editing (VEE) rules to interval data to ensure billing completeness and accuracy, and manually investigate and resolve any complex data exceptions that fail automated processing.",
       "use_case": "Use Case 1 \u2013 Meter-to-Cash",
       "it_release": "IT Release 1 (retouched in IT Release 2)"
+    }
+  },
+  {
+    "name": "Configure and Tune VEE Rules",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Define, configure, test, and deploy automated VEE rules within the MDMS, requiring system capabilities for user-configurable rule editors (non-code based), rule version control, and simulation \"sandbox\" environments to tune thresholds and gauge impact against historical data before production deployment.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage Long-Term Data Archival and Retrieval",
+    "level": "L3",
+    "parent": "Manage AMI data collection and validation",
+    "details": {
+      "objective": "Implement and enforce data retention policies (e.g., 40+ months) through automated system configurations that tier data storage based on age (Information Lifecycle Management), and manage on-demand retrieval requests requiring accessible user interfaces and defined system performance SLAs for restoring archived data.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
     }
   },
   {
@@ -1088,7 +1124,7 @@
     "details": {}
   },
   {
-    "name": "Manage device OS firmware and configuration",
+    "name": "Manage Device Software, Configuration, and Security Lifecycle",
     "level": "L2",
     "parent": "Meter Operations & Diagnostics",
     "details": {}
@@ -1096,7 +1132,7 @@
   {
     "name": "Manage Device Firmware Upgrade Campaigns",
     "level": "L3",
-    "parent": "Manage device OS firmware and configuration",
+    "parent": "Manage Device Software, Configuration, and Security Lifecycle",
     "details": {
       "objective": "Manage the end-to-end lifecycle of firmware upgrade campaigns for meters and network devices, including planning target populations, scheduling deployment jobs, executing the upgrades, and validating successful deployment and subsequent device connectivity.",
       "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
@@ -1104,19 +1140,33 @@
     }
   },
   {
-    "name": "Manage meter quality and compliance",
-    "level": "L2",
-    "parent": "Meter Operations & Diagnostics",
-    "details": {}
-  },
-  {
     "name": "Manage Device Security Certificates Lifecycle",
     "level": "L3",
-    "parent": "Manage meter quality and compliance",
+    "parent": "Manage Device Software, Configuration, and Security Lifecycle",
     "details": {
       "objective": "Track the expiration and renewal of device security certificates (LDevID) to ensure no asset becomes orphaned due to credential expiry.",
       "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
       "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Define and Manage Meter Configuration Programs",
+    "level": "L3",
+    "parent": "Manage Device Software, Configuration, and Security Lifecycle",
+    "details": {
+      "objective": "Create, version-control, and manage a centralized repository of vendor-agnostic meter configuration profiles (programs), requiring system capabilities for secure library storage, change management logging, and role-based approval workflows to validate configurations prior to deployment authorization.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage Distributed Intelligence (DI) Application Lifecycle & Operations",
+    "level": "L3",
+    "parent": "Manage Device Software, Configuration, and Security Lifecycle",
+    "details": {
+      "objective": "Manage the end-to-end lifecycle of distributed intelligence applications on the edge, including defining and tuning business logic parameters, coordinating the versioning, testing, and deployment of AI models and application binaries, and monitoring runtime performance and resource consumption to ensure operational health.",
+      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+      "it_release": "IT Release 1 (retouched in IT Release 2)"
     }
   },
   {
@@ -1156,22 +1206,6 @@
     }
   },
   {
-    "name": "Manage edge and distributed intelligence",
-    "level": "L2",
-    "parent": "Meter Operations & Diagnostics",
-    "details": {}
-  },
-  {
-    "name": "Manage Distributed Intelligence (DI) Application Lifecycle & Operations",
-    "level": "L3",
-    "parent": "Manage edge and distributed intelligence",
-    "details": {
-      "objective": "Manage the end-to-end lifecycle of distributed intelligence applications on the edge, including defining and tuning business logic parameters, coordinating the versioning, testing, and deployment of AI models and application binaries, and monitoring runtime performance and resource consumption to ensure operational health.",
-      "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
-      "it_release": "IT Release 1 (retouched in IT Release 2)"
-    }
-  },
-  {
     "name": "Data & Analytics Platform Management",
     "level": "L1",
     "parent": "",
@@ -1191,6 +1225,22 @@
       "objective": "Transfer validated AMI datasets to the enterprise data lake for use in analytics and data science.",
       "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
       "it_release": "IT Release 1 (retouched in IT Release 2 and 3)"
+    }
+  },
+  {
+    "name": "Manage Legacy Data Migration Projects",
+    "level": "L2",
+    "parent": "Data & Analytics Platform Management",
+    "details": {}
+  },
+  {
+    "name": "Execute and Validate Historical Data Migration",
+    "level": "L3",
+    "parent": "Manage Legacy Data Migration Projects",
+    "details": {
+      "objective": "Manage the end-to-end migration of historical data from legacy systems, driving requirements for specific ETL transformation logic definitions, data mapping configurations, and robust automated reconciliation reporting tools to validate data integrity between source and target systems post-cutover.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
+      "it_release": "IT Release 1"
     }
   },
   {
@@ -1224,6 +1274,12 @@
       "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
       "it_release": "IT Release 1 (retouched in IT Release 2 and 3)"
     }
+  },
+  {
+    "name": "Manage edge and distributed intelligence",
+    "level": "L2",
+    "parent": "Data & Analytics Platform Management",
+    "details": {}
   },
   {
     "name": "Maintain Operational Device Segments & Groups",
