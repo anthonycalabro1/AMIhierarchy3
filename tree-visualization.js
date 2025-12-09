@@ -291,13 +291,31 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
             .attr('class', 'node')
             .attr('r', 1e-6)
             .style("fill", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                const isAdded = window.pendingChanges && window.pendingChanges.added && window.pendingChanges.added.has(processId);
+                const isModified = window.pendingChanges && window.pendingChanges.modified && window.pendingChanges.modified.has(processId);
+                
+                if (isDeleted) return "#ef4444";
+                if (isAdded) return "#10b981";
+                if (isModified) return "#f59e0b";
+                
                 if (d.data.level === 'L1') return "#3b82f6"; 
                 if (d.data.level === 'L2') return "#22c55e"; 
                 if (d.data.level === 'L3') return "#f97316"; 
                 return "#555";
             })
-            .style("stroke", "white")
-            .style("stroke-width", "2px");
+            .style("stroke", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                return isDeleted ? "#dc2626" : "white";
+            })
+            .style("stroke-width", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isModified = window.pendingChanges && window.pendingChanges.modified && window.pendingChanges.modified.has(processId);
+                const isAdded = window.pendingChanges && window.pendingChanges.added && window.pendingChanges.added.has(processId);
+                return (isModified || isAdded) ? "3px" : "2px";
+            });
 
         // Add Labels
         nodeEnter.append('text')
@@ -308,6 +326,16 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
             .style("font-size", "12px")
             .style("fill-opacity", 1e-6)
             .style("cursor", "pointer")
+            .style("text-decoration", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                return isDeleted ? "line-through" : "none";
+            })
+            .style("fill", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                return isDeleted ? "#9ca3af" : "#000";
+            })
             .clone(true).lower()
             .attr("stroke", "white")
             .attr("stroke-width", 3);
@@ -324,14 +352,44 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
         nodeUpdate.select('circle.node')
             .attr('r', 8)
             .style("fill", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                const isAdded = window.pendingChanges && window.pendingChanges.added && window.pendingChanges.added.has(processId);
+                const isModified = window.pendingChanges && window.pendingChanges.modified && window.pendingChanges.modified.has(processId);
+                
+                if (isDeleted) return "#ef4444";
+                if (isAdded) return "#10b981";
+                if (isModified) return "#f59e0b";
+                
                 if (d.data.level === 'L1') return d._children ? "#1d4ed8" : "#3b82f6"; 
                 if (d.data.level === 'L2') return d._children ? "#15803d" : "#22c55e";
                 if (d.data.level === 'L3') return "#f97316";
                 return "#555";
+            })
+            .style("stroke", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                return isDeleted ? "#dc2626" : "white";
+            })
+            .style("stroke-width", d => {
+                const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                const isModified = window.pendingChanges && window.pendingChanges.modified && window.pendingChanges.modified.has(processId);
+                const isAdded = window.pendingChanges && window.pendingChanges.added && window.pendingChanges.added.has(processId);
+                return (isModified || isAdded) ? "3px" : "2px";
             });
 
         nodeUpdate.selectAll('text')
-             .style("fill-opacity", 1);
+             .style("fill-opacity", 1)
+             .style("text-decoration", d => {
+                 const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                 const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                 return isDeleted ? "line-through" : "none";
+             })
+             .style("fill", d => {
+                 const processId = window.getProcessId ? window.getProcessId(d.data) : `${d.data.level}_${d.data.name}`;
+                 const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+                 return isDeleted ? "#9ca3af" : "#000";
+             });
 
         // Remove any exiting nodes
         const nodeExit = node.exit().transition()

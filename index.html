@@ -34,6 +34,25 @@
                     </button>
                     <!-- Desktop Navigation -->
                     <nav class="hidden md:flex items-center space-x-4" role="navigation" aria-label="Main navigation">
+                        <button id="edit-mode-btn" class="px-4 py-2 rounded-md text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 min-w-[44px] min-h-[44px] relative" onclick="toggleEditMode()" aria-label="Toggle edit mode" aria-pressed="false">
+                            <span class="flex items-center">
+                                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                                Edit Mode
+                                <span id="edit-mode-badge" class="hidden ml-2 px-2 py-0.5 text-xs bg-yellow-600 text-white rounded-full">ON</span>
+                            </span>
+                        </button>
+                        <button id="undo-btn" class="hidden px-3 py-2 rounded-md text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 min-w-[44px] min-h-[44px]" onclick="undoChange()" aria-label="Undo" title="Undo">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                            </svg>
+                        </button>
+                        <button id="redo-btn" class="hidden px-3 py-2 rounded-md text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 min-w-[44px] min-h-[44px]" onclick="redoChange()" aria-label="Redo" title="Redo">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6" />
+                            </svg>
+                        </button>
                         <button id="nav-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-w-[44px] min-h-[44px]" onclick="switchView('navigation')" aria-label="Switch to Navigation View">
                             Navigation View
                         </button>
@@ -43,12 +62,46 @@
                         <button id="search-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="switchView('search')" aria-label="Switch to Search View">
                             Search
                         </button>
+                        <button id="changes-btn" class="hidden px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 min-w-[44px] min-h-[44px] relative" onclick="showChangesSummary()" aria-label="View changes">
+                            <span class="flex items-center">
+                                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Changes
+                                <span id="change-count-badge" class="hidden ml-2 px-2 py-0.5 text-xs bg-red-500 text-white rounded-full">0</span>
+                            </span>
+                        </button>
+                        <button id="export-excel-btn" class="hidden px-4 py-2 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 min-w-[44px] min-h-[44px]" onclick="exportToExcel()" aria-label="Export to Excel">
+                            <span class="flex items-center">
+                                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Export
+                            </span>
+                        </button>
+                        <button id="import-excel-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="document.getElementById('import-file-input').click()" aria-label="Import from Excel">
+                            <span class="flex items-center">
+                                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                Import
+                            </span>
+                        </button>
+                        <input type="file" id="import-file-input" class="hidden" accept=".xlsx,.xls" onchange="importFromExcel(event)" aria-label="Select Excel file to import">
                     </nav>
                 </div>
             </div>
             <!-- Mobile Navigation Menu -->
             <nav id="mobile-menu" class="hidden md:hidden pb-4 px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Mobile navigation">
                 <div class="flex flex-col space-y-2">
+                    <button class="w-full px-4 py-3 rounded-md text-sm font-medium text-left bg-gray-100 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 min-h-[44px]" onclick="toggleEditMode(); toggleMobileMenu();" aria-label="Toggle edit mode">
+                        <span class="flex items-center">
+                            <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            Edit Mode
+                        </span>
+                    </button>
                     <button class="w-full px-4 py-3 rounded-md text-sm font-medium text-left text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]" onclick="switchView('navigation'); toggleMobileMenu();" aria-label="Switch to Navigation View">
                         Navigation View
                     </button>
@@ -58,6 +111,16 @@
                     <button class="w-full px-4 py-3 rounded-md text-sm font-medium text-left text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]" onclick="switchView('search'); toggleMobileMenu();" aria-label="Switch to Search View">
                         Search
                     </button>
+                    <button id="changes-btn-mobile" class="hidden w-full px-4 py-3 rounded-md text-sm font-medium text-left text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 min-h-[44px]" onclick="showChangesSummary(); toggleMobileMenu();" aria-label="View changes">
+                        View Changes
+                    </button>
+                    <button id="export-excel-btn-mobile" class="hidden w-full px-4 py-3 rounded-md text-sm font-medium text-left text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 min-h-[44px]" onclick="exportToExcel(); toggleMobileMenu();" aria-label="Export to Excel">
+                        Export to Excel
+                    </button>
+                    <button class="w-full px-4 py-3 rounded-md text-sm font-medium text-left text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]" onclick="document.getElementById('import-file-input-mobile').click(); toggleMobileMenu();" aria-label="Import from Excel">
+                        Import from Excel
+                    </button>
+                    <input type="file" id="import-file-input-mobile" class="hidden" accept=".xlsx,.xls" onchange="importFromExcel(event)" aria-label="Select Excel file to import">
                 </div>
             </nav>
         </div>
@@ -214,11 +277,45 @@
                                         <option value="L3">L3</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label for="proposal-description" class="block text-sm font-medium text-gray-700">Description/Objective</label>
-                                    <textarea id="proposal-description" name="proposal-description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]"></textarea>
+                                <div id="proposal-l3-fields" class="hidden">
+                                    <div>
+                                        <label for="proposal-description" class="block text-sm font-medium text-gray-700">Description/Objective</label>
+                                        <textarea id="proposal-description" name="proposal-description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="proposal-use-case" class="block text-sm font-medium text-gray-700">Use Case Mapping</label>
+                                        <select id="proposal-use-case" name="proposal-use-case" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
+                                            <option value="">-- Select Use Case --</option>
+                                            <option value="Use Case 1 – Meter-to-Cash">Use Case 1 – Meter-to-Cash</option>
+                                            <option value="Use Case 2 – Optimizing Energy Savings">Use Case 2 – Optimizing Energy Savings</option>
+                                            <option value="Use Case 3 – Improve Customer Experience">Use Case 3 – Improve Customer Experience</option>
+                                            <option value="Use Case 4 – Revenue Protection">Use Case 4 – Revenue Protection</option>
+                                            <option value="Use Case 5 – Advanced Outage Identification">Use Case 5 – Advanced Outage Identification</option>
+                                            <option value="Use Case 6 – 3rd Party Meter Data Access">Use Case 6 – 3rd Party Meter Data Access</option>
+                                            <option value="Use Case 7 – Long-Term Grid Planning">Use Case 7 – Long-Term Grid Planning</option>
+                                            <option value="Use Case 8 – Anomaly & Fault Detection BTM">Use Case 8 – Anomaly & Fault Detection BTM</option>
+                                            <option value="Use Case 9 – Environmental Monitoring">Use Case 9 – Environmental Monitoring</option>
+                                            <option value="Use Case 10 – Performance & Health of Dist. Assets">Use Case 10 – Performance & Health of Dist. Assets</option>
+                                            <option value="Use Case 11 – Distribution Connectivity Model">Use Case 11 – Distribution Connectivity Model</option>
+                                            <option value="Use Case 12 – Switching Support & Outage Selection">Use Case 12 – Switching Support & Outage Selection</option>
+                                            <option value="Use Case 13 – Post Event Analysis">Use Case 13 – Post Event Analysis</option>
+                                            <option value="Use Case 14 – AMI 2.0 Interoperability">Use Case 14 – AMI 2.0 Interoperability</option>
+                                            <option value="Use Case 15 – Fault & Incipient Fault ID">Use Case 15 – Fault & Incipient Fault ID</option>
+                                            <option value="Use Case 18 – Grid Ops: Situational Awareness">Use Case 18 – Grid Ops: Situational Awareness</option>
+                                            <option value="Foundational – Not Directly Mapped to SCE Use Case">Foundational – Not Directly Mapped to SCE Use Case</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="proposal-it-release" class="block text-sm font-medium text-gray-700">IT Release</label>
+                                        <select id="proposal-it-release" name="proposal-it-release" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
+                                            <option value="">-- Select IT Release --</option>
+                                            <option value="IT Release 1">IT Release 1</option>
+                                            <option value="IT Release 2">IT Release 2</option>
+                                            <option value="IT Release 3">IT Release 3</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 min-h-[44px]">Submit Proposal</button>
+                                <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 min-h-[44px]">Add Process</button>
                             </div>
                         </form>
                     </div>
@@ -226,6 +323,31 @@
             </div>
 
         </main>
+
+        <!-- Changes Summary Panel -->
+        <aside id="changes-panel" class="hidden w-full md:w-96 lg:w-96 bg-white shadow-xl border-l border-gray-200 transform transition-transform duration-300 ease-in-out translate-x-full absolute right-0 top-0 h-full z-20 overflow-y-auto" role="complementary" aria-label="Changes summary">
+            <div class="p-4 md:p-6">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-xl font-bold text-gray-900">Pending Changes</h2>
+                    <button onclick="closeChangesPanel()" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-md min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Close changes panel">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="changes-content" role="region" aria-live="polite">
+                    <!-- Dynamic content -->
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-200 space-y-2">
+                    <button onclick="showChangesSummary()" class="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]">
+                        Refresh
+                    </button>
+                    <button onclick="discardAllChanges()" class="w-full flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 min-h-[44px]">
+                        Discard All Changes
+                    </button>
+                </div>
+            </div>
+        </aside>
 
         <!-- Right Sidebar for Details -->
         <!-- z-index is 20. Header is now 30. -->
@@ -292,9 +414,11 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
     <script src="navigation.js" defer></script>
     <script src="tree-visualization.js" defer></script>
     <script src="search.js" defer></script>
+    <script src="export_to_excel.js" defer></script>
     <script src="app.js" defer></script>
 </body>
 </html>

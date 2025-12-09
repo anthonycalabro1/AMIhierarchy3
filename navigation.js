@@ -96,7 +96,13 @@ function renderNavigationView(nodeData) {
     // If the current node is an L3, it shouldn't really happen in this logic 
     // unless we clicked an L3, but L3 click should open details.
     
-    if (!nodeData.children || nodeData.children.length === 0) {
+    // Filter out deleted items
+    const visibleChildren = (nodeData.children || []).filter(child => {
+        const processId = window.getProcessId ? window.getProcessId(child) : `${child.level}_${child.name}`;
+        return !(window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId));
+    });
+    
+    if (visibleChildren.length === 0) {
         let filterMessage = 'No child processes found.';
         const activeFilters = [];
         if (window.currentITReleaseFilter) {
@@ -108,9 +114,60 @@ function renderNavigationView(nodeData) {
         if (activeFilters.length > 0) {
             filterMessage = `No processes found matching filter(s): ${activeFilters.join(', ')}`;
         }
-        container.innerHTML = `<div class="p-4 text-gray-500">${filterMessage}</div>`;
+        
+        let html = `<div class="p-4 text-gray-500">${filterMessage}</div>`;
+        
+        // Add "Add Process" button if edit mode is enabled
+        if (window.isEditMode && window.isEditMode()) {
+            const currentLevel = nodeData.level || 'L1';
+            let nextLevel = 'L2';
+            if (currentLevel === 'L1') nextLevel = 'L2';
+            else if (currentLevel === 'L2') nextLevel = 'L3';
+            else nextLevel = 'L3';
+            
+            html += `
+                <div class="mt-4">
+                    <button onclick="showAddProcessDialog('${nextLevel}', '${nodeData.name || ''}')" class="w-full px-4 py-3 rounded-lg border-2 border-dashed border-gray-300 text-gray-600 hover:border-blue-500 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]">
+                        <span class="flex items-center justify-center">
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Add ${nextLevel} Process
+                        </span>
+                    </button>
+                </div>
+            `;
+        }
+        
+        container.innerHTML = html;
         return;
     }
+    
+    // Add "Add Process" button at the top if edit mode is enabled
+    if (window.isEditMode && window.isEditMode()) {
+        const currentLevel = nodeData.level || 'L1';
+        let nextLevel = 'L2';
+        if (currentLevel === 'L1') nextLevel = 'L2';
+        else if (currentLevel === 'L2') nextLevel = 'L3';
+        else nextLevel = 'L3';
+        
+        const addButton = document.createElement('div');
+        addButton.className = 'mb-4';
+        addButton.innerHTML = `
+            <button onclick="showAddProcessDialog('${nextLevel}', '${nodeData.name || ''}')" class="w-full px-4 py-3 rounded-lg border-2 border-dashed border-gray-300 text-gray-600 hover:border-blue-500 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]">
+                <span class="flex items-center justify-center">
+                    <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add ${nextLevel} Process
+                </span>
+            </button>
+        `;
+        container.appendChild(addButton);
+    }
+
+    // Render Children
+    visibleChildren.forEach(child => {
 
     // Render Children
     nodeData.children.forEach(child => {
@@ -130,16 +187,47 @@ function renderNavigationView(nodeData) {
             levelClass = 'border-l-4 border-orange-500';
             levelLabel = 'Level 3';
         }
+        
+        // Check for changes
+        const processId = window.getProcessId ? window.getProcessId(child) : `${child.level}_${child.name}`;
+        const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+        const isModified = window.pendingChanges && window.pendingChanges.modified && window.pendingChanges.modified.has(processId);
+        const isAdded = window.pendingChanges && window.pendingChanges.added && window.pendingChanges.added.has(processId);
+        
+        // Add change indicator classes
+        let changeClass = '';
+        if (isDeleted) {
+            changeClass = 'process-deleted';
+        } else if (isAdded) {
+            changeClass = 'process-added';
+        } else if (isModified) {
+            changeClass = 'process-modified';
+        }
+        
+        // Build badge HTML
+        let badges = `<span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded" aria-label="Level ${child.level}">${levelLabel}</span>`;
+        if (isDeleted) badges += '<span class="ml-2 px-2 py-1 text-xs bg-red-100 text-red-800 rounded">DELETED</span>';
+        if (isAdded) badges += '<span class="ml-2 px-2 py-1 text-xs bg-green-100 text-green-800 rounded">NEW</span>';
+        if (isModified) badges += '<span class="ml-2 px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded">MODIFIED</span>';
 
-        card.className = `bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer border border-gray-200 ${levelClass} min-h-[60px] focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2`;
+        card.className = `bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer border border-gray-200 ${levelClass} ${changeClass} min-h-[60px] focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2`;
         card.setAttribute('role', 'button');
         card.setAttribute('tabindex', '0');
         card.setAttribute('aria-label', `${child.name}, ${levelLabel}`);
         
         card.innerHTML = `
             <div class="flex justify-between items-center">
-                <h3 class="text-lg font-medium text-gray-900">${child.name}</h3>
-                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded" aria-label="Level ${child.level}">${levelLabel}</span>
+                <h3 class="text-lg font-medium ${isDeleted ? 'line-through text-gray-400' : 'text-gray-900'}">${child.name}</h3>
+                <div class="flex items-center space-x-2">
+                    ${badges}
+                    ${window.isEditMode && window.isEditMode() ? `
+                        <button onclick="event.stopPropagation(); window.openDetailsForEdit('${processId}')" class="p-1 text-gray-400 hover:text-blue-600 rounded" aria-label="Edit ${child.name}" title="Edit">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </button>
+                    ` : ''}
+                </div>
             </div>
         `;
 

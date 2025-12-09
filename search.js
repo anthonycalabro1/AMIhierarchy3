@@ -56,13 +56,35 @@ function renderSearchResults(results) {
         if (item.level === 'L2') badgeColor = 'bg-green-100 text-green-800';
         if (item.level === 'L3') badgeColor = 'bg-orange-100 text-orange-800';
 
-        div.className = 'bg-white p-4 rounded-lg shadow border border-gray-200 hover:bg-gray-50 cursor-pointer flex justify-between items-start';
+        // Check for changes
+        const processId = window.getProcessId ? window.getProcessId(item) : `${item.level}_${item.name}`;
+        const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+        const isModified = window.pendingChanges && window.pendingChanges.modified && window.pendingChanges.modified.has(processId);
+        const isAdded = window.pendingChanges && window.pendingChanges.added && window.pendingChanges.added.has(processId);
+        
+        // Add change indicator classes
+        let changeClass = '';
+        if (isDeleted) {
+            changeClass = 'process-deleted';
+        } else if (isAdded) {
+            changeClass = 'process-added';
+        } else if (isModified) {
+            changeClass = 'process-modified';
+        }
+        
+        div.className = `bg-white p-4 rounded-lg shadow border border-gray-200 hover:bg-gray-50 cursor-pointer flex justify-between items-start ${changeClass}`;
+        
+        // Build badges
+        let badges = `<span class="px-2 py-0.5 text-xs rounded-full ${badgeColor}">${item.level}</span>`;
+        if (isDeleted) badges += '<span class="ml-2 px-2 py-0.5 text-xs bg-red-100 text-red-800 rounded">DELETED</span>';
+        if (isAdded) badges += '<span class="ml-2 px-2 py-0.5 text-xs bg-green-100 text-green-800 rounded">NEW</span>';
+        if (isModified) badges += '<span class="ml-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-800 rounded">MODIFIED</span>';
         
         let content = `
             <div>
                 <div class="flex items-center space-x-2">
-                    <h4 class="font-medium text-gray-900">${item.name}</h4>
-                    <span class="px-2 py-0.5 text-xs rounded-full ${badgeColor}">${item.level}</span>
+                    <h4 class="font-medium ${isDeleted ? 'line-through text-gray-400' : 'text-gray-900'}">${item.name}</h4>
+                    ${badges}
                 </div>
         `;
         
@@ -70,14 +92,19 @@ function renderSearchResults(results) {
         if (item.level === 'L3' && item.parent) {
              content += `<div class="text-xs text-gray-500 mt-1">Parent: ${item.parent}</div>`;
         }
-        
-        // Add snippet if matched in objective or use case? (Optional enhancement)
 
         content += `</div>`;
         
-        // Locate Button
+        // Action buttons
         content += `
-            <div class="ml-4 flex-shrink-0 self-center">
+            <div class="ml-4 flex-shrink-0 self-center flex items-center space-x-2">
+                ${window.isEditMode && window.isEditMode() ? `
+                    <button onclick="event.stopPropagation(); window.openDetailsForEdit('${processId}')" class="p-2 text-gray-400 hover:text-blue-600 rounded-full hover:bg-blue-50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Edit ${item.name.replace(/'/g, "\\'")}" title="Edit">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                    </button>
+                ` : ''}
                 <button onclick="event.stopPropagation(); locateProcess('${item.name.replace(/'/g, "\\'")}')" class="p-2 text-gray-400 hover:text-blue-600 rounded-full hover:bg-blue-50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Locate ${item.name.replace(/'/g, "\\'")} in hierarchy" title="Locate in Hierarchy">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -101,16 +128,56 @@ function renderSearchResults(results) {
 
 function handleProposal(event) {
     event.preventDefault();
-    // In a real app, this would POST to a backend.
-    // For now, we show a success message using the new UI.
-    if (window.showSuccess) {
-        window.showSuccess('Thank you! Your process proposal has been submitted for review.');
-    } else {
-        // Fallback if showSuccess is not available
-        alert('Thank you! Your process proposal has been submitted for review.');
+    
+    // Check if edit mode is enabled
+    if (!window.isEditMode || !window.isEditMode()) {
+        if (window.showError) {
+            window.showError('Please enable Edit Mode to add new processes.');
+        } else {
+            alert('Please enable Edit Mode to add new processes.');
+        }
+        return;
     }
-    event.target.reset();
-    clearSuggestions();
+    
+    const form = event.target;
+    const name = form.querySelector('#proposal-name').value.trim();
+    const parentName = form.querySelector('#proposal-parent').value.trim();
+    const level = form.querySelector('#proposal-level').value;
+    const description = form.querySelector('#proposal-description') ? form.querySelector('#proposal-description').value.trim() : '';
+    const useCase = form.querySelector('#proposal-use-case') ? form.querySelector('#proposal-use-case').value.trim() : '';
+    const itRelease = form.querySelector('#proposal-it-release') ? form.querySelector('#proposal-it-release').value.trim() : '';
+    
+    if (!name) {
+        if (window.showError) {
+            window.showError('Process name is required.');
+        }
+        return;
+    }
+    
+    // Add the process to hierarchy
+    if (window.addProcess) {
+        const result = window.addProcess(name, level, parentName, description, useCase, itRelease);
+        if (result.success) {
+            if (window.showSuccess) {
+                window.showSuccess('Process added successfully!');
+            }
+            form.reset();
+            clearSuggestions();
+            // Refresh search to show new process
+            const searchInput = document.getElementById('search-input');
+            if (searchInput && searchInput.value) {
+                handleSearch(searchInput.value);
+            }
+        } else {
+            if (window.showError) {
+                window.showError(result.error || 'Failed to add process.');
+            }
+        }
+    } else {
+        if (window.showError) {
+            window.showError('Add process functionality not available.');
+        }
+    }
 }
 
 // --- Smart Gap Suggestions ---
@@ -120,14 +187,21 @@ function handleProposal(event) {
 setTimeout(() => {
     const form = document.getElementById('proposal-form');
     if (form) {
-        const inputs = form.querySelectorAll('input[type="text"], textarea');
-        // Assuming order: [0]=Name, [1]=Parent, [2]=Description (textarea) - wait, textarea is separate query
-        const nameInput = form.querySelector('input[type="text"]:nth-of-type(1)'); 
-        // Note: Tailwind classes might mess with simple selectors, but order is reliable if we grab all controls
+        const levelSelect = form.querySelector('#proposal-level');
+        const l3Fields = document.getElementById('proposal-l3-fields');
+        const nameField = form.querySelector('#proposal-name');
+        const descField = form.querySelector('#proposal-description');
         
-        // More robust selection:
-        const nameField = form.querySelector('input:not([id="proposal-parent"])');
-        const descField = form.querySelector('textarea');
+        // Show/hide L3 fields based on level selection
+        if (levelSelect && l3Fields) {
+            levelSelect.addEventListener('change', (e) => {
+                if (e.target.value === 'L3') {
+                    l3Fields.classList.remove('hidden');
+                } else {
+                    l3Fields.classList.add('hidden');
+                }
+            });
+        }
         
         function trigger() {
             if (nameField && descField) {

@@ -92,3 +92,24 @@ button, a, input[type="button"], input[type="submit"] {
     outline-offset: 2px;
 }
 
+/* Change indicators */
+.process-modified {
+    border-left-width: 4px;
+    border-left-color: #f59e0b;
+    background-color: #fef3c7;
+}
+
+.process-added {
+    border-left-width: 4px;
+    border-left-color: #10b981;
+    background-color: #d1fae5;
+}
+
+.process-deleted {
+    opacity: 0.5;
+    text-decoration: line-through;
+    background-color: #fee2e2;
+    border-left-width: 4px;
+    border-left-color: #ef4444;
+}
+
