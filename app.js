@@ -473,32 +473,62 @@ function openDetails(processData, isEditing = false) {
     const panel = document.getElementById('details-panel');
     const content = document.getElementById('details-content');
     
+    if (!panel) {
+        console.error('Details panel element not found');
+        return;
+    }
+    
+    if (!content) {
+        console.error('Details content element not found');
+        return;
+    }
+    
+    // Ensure pendingChanges is initialized
+    if (!window.pendingChanges) {
+        window.pendingChanges = {
+            modified: new Map(),
+            added: new Map(),
+            deleted: new Set()
+        };
+    }
+    
     // Check if we should show edit form
     const shouldEdit = isEditing || (editMode && !isEditing);
     const processId = getProcessId(processData);
-    const isDeleted = window.pendingChanges.deleted.has(processId);
-    const isModified = window.pendingChanges.modified.has(processId);
-    const isAdded = window.pendingChanges.added.has(processId);
+    const isDeleted = window.pendingChanges.deleted?.has(processId) || false;
+    const isModified = window.pendingChanges.modified?.has(processId) || false;
+    const isAdded = window.pendingChanges.added?.has(processId) || false;
     
     // Get current data (may be modified)
     let currentData = processData;
-    if (isModified) {
+    if (isModified && window.pendingChanges.modified.has(processId)) {
         currentData = { ...processData, ...window.pendingChanges.modified.get(processId) };
     }
     
     if (shouldEdit && editMode) {
         renderEditForm(currentData, processId, isDeleted, isAdded);
     } else {
-        renderReadOnlyDetails(currentData, processId, isDeleted, isAdded);
+        renderReadOnlyDetails(currentData, processId, isDeleted, isAdded, isModified);
     }
     
-    // Show Panel
-    panel.classList.remove('translate-x-full');
+    // Show Panel - remove translate-x-full and ensure it's visible
+    panel.classList.remove('translate-x-full', 'hidden');
     panel.classList.add('translate-x-0');
+    
+    // Ensure panel is visible (in case it was hidden)
+    panel.style.display = 'block';
 }
 
-function renderReadOnlyDetails(processData, processId, isDeleted, isAdded) {
+// Expose openDetails globally
+window.openDetails = openDetails;
+
+function renderReadOnlyDetails(processData, processId, isDeleted, isAdded, isModified = false) {
     const content = document.getElementById('details-content');
+    
+    if (!content) {
+        console.error('Details content element not found');
+        return;
+    }
     
     // Generate Content
     let html = `
