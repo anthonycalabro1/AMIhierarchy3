@@ -150,9 +150,9 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
     // Ideally, we want the tree to start collapsed, but if we are deep-linking, we shouldn't collapse everything immediately before expanding.
     // However, initTreeVisualization is called every time we switch view.
     // Let's keep it collapsed by default. The focus function will handle expansion.
-    if (root.children) {
+    if (root && root.children) {
         root.children.forEach(d => {
-            if (d.children) {
+            if (d.children && d.children.length > 0) {
                 collapse(d);
             }
         });
@@ -440,15 +440,21 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
         }
 
         function click(event, d) {
-            openDetails(d.data);
             updateSelection(d);
 
-            if (d.children) {
-                d._children = d.children;
-                d.children = null;
+            // For L3 nodes, open details. For L1/L2, expand/collapse
+            if (d.data.level === 'L3') {
+                openDetails(d.data);
             } else {
-                d.children = d._children;
-                d._children = null;
+                // Expand/collapse for L1 and L2 nodes
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
             }
             
             update(d);

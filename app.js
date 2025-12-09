@@ -360,8 +360,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         hierarchyData = await hierarchyRes.json();
         searchIndex = await searchRes.json();
         
+        // Ensure pendingChanges is initialized before using it
+        if (!window.pendingChanges) {
+            window.pendingChanges = {
+                modified: new Map(),
+                added: new Map(),
+                deleted: new Set()
+            };
+        }
+        
         // Store original data for undo/redo and change tracking
         window.originalHierarchyData = JSON.parse(JSON.stringify(hierarchyData));
+        
+        // Debug: Log data structure
+        console.log('Hierarchy data loaded:', {
+            hasChildren: !!hierarchyData.children,
+            childrenCount: hierarchyData.children?.length || 0,
+            firstChild: hierarchyData.children?.[0]
+        });
 
         // Update statistics with initial data
         updateProcessStatistics(hierarchyData);

@@ -86,20 +86,37 @@ function renderNavigationView(nodeData) {
     const container = document.getElementById('nav-list');
     const breadcrumbs = document.getElementById('breadcrumbs');
     
+    if (!container) {
+        console.error('Navigation container not found');
+        return;
+    }
+    
     // Clear container
     container.innerHTML = '';
     
     // Render Breadcrumbs
     renderBreadcrumbs();
-
-    // Check if leaf node (L3) - though typically we stop at L2 listing L3s
-    // If the current node is an L3, it shouldn't really happen in this logic 
-    // unless we clicked an L3, but L3 click should open details.
+    
+    // Ensure we have valid data
+    if (!nodeData) {
+        container.innerHTML = '<div class="p-4 text-gray-500">No data available.</div>';
+        return;
+    }
+    
+    // Debug: Check data structure
+    if (!nodeData.children) {
+        console.warn('nodeData.children is undefined:', nodeData);
+        container.innerHTML = '<div class="p-4 text-gray-500">No child processes found in data structure.</div>';
+        return;
+    }
     
     // Filter out deleted items
     const visibleChildren = (nodeData.children || []).filter(child => {
+        if (!window.pendingChanges || !window.pendingChanges.deleted) {
+            return true; // If pendingChanges not initialized, show all
+        }
         const processId = window.getProcessId ? window.getProcessId(child) : `${child.level}_${child.name}`;
-        return !(window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId));
+        return !window.pendingChanges.deleted.has(processId);
     });
     
     if (visibleChildren.length === 0) {
@@ -168,9 +185,6 @@ function renderNavigationView(nodeData) {
 
     // Render Children
     visibleChildren.forEach(child => {
-
-    // Render Children
-    nodeData.children.forEach(child => {
         const card = document.createElement('div');
         
         // Determine styling based on level
@@ -190,9 +204,9 @@ function renderNavigationView(nodeData) {
         
         // Check for changes
         const processId = window.getProcessId ? window.getProcessId(child) : `${child.level}_${child.name}`;
-        const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
-        const isModified = window.pendingChanges && window.pendingChanges.modified && window.pendingChanges.modified.has(processId);
-        const isAdded = window.pendingChanges && window.pendingChanges.added && window.pendingChanges.added.has(processId);
+        const isDeleted = window.pendingChanges?.deleted?.has(processId) || false;
+        const isModified = window.pendingChanges?.modified?.has(processId) || false;
+        const isAdded = window.pendingChanges?.added?.has(processId) || false;
         
         // Add change indicator classes
         let changeClass = '';
