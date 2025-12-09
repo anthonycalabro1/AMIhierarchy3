@@ -522,13 +522,18 @@ function openDetails(processData, isEditing = false) {
 // Expose openDetails globally
 window.openDetails = openDetails;
 
-function renderReadOnlyDetails(processData, processId, isDeleted, isAdded, isModified = false) {
+function renderReadOnlyDetails(processData, processId, isDeleted, isAdded, isModified) {
     const content = document.getElementById('details-content');
     
     if (!content) {
         console.error('Details content element not found');
         return;
     }
+    
+    // Ensure all parameters are defined
+    const isDeletedFlag = isDeleted || false;
+    const isAddedFlag = isAdded || false;
+    const isModifiedFlag = isModified || false;
     
     // Generate Content
     let html = `
@@ -539,11 +544,11 @@ function renderReadOnlyDetails(processData, processId, isDeleted, isAdded, isMod
                   'bg-orange-100 text-orange-800'}">
                 ${processData.level || 'Process'}
             </span>
-            ${isDeleted ? '<span class="ml-2 px-2 py-1 text-xs bg-red-100 text-red-800 rounded-full">DELETED</span>' : ''}
-            ${isAdded ? '<span class="ml-2 px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">NEW</span>' : ''}
-            ${isModified ? '<span class="ml-2 px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">MODIFIED</span>' : ''}
+            ${isDeletedFlag ? '<span class="ml-2 px-2 py-1 text-xs bg-red-100 text-red-800 rounded-full">DELETED</span>' : ''}
+            ${isAddedFlag ? '<span class="ml-2 px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">NEW</span>' : ''}
+            ${isModifiedFlag ? '<span class="ml-2 px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">MODIFIED</span>' : ''}
         </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-4 ${isDeleted ? 'line-through text-gray-400' : ''}">${processData.name}</h3>
+        <h3 class="text-2xl font-bold text-gray-800 mb-4 ${isDeletedFlag ? 'line-through text-gray-400' : ''}">${processData.name}</h3>
     `;
 
     if (processData.level === 'L3') {
