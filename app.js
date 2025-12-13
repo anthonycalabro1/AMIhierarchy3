@@ -362,6 +362,15 @@ function buildL3LookupMap(hierarchyData) {
      */
     function traverseNode(node) {
         if (node.level === 'L3') {
+            // Check if this process is deleted (soft delete)
+            const processId = getProcessId(node);
+            const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
+            
+            // Skip deleted processes - they should not be in the lookup map
+            if (isDeleted) {
+                return;
+            }
+            
             // Normalize the process name (trim whitespace, lowercase for consistent lookup)
             const normalizedName = node.name ? String(node.name).trim() : '';
             if (normalizedName) {
@@ -864,6 +873,11 @@ function saveProcess(event, processId) {
     // Update the actual hierarchy data
     updateProcessInHierarchy(processId, processData, isAdded);
     
+    // Rebuild L3 lookup map if L3 process was modified
+    if (level === 'L3' && window.buildL3LookupMap) {
+        window.l3DetailsMap = buildL3LookupMap(hierarchyData);
+    }
+    
     // Update search index
     updateSearchIndex();
     
@@ -913,19 +927,38 @@ function deleteProcess(processId) {
     }
     
     // Recursively mark all children as deleted
+    // Returns true if any L3 processes were marked as deleted
     function markChildrenDeleted(node) {
         const nodeId = getProcessId(node);
         window.pendingChanges.deleted.add(nodeId);
         window.pendingChanges.added.delete(nodeId);
         window.pendingChanges.modified.delete(nodeId);
         
-        if (node.children) {
-            node.children.forEach(child => markChildrenDeleted(child));
+        let hasL3Descendant = false;
+        if (node.level === 'L3') {
+            hasL3Descendant = true;
         }
+        
+        if (node.children) {
+            node.children.forEach(child => {
+                if (markChildrenDeleted(child)) {
+                    hasL3Descendant = true;
+                }
+            });
+        }
+        
+        return hasL3Descendant;
     }
     
     // Mark process and all children as deleted
-    markChildrenDeleted(processData);
+    // Track if any L3 processes were deleted (including descendants)
+    const hasDeletedL3 = markChildrenDeleted(processData);
+    
+    // Rebuild L3 lookup map if any L3 process was deleted (directly or as a descendant)
+    // The rebuild will exclude deleted processes since buildL3LookupMap filters them out
+    if (hasDeletedL3 && window.buildL3LookupMap) {
+        window.l3DetailsMap = buildL3LookupMap(hierarchyData);
+    }
     
     // Add to history
     addToHistory('delete', processId, processData);
@@ -1028,6 +1061,11 @@ function addProcess(name, level, parentName, description = '', useCase = '', itR
         
         // Update search index
         updateSearchIndex();
+        
+        // Rebuild L3 lookup map if L3 process was added
+        if (level === 'L3' && window.buildL3LookupMap) {
+            window.l3DetailsMap = buildL3LookupMap(hierarchyData);
+        }
         
         // Refresh current view
         refreshCurrentView();
