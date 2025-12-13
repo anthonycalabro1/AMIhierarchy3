@@ -62,6 +62,9 @@
                         <button id="search-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="switchView('search')" aria-label="Switch to Search View">
                             Search
                         </button>
+                        <button id="process-flow-view-btn" class="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-w-[44px] min-h-[44px]" onclick="switchView('process-flow')" aria-label="Switch to Process Flow View">
+                            Process Flow
+                        </button>
                         <button id="changes-btn" class="hidden px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 min-w-[44px] min-h-[44px] relative" onclick="showChangesSummary()" aria-label="View changes">
                             <span class="flex items-center">
                                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -110,6 +113,9 @@
                     </button>
                     <button class="w-full px-4 py-3 rounded-md text-sm font-medium text-left text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]" onclick="switchView('search'); toggleMobileMenu();" aria-label="Switch to Search View">
                         Search
+                    </button>
+                    <button class="w-full px-4 py-3 rounded-md text-sm font-medium text-left text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]" onclick="switchView('process-flow'); toggleMobileMenu();" aria-label="Switch to Process Flow View">
+                        Process Flow
                     </button>
                     <button id="changes-btn-mobile" class="hidden w-full px-4 py-3 rounded-md text-sm font-medium text-left text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 min-h-[44px]" onclick="showChangesSummary(); toggleMobileMenu();" aria-label="View changes">
                         View Changes
@@ -322,6 +328,78 @@
                 </div>
             </div>
 
+            <!-- Process Flow View -->
+            <div id="process-flow-view" class="view-container hidden h-full w-full bg-white rounded-lg shadow">
+                <div class="p-4 border-b border-gray-200">
+                    <div class="flex flex-col md:flex-row md:items-end md:space-x-4 space-y-4 md:space-y-0">
+                        <div class="flex-1">
+                            <h2 class="text-xl font-semibold text-gray-800">Process Flow Visualization</h2>
+                            <p class="text-sm text-gray-600 mt-1">Visualize horizontal dependencies between L3 processes</p>
+                        </div>
+                        <div class="flex items-end space-x-2">
+                            <button id="process-flow-load-file-btn" 
+                                    onclick="document.getElementById('process-flow-file-input').click()"
+                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
+                                    aria-label="Load Excel file">
+                                Load File
+                            </button>
+                            <input type="file" id="process-flow-file-input" class="hidden" accept=".xlsx,.xls" onchange="handleProcessFlowFileSelect(event)" aria-label="Select Connections Excel file">
+                            <button id="process-flow-zoom-in-btn" 
+                                    onclick="zoomProcessFlow(1.2)"
+                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
+                                    aria-label="Zoom in">
+                                Zoom In
+                            </button>
+                            <button id="process-flow-zoom-out-btn" 
+                                    onclick="zoomProcessFlow(0.8)"
+                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
+                                    aria-label="Zoom out">
+                                Zoom Out
+                            </button>
+                            <button id="process-flow-fit-btn" 
+                                    onclick="fitProcessFlowToScreen()"
+                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
+                                    aria-label="Fit to screen">
+                                Fit to Screen
+                            </button>
+                            <button id="process-flow-reset-btn" 
+                                    onclick="resetProcessFlowZoom()"
+                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
+                                    aria-label="Reset zoom">
+                                Reset Zoom
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Legend for Value Stream colors -->
+                    <div class="mt-4 flex flex-wrap items-center gap-4 text-xs">
+                        <span class="font-medium text-gray-700">Value Streams:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="w-4 h-4 rounded" style="background-color: #3b82f6;"></div>
+                            <span class="text-gray-600">Stream 1</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-4 h-4 rounded" style="background-color: #10b981;"></div>
+                            <span class="text-gray-600">Stream 2</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-4 h-4 rounded" style="background-color: #f97316;"></div>
+                            <span class="text-gray-600">Stream 3</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-4 h-4 rounded" style="background-color: #a855f7;"></div>
+                            <span class="text-gray-600">Stream 4</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-4 h-4 rounded" style="background-color: #6b7280;"></div>
+                            <span class="text-gray-600">Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="process-flow-container" class="w-full h-full overflow-auto" style="min-height: calc(100vh - 300px);">
+                    <!-- Flow visualization will be rendered here -->
+                </div>
+            </div>
+
         </main>
 
         <!-- Changes Summary Panel -->
@@ -415,6 +493,10 @@
 
     <!-- Scripts -->
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/elkjs@0.9.2/lib/elk.bundled.js"></script>
+    <script src="lib/parseDependencies.js"></script>
+    <script src="lib/useFlowLayout.js"></script>
+    <script src="process-flow-visualization.js" defer></script>
     <script src="navigation.js" defer></script>
     <script src="tree-visualization.js" defer></script>
     <script src="search.js" defer></script>

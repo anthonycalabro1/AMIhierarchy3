@@ -1,6 +1,7 @@
 // Global State
 window.hierarchyData = null;
 window.searchIndex = null;
+window.connectionsData = null; // Graph connections data
 let currentView = 'navigation';
 window.currentITReleaseFilter = null; // Track current IT Release filter state
 window.currentUseCaseFilter = null; // Track current Use Case filter state
@@ -463,6 +464,52 @@ function switchView(viewName) {
             if (typeof filterHierarchy === 'function' && typeof updateProcessStatistics === 'function') {
                 const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
                 updateProcessStatistics(filteredData);
+            }
+        }
+    } else if (viewName === 'process-flow') {
+        // Clear container first to remove any old visualization
+        const container = document.getElementById('process-flow-container');
+        if (container) {
+            container.innerHTML = '<div class="flex items-center justify-center h-full text-gray-500">Loading process flow...</div>';
+        }
+        
+        // Initialize Process Flow view
+        if (typeof window.loadDependencies === 'function' && typeof window.initProcessFlowVisualization === 'function') {
+            // Wait for container to be visible and load dependencies
+            setTimeout(async () => {
+                try {
+                    console.log('Loading dependencies from Connections.xlsx...');
+                    const { flowNodes, flowEdges } = await window.loadDependencies();
+                    console.log(`Loaded ${flowNodes.length} nodes and ${flowEdges.length} edges`);
+                    await window.initProcessFlowVisualization(flowNodes, flowEdges);
+                } catch (error) {
+                    console.error('Error loading process flow:', error);
+                    const container = document.getElementById('process-flow-container');
+                    if (container) {
+                        const errorMessage = error.message || 'Unknown error';
+                        container.innerHTML = `
+                            <div class="flex flex-col items-center justify-center h-full p-8">
+                                <div class="text-red-500 text-center mb-4">
+                                    <p class="font-semibold mb-2">Error loading process flow:</p>
+                                    <p class="text-sm">${errorMessage}</p>
+                                </div>
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-2xl">
+                                    <p class="text-sm text-blue-800 font-semibold mb-2">To fix this:</p>
+                                    <ol class="text-sm text-blue-700 list-decimal list-inside space-y-1">
+                                        <li>Click the "Load File" button above to manually select Connections.xlsx</li>
+                                        <li>Or ensure you're running a web server (python -m http.server) and accessing via http://localhost:PORT</li>
+                                        <li>Make sure Connections.xlsx is in the project root folder</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            }, 200);
+        } else {
+            const container = document.getElementById('process-flow-container');
+            if (container) {
+                container.innerHTML = '<div class="flex items-center justify-center h-full text-gray-500">Process flow dependencies not available. Please ensure Connections.xlsx is in the project folder.</div>';
             }
         }
     }
@@ -1054,6 +1101,9 @@ function refreshCurrentView() {
         if (hierarchyData) {
             initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
         }
+    } else if (currentView === 'process-flow') {
+        // Process Flow view doesn't need refresh on hierarchy changes
+        // as it uses separate flow data
     }
     updateProcessStatistics(hierarchyData);
 }
