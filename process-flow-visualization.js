@@ -9,6 +9,60 @@ let flowEdges = [];
 let positionedData = null;
 
 /**
+ * Update the legend with actual Value Stream names from the data
+ * @param {Array} nodes - Flow nodes with group/value stream information
+ */
+function updateValueStreamLegend(nodes) {
+    const legendContainer = document.getElementById('process-flow-legend');
+    if (!legendContainer) {
+        console.warn('Legend container not found');
+        return;
+    }
+    
+    // Extract unique Value Stream names from nodes
+    const valueStreams = new Set();
+    nodes.forEach(node => {
+        if (node.group && node.group !== 'default') {
+            valueStreams.add(node.group);
+        }
+    });
+    
+    // Convert to sorted array for consistent display
+    const sortedStreams = Array.from(valueStreams).sort();
+    
+    // Build legend HTML
+    let legendHTML = '<span class="font-medium text-gray-700">Value Streams:</span>';
+    
+    sortedStreams.forEach(streamName => {
+        const color = getNodeColor(streamName);
+        legendHTML += `
+            <div class="flex items-center gap-1">
+                <div class="w-4 h-4 rounded" style="background-color: ${color};"></div>
+                <span class="text-gray-600">${escapeHtml(streamName)}</span>
+            </div>
+        `;
+    });
+    
+    // If no value streams found, show default message
+    if (sortedStreams.length === 0) {
+        legendHTML += '<span class="text-gray-500 italic">No value streams found</span>';
+    }
+    
+    legendContainer.innerHTML = legendHTML;
+}
+
+/**
+ * Escape HTML to prevent XSS
+ * @param {string} text - Text to escape
+ * @returns {string} Escaped HTML
+ */
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+/**
  * Initialize Process Flow Visualization
  * @param {Array} nodes - Flow nodes from parseDependencies
  * @param {Array} edges - Flow edges from parseDependencies
@@ -17,6 +71,9 @@ async function initProcessFlowVisualization(nodes, edges) {
     try {
         flowNodes = nodes;
         flowEdges = edges;
+        
+        // Update legend with actual Value Stream names
+        updateValueStreamLegend(nodes);
         
         // Apply layout using ELK
         if (typeof window.useFlowLayout === 'function') {
@@ -348,10 +405,14 @@ function renderNodesD3(nodesGroup, labelsGroup) {
         .on('click', (event, node) => {
             console.log('Node clicked:', node);
             if (window.openDetails) {
+                // Pass enriched node data including L3 details (objective, use_case, it_release)
                 window.openDetails({
                     name: node.label,
                     level: 'L3',
-                    group: node.group
+                    group: node.group,
+                    objective: node.objective || '',
+                    use_case: node.use_case || '',
+                    it_release: node.it_release || ''
                 });
             }
         });
@@ -527,12 +588,15 @@ function renderProcessFlowBasic(container) {
         // Add click handler
         rect.addEventListener('click', () => {
             console.log('Node clicked:', node);
-            // You can integrate with details panel here
+            // Pass enriched node data including L3 details (objective, use_case, it_release)
             if (window.openDetails) {
                 window.openDetails({
                     name: node.label,
                     level: 'L3',
-                    group: node.group
+                    group: node.group,
+                    objective: node.objective || '',
+                    use_case: node.use_case || '',
+                    it_release: node.it_release || ''
                 });
             }
         });
@@ -728,8 +792,10 @@ async function handleProcessFlowFileSelect(event) {
     }
     
     try {
-        // Parse the selected file
-        const { flowNodes, flowEdges } = await window.parseDependencies(file);
+        // Use global L3 details map if available for enrichment
+        const l3DetailsMap = window.l3DetailsMap || null;
+        // Parse the selected file with enrichment
+        const { flowNodes, flowEdges } = await window.parseDependencies(file, l3DetailsMap);
         await window.initProcessFlowVisualization(flowNodes, flowEdges);
     } catch (error) {
         console.error('Error loading file:', error);

@@ -180,6 +180,12 @@ function importFromExcel(event) {
             window.hierarchyData = newHierarchy;
             window.originalHierarchyData = JSON.parse(JSON.stringify(newHierarchy));
             
+            // Rebuild L3 lookup map for Process Flow enrichment
+            if (typeof window.buildL3LookupMap === 'function') {
+                window.l3DetailsMap = window.buildL3LookupMap(newHierarchy);
+                console.log(`Rebuilt L3 lookup map with ${window.l3DetailsMap.size} entries`);
+            }
+            
             // Clear pending changes
             window.pendingChanges.modified.clear();
             window.pendingChanges.added.clear();

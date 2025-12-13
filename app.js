@@ -2,6 +2,7 @@
 window.hierarchyData = null;
 window.searchIndex = null;
 window.connectionsData = null; // Graph connections data
+window.l3DetailsMap = null; // Map of L3 process names to their details (objective, use_case, it_release)
 let currentView = 'navigation';
 window.currentITReleaseFilter = null; // Track current IT Release filter state
 window.currentUseCaseFilter = null; // Track current Use Case filter state
@@ -343,6 +344,57 @@ function updateProcessStatistics(data) {
     }
 }
 
+/**
+ * Build a lookup map of L3 process names to their details
+ * @param {Object} hierarchyData - The hierarchy data structure
+ * @returns {Map<string, {objective: string, use_case: string, it_release: string}>} Map of L3 process names to details
+ */
+function buildL3LookupMap(hierarchyData) {
+    const l3Map = new Map();
+    
+    if (!hierarchyData || !hierarchyData.children) {
+        return l3Map;
+    }
+    
+    /**
+     * Recursively traverse the hierarchy to extract L3 processes
+     * @param {Object} node - Current node in the hierarchy
+     */
+    function traverseNode(node) {
+        if (node.level === 'L3') {
+            // Normalize the process name (trim whitespace, lowercase for consistent lookup)
+            const normalizedName = node.name ? String(node.name).trim() : '';
+            if (normalizedName) {
+                // Store with original name as key, but also store normalized version for flexible lookup
+                l3Map.set(normalizedName, {
+                    objective: node.objective || '',
+                    use_case: node.use_case || '',
+                    it_release: node.it_release || ''
+                });
+                // Also store lowercase version for case-insensitive matching
+                const lowerName = normalizedName.toLowerCase();
+                if (lowerName !== normalizedName) {
+                    l3Map.set(lowerName, {
+                        objective: node.objective || '',
+                        use_case: node.use_case || '',
+                        it_release: node.it_release || ''
+                    });
+                }
+            }
+        }
+        
+        // Recursively process children
+        if (node.children && Array.isArray(node.children)) {
+            node.children.forEach(child => traverseNode(child));
+        }
+    }
+    
+    // Traverse all top-level children
+    hierarchyData.children.forEach(child => traverseNode(child));
+    
+    return l3Map;
+}
+
 // Initialize Application
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -372,6 +424,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Store original data for undo/redo and change tracking
         window.originalHierarchyData = JSON.parse(JSON.stringify(hierarchyData));
+        
+        // Build L3 lookup map for enriching Process Flow nodes
+        window.l3DetailsMap = buildL3LookupMap(hierarchyData);
+        console.log(`Built L3 lookup map with ${window.l3DetailsMap.size} entries`);
         
         // Debug: Log data structure
         console.log('Hierarchy data loaded:', {
@@ -1011,6 +1067,7 @@ function findProcessByName(name) {
 }
 
 window.addProcess = addProcess;
+window.buildL3LookupMap = buildL3LookupMap;
 
 // Helper function to find process in hierarchy by ID
 function findProcessById(processId) {
@@ -1424,6 +1481,11 @@ function discardAllChanges() {
     // Reload original data
     if (window.originalHierarchyData) {
         window.hierarchyData = JSON.parse(JSON.stringify(window.originalHierarchyData));
+        
+        // Rebuild L3 lookup map after undo/redo
+        if (window.hierarchyData) {
+            window.l3DetailsMap = buildL3LookupMap(window.hierarchyData);
+        }
     }
     
     // Clear all changes
