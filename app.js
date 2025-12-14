@@ -543,8 +543,48 @@ function switchView(viewName) {
             window.initProcessFlowSearch();
         }
         
-        // Initialize Process Flow view
-        if (typeof window.loadDependencies === 'function' && typeof window.initProcessFlowVisualization === 'function') {
+        // Wait for required functions to be available (with retry logic)
+        const waitForFunctions = async (maxRetries = 10, delay = 100) => {
+            for (let i = 0; i < maxRetries; i++) {
+                if (typeof window.loadDependencies === 'function' && typeof window.initProcessFlowVisualization === 'function') {
+                    return true;
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+            return false;
+        };
+        
+        // Wait for functions and then initialize Process Flow view
+        waitForFunctions().then(async (functionsAvailable) => {
+            if (!functionsAvailable) {
+                const container = document.getElementById('process-flow-container');
+                if (container) {
+                    const missingFunctions = [];
+                    if (typeof window.loadDependencies !== 'function') missingFunctions.push('loadDependencies');
+                    if (typeof window.initProcessFlowVisualization !== 'function') missingFunctions.push('initProcessFlowVisualization');
+                    
+                    container.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-full p-8">
+                            <div class="text-red-500 text-center mb-4">
+                                <p class="font-semibold mb-2">Process flow dependencies not available</p>
+                                <p class="text-sm">Missing functions: ${missingFunctions.join(', ')}</p>
+                                <p class="text-sm mt-2">Please ensure all scripts are loaded and Connections.xlsx is in the project folder.</p>
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-2xl">
+                                <p class="text-sm text-blue-800 font-semibold mb-2">To fix this:</p>
+                                <ol class="text-sm text-blue-700 list-decimal list-inside space-y-1">
+                                    <li>Refresh the page to reload all scripts</li>
+                                    <li>Ensure you're running a web server (python -m http.server) and accessing via http://localhost:PORT</li>
+                                    <li>Make sure Connections.xlsx is in the project root folder</li>
+                                    <li>Check the browser console for any JavaScript errors</li>
+                                </ol>
+                            </div>
+                        </div>
+                    `;
+                }
+                return;
+            }
+            
             // Wait for container to be visible and load dependencies
             setTimeout(async () => {
                 try {
@@ -576,12 +616,7 @@ function switchView(viewName) {
                     }
                 }
             }, 200);
-        } else {
-            const container = document.getElementById('process-flow-container');
-            if (container) {
-                container.innerHTML = '<div class="flex items-center justify-center h-full text-gray-500">Process flow dependencies not available. Please ensure Connections.xlsx is in the project folder.</div>';
-            }
-        }
+        });
     }
 }
 
