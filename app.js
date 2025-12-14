@@ -538,6 +538,11 @@ function switchView(viewName) {
             container.innerHTML = '<div class="flex items-center justify-center h-full text-gray-500">Loading process flow...</div>';
         }
         
+        // Initialize search functionality (safe to call multiple times)
+        if (typeof window.initProcessFlowSearch === 'function') {
+            window.initProcessFlowSearch();
+        }
+        
         // Initialize Process Flow view
         if (typeof window.loadDependencies === 'function' && typeof window.initProcessFlowVisualization === 'function') {
             // Wait for container to be visible and load dependencies

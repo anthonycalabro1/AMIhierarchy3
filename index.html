@@ -337,6 +337,20 @@
                             <p class="text-sm text-gray-600 mt-1">Visualize horizontal dependencies between L3 processes</p>
                         </div>
                         <div class="flex items-end space-x-2">
+                            <!-- Process Search -->
+                            <div class="relative">
+                                <label for="process-flow-search-input" class="sr-only">Search processes</label>
+                                <input type="text" 
+                                       id="process-flow-search-input" 
+                                       placeholder="Search processes..." 
+                                       class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px] w-64"
+                                       aria-label="Search processes"
+                                       autocomplete="off">
+                                <div id="process-flow-search-results" 
+                                     class="hidden absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-64 overflow-y-auto">
+                                    <!-- Search results will be rendered here -->
+                                </div>
+                            </div>
                             <button id="process-flow-load-file-btn" 
                                     onclick="document.getElementById('process-flow-file-input').click()"
                                     class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
@@ -344,29 +358,11 @@
                                 Load File
                             </button>
                             <input type="file" id="process-flow-file-input" class="hidden" accept=".xlsx,.xls" onchange="handleProcessFlowFileSelect(event)" aria-label="Select Connections Excel file">
-                            <button id="process-flow-zoom-in-btn" 
-                                    onclick="zoomProcessFlow(1.2)"
-                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
-                                    aria-label="Zoom in">
-                                Zoom In
-                            </button>
-                            <button id="process-flow-zoom-out-btn" 
-                                    onclick="zoomProcessFlow(0.8)"
-                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
-                                    aria-label="Zoom out">
-                                Zoom Out
-                            </button>
                             <button id="process-flow-fit-btn" 
                                     onclick="fitProcessFlowToScreen()"
                                     class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
                                     aria-label="Fit to screen">
                                 Fit to Screen
-                            </button>
-                            <button id="process-flow-reset-btn" 
-                                    onclick="resetProcessFlowZoom()"
-                                    class="px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-[44px]"
-                                    aria-label="Reset zoom">
-                                Reset Zoom
                             </button>
                         </div>
                     </div>

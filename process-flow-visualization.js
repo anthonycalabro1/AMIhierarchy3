@@ -115,6 +115,9 @@ function renderProcessFlow() {
     } else {
         renderProcessFlowBasic(container);
     }
+    
+    // Initialize search functionality after rendering
+    initProcessFlowSearch();
 }
 
 /**
@@ -805,10 +808,237 @@ async function handleProcessFlowFileSelect(event) {
     }
 }
 
+/**
+ * Search processes by label
+ * @param {string} query - Search query
+ * @returns {Array} Array of matching nodes
+ */
+function searchProcesses(query) {
+    if (!positionedData || !positionedData.nodes || !query) {
+        return [];
+    }
+    
+    const lowerQuery = query.toLowerCase().trim();
+    if (lowerQuery.length < 1) {
+        return [];
+    }
+    
+    return positionedData.nodes.filter(node => {
+        if (!node.label) return false;
+        return node.label.toLowerCase().includes(lowerQuery);
+    }).slice(0, 10); // Limit to 10 results
+}
+
+/**
+ * Navigate to a specific process node by panning and zooming to it
+ * @param {string} nodeId - ID of the node to navigate to
+ */
+function navigateToProcess(nodeId) {
+    if (!window.processFlowSvg || !window.processFlowZoom || !positionedData) {
+        console.warn('Cannot navigate: process flow not initialized');
+        return;
+    }
+    
+    // Find the node
+    const node = positionedData.nodes.find(n => n.id === nodeId);
+    if (!node) {
+        console.warn('Node not found:', nodeId);
+        return;
+    }
+    
+    const svg = window.processFlowSvg.node();
+    const container = svg.parentElement;
+    if (!container) return;
+    
+    const width = container.clientWidth || 1000;
+    const height = container.clientHeight || 800;
+    
+    // Calculate center point of the node
+    const nodeCenterX = node.x + node.width / 2;
+    const nodeCenterY = node.y + node.height / 2;
+    
+    // Target zoom scale (1.5x to make the node clearly visible)
+    const targetScale = 1.5;
+    
+    // Calculate the transform needed to center the node
+    // We want the node center to be at the viewport center
+    const viewportCenterX = width / 2;
+    const viewportCenterY = height / 2;
+    
+    // Transform calculation:
+    // translateX = viewportCenterX - nodeCenterX * scale
+    // translateY = viewportCenterY - nodeCenterY * scale
+    const translateX = viewportCenterX - nodeCenterX * targetScale;
+    const translateY = viewportCenterY - nodeCenterY * targetScale;
+    
+    // Apply the transform with smooth transition
+    window.processFlowSvg.transition()
+        .duration(750)
+        .call(window.processFlowZoom.transform, d3.zoomIdentity
+            .translate(translateX, translateY)
+            .scale(targetScale)
+        );
+}
+
+/**
+ * Render search results in the dropdown
+ * @param {Array} results - Array of matching nodes
+ */
+function renderProcessSearchResults(results) {
+    const container = document.getElementById('process-flow-search-results');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    if (results.length === 0) {
+        container.innerHTML = '<div class="px-4 py-2 text-gray-500 italic text-sm">No matching processes found</div>';
+        container.classList.remove('hidden');
+        return;
+    }
+    
+    results.forEach((node, index) => {
+        const item = document.createElement('div');
+        item.className = 'px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700 border-b border-gray-100 last:border-b-0';
+        item.setAttribute('role', 'option');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('data-node-id', node.id);
+        item.textContent = node.label;
+        
+        // Add click handler
+        item.addEventListener('click', () => {
+            handleProcessSearchSelect(node.id);
+        });
+        
+        // Add keyboard handler
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleProcessSearchSelect(node.id);
+            }
+        });
+        
+        container.appendChild(item);
+    });
+    
+    container.classList.remove('hidden');
+}
+
+/**
+ * Handle process search input
+ * @param {Event} event - Input event
+ */
+function handleProcessSearchInput(event) {
+    const query = event.target.value;
+    const resultsContainer = document.getElementById('process-flow-search-results');
+    
+    if (!query || query.trim().length < 1) {
+        if (resultsContainer) {
+            resultsContainer.classList.add('hidden');
+        }
+        return;
+    }
+    
+    const results = searchProcesses(query);
+    renderProcessSearchResults(results);
+}
+
+/**
+ * Handle process search selection
+ * @param {string} nodeId - ID of the selected node
+ */
+function handleProcessSearchSelect(nodeId) {
+    navigateToProcess(nodeId);
+    
+    // Close dropdown and clear input
+    const resultsContainer = document.getElementById('process-flow-search-results');
+    const searchInput = document.getElementById('process-flow-search-input');
+    
+    if (resultsContainer) {
+        resultsContainer.classList.add('hidden');
+    }
+    if (searchInput) {
+        searchInput.value = '';
+    }
+}
+
+/**
+ * Initialize process flow search functionality
+ */
+function initProcessFlowSearch() {
+    const searchInput = document.getElementById('process-flow-search-input');
+    if (!searchInput) return;
+    
+    // Check if already initialized to avoid duplicate listeners
+    if (searchInput.dataset.searchInitialized === 'true') {
+        return;
+    }
+    
+    // Mark as initialized
+    searchInput.dataset.searchInitialized = 'true';
+    
+    // Input event listener
+    searchInput.addEventListener('input', handleProcessSearchInput);
+    
+    // Keyboard navigation
+    let selectedIndex = -1;
+    searchInput.addEventListener('keydown', (e) => {
+        const resultsContainer = document.getElementById('process-flow-search-results');
+        if (!resultsContainer || resultsContainer.classList.contains('hidden')) {
+            return;
+        }
+        
+        const items = resultsContainer.querySelectorAll('[data-node-id]');
+        if (items.length === 0) return;
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+            items[selectedIndex].focus();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = Math.max(selectedIndex - 1, -1);
+            if (selectedIndex === -1) {
+                searchInput.focus();
+            } else {
+                items[selectedIndex].focus();
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            resultsContainer.classList.add('hidden');
+            searchInput.value = '';
+            searchInput.focus();
+        } else if (e.key === 'Enter' && selectedIndex >= 0 && items[selectedIndex]) {
+            e.preventDefault();
+            const nodeId = items[selectedIndex].getAttribute('data-node-id');
+            if (nodeId) {
+                handleProcessSearchSelect(nodeId);
+            }
+        }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        const resultsContainer = document.getElementById('process-flow-search-results');
+        const searchInput = document.getElementById('process-flow-search-input');
+        
+        if (resultsContainer && searchInput && 
+            !searchInput.contains(e.target) && 
+            !resultsContainer.contains(e.target)) {
+            resultsContainer.classList.add('hidden');
+            selectedIndex = -1;
+        }
+    });
+}
+
 // Export for global use
 window.initProcessFlowVisualization = initProcessFlowVisualization;
 window.fitProcessFlowToScreen = fitProcessFlowToScreen;
 window.resetProcessFlowZoom = resetProcessFlowZoom;
 window.zoomProcessFlow = zoomProcessFlow;
 window.handleProcessFlowFileSelect = handleProcessFlowFileSelect;
+window.searchProcesses = searchProcesses;
+window.navigateToProcess = navigateToProcess;
+window.handleProcessSearchInput = handleProcessSearchInput;
+window.handleProcessSearchSelect = handleProcessSearchSelect;
+window.initProcessFlowSearch = initProcessFlowSearch;
 

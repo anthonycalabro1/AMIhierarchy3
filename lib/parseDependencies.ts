@@ -112,48 +112,54 @@ async function parseDependencies(fileInput: File | string): Promise<FlowData> {
         const nodeMap = new Map<string, FlowNode>(); // Track unique nodes by ID
         const edges: FlowEdge[] = [];
         
+        // Helper function to create or update a node
+        const createOrUpdateNode = (processName: string, category: string) => {
+            if (!processName) return;
+            
+            if (!nodeMap.has(processName)) {
+                nodeMap.set(processName, {
+                    id: processName,
+                    label: processName,
+                    group: category || 'default',
+                    level: 'L3' // All processes in this file are L3
+                });
+            } else {
+                // Update group if category is provided and different
+                const node = nodeMap.get(processName)!;
+                if (category && (!node.group || node.group === 'default')) {
+                    node.group = category;
+                }
+            }
+        };
+        
         data.forEach((row: any, index: number) => {
             const sourceProcess = String(row[sourceCol] || '').trim();
             const targetProcess = String(row[targetCol] || '').trim();
             const edgeLabel = objectCol ? String(row[objectCol] || '').trim() : '';
             const category = categoryCol ? String(row[categoryCol] || '').trim() : '';
             
-            // Skip rows with empty source or target
-            if (!sourceProcess || !targetProcess) {
+            // Skip rows where both source and target are empty
+            if (!sourceProcess && !targetProcess) {
                 return;
             }
             
-            // Create or update source node
-            if (!nodeMap.has(sourceProcess)) {
-                nodeMap.set(sourceProcess, {
-                    id: sourceProcess,
-                    label: sourceProcess,
-                    group: category || 'default',
-                    level: 'L3' // All processes in this file are L3
-                });
-            } else {
-                // Update group if category is provided and different
-                const node = nodeMap.get(sourceProcess)!;
-                if (category && (!node.group || node.group === 'default')) {
-                    node.group = category;
-                }
+            // Handle isolated nodes: if only source exists, create isolated source node
+            if (sourceProcess && !targetProcess) {
+                createOrUpdateNode(sourceProcess, category);
+                // No edge created for isolated node
+                return;
             }
             
-            // Create or update target node
-            if (!nodeMap.has(targetProcess)) {
-                nodeMap.set(targetProcess, {
-                    id: targetProcess,
-                    label: targetProcess,
-                    group: category || 'default',
-                    level: 'L3' // All processes in this file are L3
-                });
-            } else {
-                // Update group if category is provided and different
-                const node = nodeMap.get(targetProcess)!;
-                if (category && (!node.group || node.group === 'default')) {
-                    node.group = category;
-                }
-                }
+            // Handle isolated nodes: if only target exists, create isolated target node
+            if (!sourceProcess && targetProcess) {
+                createOrUpdateNode(targetProcess, category);
+                // No edge created for isolated node
+                return;
+            }
+            
+            // Both source and target exist - create nodes and edge
+            createOrUpdateNode(sourceProcess, category);
+            createOrUpdateNode(targetProcess, category);
             
             // Create edge
             edges.push({
