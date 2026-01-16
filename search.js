@@ -3,6 +3,47 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     handleSearch(e.target.value);
 });
 
+// Initialize Search View - called when switching to search view
+function initSearchView(hierarchyData) {
+    // Clear any previous search results
+    const resultsContainer = document.getElementById('search-results');
+    const gapForm = document.getElementById('gap-form');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = '';
+    }
+    if (gapForm) {
+        gapForm.classList.add('hidden');
+    }
+    
+    // Focus the search input for better UX
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        // Use setTimeout to ensure the view is visible before focusing
+        setTimeout(() => {
+            searchInput.focus();
+        }, 100);
+    }
+}
+
+// Refresh Search View - called when hierarchy data changes
+function refreshSearchView(hierarchyData) {
+    // If there's an active search, re-run it with updated data
+    const searchInput = document.getElementById('search-input');
+    if (searchInput && searchInput.value && searchInput.value.length >= 2) {
+        handleSearch(searchInput.value);
+    } else {
+        // Otherwise, just clear results
+        const resultsContainer = document.getElementById('search-results');
+        if (resultsContainer) {
+            resultsContainer.innerHTML = '';
+        }
+    }
+}
+
+// Expose functions globally
+window.initSearchView = initSearchView;
+window.refreshSearchView = refreshSearchView;
+
 function handleSearch(query) {
     const resultsContainer = document.getElementById('search-results');
     const gapForm = document.getElementById('gap-form');

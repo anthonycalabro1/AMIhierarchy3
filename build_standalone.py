@@ -78,10 +78,12 @@ for filename, key in js_files:
                 content = content[:start_pos] + content[pos:]
             
             # Remove process-flow refresh logic in refreshCurrentView
+            # We need to remove: "} else if (currentView === 'process-flow') { ... }"
+            # But preserve the code that comes after it (updateProcessStatistics)
             start_marker2 = "} else if (currentView === 'process-flow') {"
             start_pos2 = content.find(start_marker2)
             if start_pos2 != -1:
-                # Find the matching closing brace
+                # Find the matching closing brace for the process-flow block
                 brace_count = 1
                 pos = start_pos2 + len(start_marker2)
                 while pos < len(content) and brace_count > 0:
@@ -90,7 +92,9 @@ for filename, key in js_files:
                     elif content[pos] == '}':
                         brace_count -= 1
                     pos += 1
-                # Remove the entire block including the closing brace
+                # Now pos points to the character after the closing brace of process-flow block
+                # We want to remove from start_pos2 (start of "} else if...") to pos (after closing brace)
+                # This will leave the search block's closing brace and updateProcessStatistics intact
                 content = content[:start_pos2] + content[pos:]
             
             # Remove references to process-flow-visualization.js and related libs (entire lines)
@@ -100,11 +104,40 @@ for filename, key in js_files:
 
 # Modify app.js to use embedded data
 app_js = js_contents['app']
+
 # Replace fetch calls with embedded data
-app_js = app_js.replace(
-    "const [hierarchyRes, searchRes] = await Promise.all([\n            fetch('hierarchy-data.json'),\n            fetch('search-index.json')\n        ]);\n        \n        if (!hierarchyRes.ok || !searchRes.ok) {\n            throw new Error('Failed to load data files');\n        }\n        \n        hierarchyData = await hierarchyRes.json();\n        searchIndex = await searchRes.json();",
-    "// Use embedded data instead of fetching\n        hierarchyData = embeddedHierarchyData;\n        searchIndex = embeddedSearchIndex;"
-)
+# Use a flexible approach that finds the actual block and preserves indentation
+start_marker = "const [hierarchyRes, searchRes] = await Promise.all(["
+end_marker = "searchIndex = await searchRes.json();"
+
+start_pos = app_js.find(start_marker)
+if start_pos != -1:
+    # Find the indentation before the const statement
+    # Look backwards to find the start of the line
+    line_start = app_js.rfind('\n', 0, start_pos) + 1
+    indent = app_js[line_start:start_pos]  # Capture the indentation (spaces/tabs)
+    
+    # Find the end of the block (after searchIndex assignment)
+    end_pos = app_js.find(end_marker, start_pos)
+    if end_pos != -1:
+        # Include the semicolon and any trailing whitespace/newline
+        end_pos += len(end_marker)
+        # Find the end of the line (or next non-whitespace)
+        while end_pos < len(app_js) and app_js[end_pos] in [' ', '\t']:
+            end_pos += 1
+        if end_pos < len(app_js) and app_js[end_pos] == '\n':
+            end_pos += 1
+        
+        # Create replacement with preserved indentation
+        # Note: We replace from line_start (not start_pos) to avoid double indentation
+        replacement = f"{indent}// Use embedded data instead of fetching\n{indent}hierarchyData = embeddedHierarchyData;\n{indent}searchIndex = embeddedSearchIndex;"
+        
+        # Perform the replacement from line_start to avoid including the original indentation twice
+        app_js = app_js[:line_start] + replacement + app_js[end_pos:]
+    else:
+        print("Warning: Could not find end marker for fetch block replacement")
+else:
+    print("Warning: Could not find start marker for fetch block replacement")
 
 # Build the embedded data section
 embedded_section = f"""    <!-- Embedded Data -->

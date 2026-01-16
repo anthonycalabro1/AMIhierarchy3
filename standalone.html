@@ -1503,7 +1503,7 @@ button, a, input[type="button"], input[type="submit"] {
                                                         "name": "Analyze AMI event notifications",
                                                         "level": "L3",
                                                         "objective": "Process and analyze high-volume stream of device events (e.g., power fail, restore, tamper, diagnostic flags) flowing from the HES into the MDMS or event correlation engine, filtering noise to identify actionable conditions for grid operations, revenue protection, or asset management.",
-                                                        "use_case": "Use Case 13 – Post Event Analysis\nUse Case 5 – Advanced Outage Identification and Location Awareness",
+                                                        "use_case": "Use Case 13 – Post Event Analysis\nUse Case 5 – Advanced Outage Identification and Location Awareness\nUse Case 9 - Environmental Monitoring",
                                                         "it_release": "IT Release 1 (retouched in IT Release 3)"
                                                 },
                                                 {
@@ -2844,7 +2844,7 @@ button, a, input[type="button"], input[type="submit"] {
                 "parent": "Manage interoperability and event correlation",
                 "details": {
                         "objective": "Process and analyze high-volume stream of device events (e.g., power fail, restore, tamper, diagnostic flags) flowing from the HES into the MDMS or event correlation engine, filtering noise to identify actionable conditions for grid operations, revenue protection, or asset management.",
-                        "use_case": "Use Case 13 – Post Event Analysis\nUse Case 5 – Advanced Outage Identification and Location Awareness",
+                        "use_case": "Use Case 13 – Post Event Analysis\nUse Case 5 – Advanced Outage Identification and Location Awareness\nUse Case 9 - Environmental Monitoring",
                         "it_release": "IT Release 1 (retouched in IT Release 3)"
                 }
         },
@@ -3362,8 +3362,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Fetch Data
         // Use embedded data instead of fetching
         hierarchyData = embeddedHierarchyData;
-        searchIndex = embeddedSearchIndex;
-        
+        searchIndex = embeddedSearchIndex;        
         // Ensure pendingChanges is initialized before using it
         if (!window.pendingChanges) {
             window.pendingChanges = {
@@ -3478,7 +3477,7 @@ function switchView(viewName) {
         if (typeof initSearchView === 'function' && hierarchyData) {
             initSearchView(hierarchyData);
         }
-    }
+    
 }
 
 // Expose switchView globally
@@ -4105,7 +4104,7 @@ function refreshCurrentView() {
         if (typeof refreshSearchView === 'function' && hierarchyData) {
             refreshSearchView(hierarchyData);
         }
-    }
+    
     updateProcessStatistics(hierarchyData);
 }
 
@@ -5443,6 +5442,47 @@ window.collapseAllTreeNodes = function() {
 document.getElementById('search-input').addEventListener('input', (e) => {
     handleSearch(e.target.value);
 });
+
+// Initialize Search View - called when switching to search view
+function initSearchView(hierarchyData) {
+    // Clear any previous search results
+    const resultsContainer = document.getElementById('search-results');
+    const gapForm = document.getElementById('gap-form');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = '';
+    }
+    if (gapForm) {
+        gapForm.classList.add('hidden');
+    }
+    
+    // Focus the search input for better UX
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        // Use setTimeout to ensure the view is visible before focusing
+        setTimeout(() => {
+            searchInput.focus();
+        }, 100);
+    }
+}
+
+// Refresh Search View - called when hierarchy data changes
+function refreshSearchView(hierarchyData) {
+    // If there's an active search, re-run it with updated data
+    const searchInput = document.getElementById('search-input');
+    if (searchInput && searchInput.value && searchInput.value.length >= 2) {
+        handleSearch(searchInput.value);
+    } else {
+        // Otherwise, just clear results
+        const resultsContainer = document.getElementById('search-results');
+        if (resultsContainer) {
+            resultsContainer.innerHTML = '';
+        }
+    }
+}
+
+// Expose functions globally
+window.initSearchView = initSearchView;
+window.refreshSearchView = refreshSearchView;
 
 function handleSearch(query) {
     const resultsContainer = document.getElementById('search-results');

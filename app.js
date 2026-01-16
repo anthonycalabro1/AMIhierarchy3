@@ -531,6 +531,11 @@ function switchView(viewName) {
                 updateProcessStatistics(filteredData);
             }
         }
+    } else if (viewName === 'search') {
+        // Search view initialization is handled by search.js
+        if (typeof initSearchView === 'function' && hierarchyData) {
+            initSearchView(hierarchyData);
+        }
     } else if (viewName === 'process-flow') {
         // Clear container first to remove any old visualization
         const container = document.getElementById('process-flow-container');
@@ -619,6 +624,9 @@ function switchView(viewName) {
         });
     }
 }
+
+// Expose switchView globally
+window.switchView = switchView;
 
 // Details Panel Logic
 function openDetails(processData, isEditing = false) {
@@ -1235,6 +1243,11 @@ function refreshCurrentView() {
     } else if (currentView === 'tree') {
         if (hierarchyData) {
             initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
+        }
+    } else if (currentView === 'search') {
+        // Search view refresh is handled by search.js if needed
+        if (typeof refreshSearchView === 'function' && hierarchyData) {
+            refreshSearchView(hierarchyData);
         }
     } else if (currentView === 'process-flow') {
         // Process Flow view doesn't need refresh on hierarchy changes

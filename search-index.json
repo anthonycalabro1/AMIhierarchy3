@@ -1255,7 +1255,7 @@
     "parent": "Manage interoperability and event correlation",
     "details": {
       "objective": "Process and analyze high-volume stream of device events (e.g., power fail, restore, tamper, diagnostic flags) flowing from the HES into the MDMS or event correlation engine, filtering noise to identify actionable conditions for grid operations, revenue protection, or asset management.",
-      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 5 \u2013 Advanced Outage Identification and Location Awareness",
+      "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 5 \u2013 Advanced Outage Identification and Location Awareness\nUse Case 9 - Environmental Monitoring",
       "it_release": "IT Release 1 (retouched in IT Release 3)"
     }
   },
