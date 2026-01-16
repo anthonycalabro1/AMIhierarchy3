@@ -414,11 +414,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             fetch('hierarchy-data.json'),
             fetch('search-index.json')
         ]);
-
+        
         if (!hierarchyRes.ok || !searchRes.ok) {
             throw new Error('Failed to load data files');
         }
-
+        
         hierarchyData = await hierarchyRes.json();
         searchIndex = await searchRes.json();
         

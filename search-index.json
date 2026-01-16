@@ -302,12 +302,12 @@
     }
   },
   {
-    "name": "Conduct AMI Network & Communication Field Investigations",
+    "name": "Perform meter removal and decommissioning",
     "level": "L3",
     "parent": "Manage meter field operations",
     "details": {
-      "objective": "Dispatch and execute field investigations specifically tasked with diagnosing and resolving persistent meter communication failures, utilizing RF diagnostic tools and coordinating with head-end system operators.",
-      "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "objective": "Physically remove metering assets from the field (due to service retirement or defect), capture of a certified final register read for billing closure in CIS, change the asset status in EAM to \"removed,\" and de-provision the device credentials in the HES to prevent unauthorized future network access.",
+      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
       "it_release": "IT Release 1"
     }
   },
@@ -319,16 +319,6 @@
       "objective": "Dispatch specialized field personnel to investigate physical sites flagged for potential energy diversion, tampering, or abnormal consumption patterns, requiring specific evidence gathering and safety protocols.",
       "use_case": "Use Case 4 \u2013 Revenue Protection",
       "it_release": "IT Release 1 (retouched in IT Release 2)"
-    }
-  },
-  {
-    "name": "Perform meter removal and decommissioning",
-    "level": "L3",
-    "parent": "Manage meter field operations",
-    "details": {
-      "objective": "Physically remove metering assets from the field (due to service retirement or defect), capture of a certified final register read for billing closure in CIS, change the asset status in EAM to \"removed,\" and de-provision the device credentials in the HES to prevent unauthorized future network access.",
-      "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
-      "it_release": "IT Release 1"
     }
   },
   {
@@ -382,6 +372,16 @@
     "level": "L2",
     "parent": "Field Operations",
     "details": {}
+  },
+  {
+    "name": "Conduct AMI Network & Communication Field Investigations",
+    "level": "L3",
+    "parent": "Manage network device lifecycle",
+    "details": {
+      "objective": "Dispatch and execute field investigations specifically tasked with diagnosing and resolving persistent meter communication failures, utilizing RF diagnostic tools and coordinating with head-end system operators.",
+      "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
+      "it_release": "IT Release 1"
+    }
   },
   {
     "name": "Install and maintain network access points",
@@ -478,12 +478,12 @@
     "details": {}
   },
   {
-    "name": "Resolve AMI billing data mismatches",
+    "name": "Calculate and validate register-based bills",
     "level": "L3",
     "parent": "Manage meter-to-cash operations",
     "details": {
-      "objective": "Establish a traceable audit trail verifying that 100% of validated billable determinants are successfully transmitted from the MDMS to the CIS prior to bill calculation. This process mitigates the fundamental business risk of \"silent data loss\" inherent in high-volume AMI integrations, providing necessary assurance for financial reporting and regulatory compliance that testing alone cannot guarantee.",
-      "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 3 \u2013 Improve Customer Experience",
+      "objective": "Execute traditional billing cycles within the CIS for accounts remaining on scalar rates, utilizing validated start and stop register reads passed from the MDMS, applying rate schedules, calculating usage and charges, and performing pre-bill validation checks to identify and hold anomalous bills for manual review.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
       "it_release": "IT Release 1"
     }
   },
@@ -504,7 +504,7 @@
     "details": {
       "objective": "Execute CIS billing logic that requires time-series analysis to determine peak power demand (kW), including non-coincident peaks, coincident system peaks, and complex structures like demand ratchets or power factor adjustments.",
       "use_case": "Use Case 1 \u2013 Meter-to-Cash",
-      "it_release": "IT Release 2"
+      "it_release": "IT Release 1"
     }
   },
   {
@@ -518,12 +518,12 @@
     }
   },
   {
-    "name": "Calculate and validate register-based bills",
+    "name": "Resolve AMI billing data mismatches",
     "level": "L3",
     "parent": "Manage meter-to-cash operations",
     "details": {
-      "objective": "Execute traditional billing cycles within the CIS for accounts remaining on scalar rates, utilizing validated start and stop register reads passed from the MDMS, applying rate schedules, calculating usage and charges, and performing pre-bill validation checks to identify and hold anomalous bills for manual review.",
-      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "objective": "Establish a traceable audit trail verifying that 100% of validated billable determinants are successfully transmitted from the MDMS to the CIS prior to bill calculation. This process mitigates the fundamental business risk of \"silent data loss\" inherent in high-volume AMI integrations, providing necessary assurance for financial reporting and regulatory compliance that testing alone cannot guarantee.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 3 \u2013 Improve Customer Experience",
       "it_release": "IT Release 1"
     }
   },
@@ -564,7 +564,7 @@
     "details": {
       "objective": "Manage the end-to-end workflow for customer-initiated inquiries disputing billed amounts, requiring deep-dive investigations into usage history, rate application, and potential meter issues to provide satisfactory explanations or initiate necessary adjustments.",
       "use_case": "Use Case 1 \u2013 Meter-to-Cash",
-      "it_release": "IT Release 3"
+      "it_release": "IT Release 1"
     }
   },
   {
@@ -1009,7 +1009,7 @@
     "parent": "Detect and manage safety hazards",
     "details": {
       "objective": "Identify high-temperature alarms from meter event logs in the HES and conduct immediate automated validation logic in the HES/MDMS to filter false positives, followed by instantaneous execution of a remote disconnect command (if enabled) and/or high-priority dispatch of field crews via OMS/MWM to investigate a potential fire hazard.",
-      "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM\nUse Case 5 \u2013 Advanced Outage Identification",
+      "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM",
       "it_release": "IT Release 1 (retouched in IT Release 2)"
     }
   },
