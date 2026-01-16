@@ -911,13 +911,6 @@ button, a, input[type="button"], input[type="submit"] {
                                         "level": "L2",
                                         "children": [
                                                 {
-                                                        "name": "Calculate and validate register-based bills",
-                                                        "level": "L3",
-                                                        "objective": "Execute traditional billing cycles within the CIS for accounts remaining on scalar rates, utilizing validated start and stop register reads passed from the MDMS, applying rate schedules, calculating usage and charges, and performing pre-bill validation checks to identify and hold anomalous bills for manual review.",
-                                                        "use_case": "Use Case 1 – Meter-to-Cash",
-                                                        "it_release": "IT Release 1"
-                                                },
-                                                {
                                                         "name": "Calculate and validate time-varying (TOU/TVP) energy bills",
                                                         "level": "L3",
                                                         "objective": "Execute CIS billing logic for rates where interval energy usage (kWh) is aggregated into pre-defined time-based buckets (e.g., On-Peak, Off-Peak, Seasonal periods) according to fixed schedules.",
@@ -987,17 +980,24 @@ button, a, input[type="button"], input[type="submit"] {
                                         "level": "L2",
                                         "children": [
                                                 {
-                                                        "name": "Manage Virtual Net Metering (VNM) Allocations",
+                                                        "name": "Manage Program-Based Virtual Net Metering (VNM) Allocations",
                                                         "level": "L3",
                                                         "objective": "Manage the end-to-end lifecycle of Virtual Net Metering arrangements, defining the complex virtual relationships between a central generating facility and multiple non-colocated beneficiary accounts (e.g., tenants), and maintaining the dynamic percentage-based credit allocation schedules required to distribute generation credits accurately on ongoing monthly bills.",
                                                         "use_case": "Use Case 1 – Meter-to-Cash\nUse Case 2 – Optimizing Energy Savings\nUse Case 7 – Long-Term Grid Planning",
                                                         "it_release": "IT Release 1"
                                                 },
                                                 {
-                                                        "name": "Manage NEM Aggregation (NEM-A) Structures",
+                                                        "name": "Manage Program-Based NEM Aggregation Structures",
                                                         "level": "L3",
                                                         "objective": "Establish and maintain the complex account hierarchies required for regulatory NEM Aggregation, linking a principal generating account with multiple eligible, often contiguous, usage premises under a single customer ownership to enable a unified, aggregated billing settlement where total generation offsets total combined load.",
                                                         "use_case": "Use Case 1 – Meter-to-Cash\nUse Case 2 – Optimizing Energy Savings\nUse Case 7 – Long-Term Grid Planning",
+                                                        "it_release": "IT Release 1"
+                                                },
+                                                {
+                                                        "name": "Manage Platform-Based Complex Metering Relationships",
+                                                        "level": "L3",
+                                                        "objective": "Define, configure, and maintain complex metering relationships—including deduct meters, totalizer arrangements, and sub-metering structures—by establishing parent-child device hierarchies, applying aggregation or subtraction rules to interval and register data, and producing auditable billing determinants for accurate CIS settlement.",
+                                                        "use_case": "Use Case 1 – Meter-to-Cash",
                                                         "it_release": "IT Release 1"
                                                 }
                                         ]
@@ -1124,8 +1124,8 @@ button, a, input[type="button"], input[type="submit"] {
                                                         "name": "Manage Demand Response Event Settlement",
                                                         "level": "L3",
                                                         "objective": "Execute post-event workflow within the MDMS or a separate DR Management System to determine financial settlements for demand response participants, involving calculating Customer Baseline Loads (CBL) using historical interval data, measuring actual performance during the event window, calculating credits or penalties based on program rules, and passing these financial determinants to CIS for billing application.",
-                                                        "use_case": "Use Case 3 – Improve Customer Experience",
-                                                        "it_release": "IT Release 3"
+                                                        "use_case": "Use Case 1 – Meter-to-Cash",
+                                                        "it_release": "IT Release 1"
                                                 },
                                                 {
                                                         "name": "Manage EV Panel Capacity Limits",
@@ -1145,7 +1145,7 @@ button, a, input[type="button"], input[type="submit"] {
                                                         "level": "L3",
                                                         "objective": "Manage the end-to-end lifecycle of secure third-party data access, including authenticating requests from customers and authorized third parties, securely generating and delivering usage and generation data via APIs, and maintaining comprehensive audit logs to ensure compliance and detect misuse.",
                                                         "use_case": "Use Case 6 – 3rd Party Meter Data Access",
-                                                        "it_release": "IT Release 3"
+                                                        "it_release": "IT Release 1"
                                                 }
                                         ]
                                 }
@@ -2067,16 +2067,6 @@ button, a, input[type="button"], input[type="submit"] {
                 "details": {}
         },
         {
-                "name": "Calculate and validate register-based bills",
-                "level": "L3",
-                "parent": "Manage meter-to-cash operations",
-                "details": {
-                        "objective": "Execute traditional billing cycles within the CIS for accounts remaining on scalar rates, utilizing validated start and stop register reads passed from the MDMS, applying rate schedules, calculating usage and charges, and performing pre-bill validation checks to identify and hold anomalous bills for manual review.",
-                        "use_case": "Use Case 1 – Meter-to-Cash",
-                        "it_release": "IT Release 1"
-                }
-        },
-        {
                 "name": "Calculate and validate time-varying (TOU/TVP) energy bills",
                 "level": "L3",
                 "parent": "Manage meter-to-cash operations",
@@ -2173,7 +2163,7 @@ button, a, input[type="button"], input[type="submit"] {
                 "details": {}
         },
         {
-                "name": "Manage Virtual Net Metering (VNM) Allocations",
+                "name": "Manage Program-Based Virtual Net Metering (VNM) Allocations",
                 "level": "L3",
                 "parent": "Manage complex billing arrangements",
                 "details": {
@@ -2183,12 +2173,22 @@ button, a, input[type="button"], input[type="submit"] {
                 }
         },
         {
-                "name": "Manage NEM Aggregation (NEM-A) Structures",
+                "name": "Manage Program-Based NEM Aggregation Structures",
                 "level": "L3",
                 "parent": "Manage complex billing arrangements",
                 "details": {
                         "objective": "Establish and maintain the complex account hierarchies required for regulatory NEM Aggregation, linking a principal generating account with multiple eligible, often contiguous, usage premises under a single customer ownership to enable a unified, aggregated billing settlement where total generation offsets total combined load.",
                         "use_case": "Use Case 1 – Meter-to-Cash\nUse Case 2 – Optimizing Energy Savings\nUse Case 7 – Long-Term Grid Planning",
+                        "it_release": "IT Release 1"
+                }
+        },
+        {
+                "name": "Manage Platform-Based Complex Metering Relationships",
+                "level": "L3",
+                "parent": "Manage complex billing arrangements",
+                "details": {
+                        "objective": "Define, configure, and maintain complex metering relationships—including deduct meters, totalizer arrangements, and sub-metering structures—by establishing parent-child device hierarchies, applying aggregation or subtraction rules to interval and register data, and producing auditable billing determinants for accurate CIS settlement.",
+                        "use_case": "Use Case 1 – Meter-to-Cash",
                         "it_release": "IT Release 1"
                 }
         },
@@ -2354,8 +2354,8 @@ button, a, input[type="button"], input[type="submit"] {
                 "parent": "Manage rate optimization and program enrollment",
                 "details": {
                         "objective": "Execute post-event workflow within the MDMS or a separate DR Management System to determine financial settlements for demand response participants, involving calculating Customer Baseline Loads (CBL) using historical interval data, measuring actual performance during the event window, calculating credits or penalties based on program rules, and passing these financial determinants to CIS for billing application.",
-                        "use_case": "Use Case 3 – Improve Customer Experience",
-                        "it_release": "IT Release 3"
+                        "use_case": "Use Case 1 – Meter-to-Cash",
+                        "it_release": "IT Release 1"
                 }
         },
         {
@@ -2381,7 +2381,7 @@ button, a, input[type="button"], input[type="submit"] {
                 "details": {
                         "objective": "Manage the end-to-end lifecycle of secure third-party data access, including authenticating requests from customers and authorized third parties, securely generating and delivering usage and generation data via APIs, and maintaining comprehensive audit logs to ensure compliance and detect misuse.",
                         "use_case": "Use Case 6 – 3rd Party Meter Data Access",
-                        "it_release": "IT Release 3"
+                        "it_release": "IT Release 1"
                 }
         },
         {

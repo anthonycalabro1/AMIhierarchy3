@@ -478,16 +478,6 @@
     "details": {}
   },
   {
-    "name": "Calculate and validate register-based bills",
-    "level": "L3",
-    "parent": "Manage meter-to-cash operations",
-    "details": {
-      "objective": "Execute traditional billing cycles within the CIS for accounts remaining on scalar rates, utilizing validated start and stop register reads passed from the MDMS, applying rate schedules, calculating usage and charges, and performing pre-bill validation checks to identify and hold anomalous bills for manual review.",
-      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
-      "it_release": "IT Release 1"
-    }
-  },
-  {
     "name": "Calculate and validate time-varying (TOU/TVP) energy bills",
     "level": "L3",
     "parent": "Manage meter-to-cash operations",
@@ -584,7 +574,7 @@
     "details": {}
   },
   {
-    "name": "Manage Virtual Net Metering (VNM) Allocations",
+    "name": "Manage Program-Based Virtual Net Metering (VNM) Allocations",
     "level": "L3",
     "parent": "Manage complex billing arrangements",
     "details": {
@@ -594,12 +584,22 @@
     }
   },
   {
-    "name": "Manage NEM Aggregation (NEM-A) Structures",
+    "name": "Manage Program-Based NEM Aggregation Structures",
     "level": "L3",
     "parent": "Manage complex billing arrangements",
     "details": {
       "objective": "Establish and maintain the complex account hierarchies required for regulatory NEM Aggregation, linking a principal generating account with multiple eligible, often contiguous, usage premises under a single customer ownership to enable a unified, aggregated billing settlement where total generation offsets total combined load.",
       "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 2 \u2013 Optimizing Energy Savings\nUse Case 7 \u2013 Long-Term Grid Planning",
+      "it_release": "IT Release 1"
+    }
+  },
+  {
+    "name": "Manage Platform-Based Complex Metering Relationships",
+    "level": "L3",
+    "parent": "Manage complex billing arrangements",
+    "details": {
+      "objective": "Define, configure, and maintain complex metering relationships\u2014including deduct meters, totalizer arrangements, and sub-metering structures\u2014by establishing parent-child device hierarchies, applying aggregation or subtraction rules to interval and register data, and producing auditable billing determinants for accurate CIS settlement.",
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
       "it_release": "IT Release 1"
     }
   },
@@ -765,8 +765,8 @@
     "parent": "Manage rate optimization and program enrollment",
     "details": {
       "objective": "Execute post-event workflow within the MDMS or a separate DR Management System to determine financial settlements for demand response participants, involving calculating Customer Baseline Loads (CBL) using historical interval data, measuring actual performance during the event window, calculating credits or penalties based on program rules, and passing these financial determinants to CIS for billing application.",
-      "use_case": "Use Case 3 \u2013 Improve Customer Experience",
-      "it_release": "IT Release 3"
+      "use_case": "Use Case 1 \u2013 Meter-to-Cash",
+      "it_release": "IT Release 1"
     }
   },
   {
@@ -792,7 +792,7 @@
     "details": {
       "objective": "Manage the end-to-end lifecycle of secure third-party data access, including authenticating requests from customers and authorized third parties, securely generating and delivering usage and generation data via APIs, and maintaining comprehensive audit logs to ensure compliance and detect misuse.",
       "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
-      "it_release": "IT Release 3"
+      "it_release": "IT Release 1"
     }
   },
   {
