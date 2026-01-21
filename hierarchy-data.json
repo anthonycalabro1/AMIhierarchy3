@@ -265,28 +265,28 @@
             {
               "name": "Perform remote disconnect / reconnect for move-out",
               "level": "L3",
-              "objective": "Perform automated workflow triggered by a customer move-out request in CIS, orchestrating a remote disconnect command via the MDMS and HES to the meter's internal switch, validating successful state change via HES feedback, and updating service status in CIS, including handling communication failures that require a manual field truck roll.",
+              "objective": "Perform automated workflow triggered by a customer move-out request in CIS, orchestrating a remote disconnect command via the HES to the meter's internal switch, validating successful state change via HES feedback, and updating service status in CIS, including handling communication failures that require a manual field truck roll.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
             {
               "name": "Perform remote disconnect / reconnect for move-in",
               "level": "L3",
-              "objective": "Peform automated workflow triggered by a new customer move-in request in CIS, orchestrating a remote connect command via the MDMS and HES to restore service, validating voltage presence at the meter, and updating account status in CIS, including managing exceptions where MDMS safety checks prevent remote reconnection.",
+              "objective": "Peform automated workflow triggered by a new customer move-in request in CIS, orchestrating a remote connect command via the HES to restore service, validating voltage presence at the meter, and updating account status in CIS, including managing exceptions where MDMS safety checks prevent remote reconnection.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
             {
               "name": "Perform remote disconnect for non-payment",
               "level": "L3",
-              "objective": "Conduct workflow initiated by the CIS collections module for delinquent accounts, validating eligibility for remote disconnection, executing the command via MDMS and HES, and updating the account credit status, while rigorously managing exceptions for critical care customers or medical baseline accounts identified in CIS.",
+              "objective": "Conduct workflow initiated by the CIS collections module for delinquent accounts, validating eligibility for remote disconnection, executing the command via HES, and updating the account credit status, while rigorously managing exceptions for critical care customers or medical baseline accounts identified in CIS.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
             {
               "name": "Perform remote reconnect after payment",
               "level": "L3",
-              "objective": "Conduct near-real-time workflow triggered by payment receipt in CIS, immediately issuing a remote reconnect command via MDMS and HES to restore service, verifying successful reconnection through meter feedback, and notifying the customer, including handling technical failures that delay restoration.",
+              "objective": "Conduct near-real-time workflow triggered by payment receipt in CIS, immediately issuing a remote reconnect command via HES to restore service, verifying successful reconnection through meter feedback, and notifying the customer, including handling technical failures that delay restoration.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             }
@@ -304,9 +304,16 @@
               "it_release": "IT Release 1"
             },
             {
-              "name": "Install and maintain network access points",
+              "name": "Install and Commission AMI Network Access Points",
               "level": "L3",
-              "objective": "Manage installation of AMI field network infrastructure (e.g., Take-out Points, Relays), involving site acquisition planning, work order generation in EAM for installation or maintenance, field execution by telecommunications crews, and the technical commissioning of the devices into the HES network management layer.",
+              "objective": "Install and technically commission AMI field network infrastructure (e.g., take-out points, relays, collectors), including site planning, work order execution, and registration of devices into the HES network management layer.",
+              "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
+              "it_release": "IT Release 1"
+            },
+            {
+              "name": "Monitor and Maintain AMI Network Infrastructure Performance",
+              "level": "L3",
+              "objective": "Continuously monitor network access point health and performance using HES network telemetry to identify coverage gaps, routing congestion, or device failures and initiate corrective maintenance or optimization actions.",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1"
             },
@@ -520,16 +527,16 @@
               "it_release": "IT Release 1"
             },
             {
-              "name": "Disable AMI communications for opt-out customers",
+              "name": "Replace AMI Meter with Non-Communicating Meter (Opt-Out)",
               "level": "L3",
-              "objective": "Execute disabling the RF radio capability on an existing AMI meter for customers who choose to opt-out but where a physical meter exchange is not immediately required or possible, involving issuing a configuration command from the HES and verifying the cessation of communication.",
+              "objective": "Execute the end-to-end opt-out workflow by validating customer eligibility, generating and dispatching a field work order to exchange the AMI meter for a non-communicating mechanical meter, updating asset, billing, and enrollment records, and confirming the premise is excluded from AMI communications and data collection.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
             {
-              "name": "Enable AMI communications for re-enrolled customers",
+              "name": "Replace Non-Communicating Meter with AMI Meter (Re-Enrollment)",
               "level": "L3",
-              "objective": "Execute re-enabling the RF radio capability on a previously disabled AMI meter for customers who choose to opt-in to the AMI program, involving issuing a configuration command from the HES, verifying network re-registration, and updating CIS status.",
+              "objective": "Execute the re-enrollment workflow for customers opting back into AMI by validating eligibility, scheduling and completing a field exchange from a non-communicating mechanical meter to an AMI meter, provisioning the new device in AMI systems, and restoring full billing and communication functionality.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1"
             },
@@ -778,7 +785,7 @@
               "level": "L3",
               "objective": "Identify high-temperature alarms from meter event logs in the HES and conduct immediate automated validation logic in the HES/MDMS to filter false positives, followed by instantaneous execution of a remote disconnect command (if enabled) and/or high-priority dispatch of field crews via OMS/MWM to investigate a potential fire hazard.",
               "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM",
-              "it_release": "IT Release 1 (retouched in IT Release 2)"
+              "it_release": "IT Release 2"
             },
             {
               "name": "Identify and Resolve Neutral Connection Issues",
@@ -921,9 +928,9 @@
               "it_release": "IT Release 1"
             },
             {
-              "name": "Track device reliability and communication performance",
+              "name": "Monitor Meter Reliability and Communication Performance",
               "level": "L3",
-              "objective": "Continuously monitor and analyze HES network performance data and device event logs to calculate reliability metrics (e.g., daily read success rates, mesh hop counts), identify poorly performing devices or network pockets, and detect systemic recurring issues for proactive maintenance.",
+              "objective": "Continuously monitor and analyze HES performance data and meter event logs to calculate meter reliability metrics (e.g., daily read success rates, latency, event frequency), identify poorly performing meters or localized communication issues, and detect recurring patterns requiring remediation.",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1 (retouched in IT Release 2)"
             }
@@ -1023,7 +1030,7 @@
               "level": "L3",
               "objective": "Manage the end-to-end lifecycle of secure data exchange with institutional third parties, including authenticating and authorizing requests, transmitting datasets via secure API channels in compliance with privacy standards, and maintaining comprehensive audit logs to monitor usage and ensure compliance.",
               "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
-              "it_release": "IT Release 3"
+              "it_release": "IT Release 1"
             }
           ]
         },
