@@ -243,4 +243,3 @@ function importFromExcel(event) {
 // Expose functions globally
 window.exportToExcel = exportToExcel;
 window.importFromExcel = importFromExcel;
-
