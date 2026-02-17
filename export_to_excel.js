@@ -9,40 +9,46 @@ function exportToExcel() {
     }
     
     try {
-        // Convert hierarchy to flat Excel format
+        const KNOWN_COLS = ['L1 Process Name', 'L2 Process Name', 'L3 Process Name', 'L3 Process Objective', 'Use Case Mapping', 'IT Release', 'Wave'];
+        const allDepartments = new Set();
+        function collectDepartments(node) {
+            if (node.level === 'L3' && node.departments) {
+                node.departments.forEach(d => allDepartments.add(d));
+            }
+            (node.children || []).forEach(collectDepartments);
+        }
+        if (window.hierarchyData.children) {
+            window.hierarchyData.children.forEach(collectDepartments);
+        }
+        const departmentList = Array.from(allDepartments).sort();
+
         const rows = [];
-        
         function flattenHierarchy(node, l1Name = '', l2Name = '') {
             if (node.level === 'L1') {
                 l1Name = node.name;
-                if (node.children) {
-                    node.children.forEach(child => flattenHierarchy(child, l1Name, l2Name));
-                }
+                if (node.children) node.children.forEach(child => flattenHierarchy(child, l1Name, l2Name));
             } else if (node.level === 'L2') {
                 l2Name = node.name;
-                if (node.children) {
-                    node.children.forEach(child => flattenHierarchy(child, l1Name, l2Name));
-                }
+                if (node.children) node.children.forEach(child => flattenHierarchy(child, l1Name, l2Name));
             } else if (node.level === 'L3') {
-                // Check if this process is deleted
                 const processId = window.getProcessId ? window.getProcessId(node) : `${node.level}_${node.name}`;
                 const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
-                
-                // Skip deleted items in export (or mark them if needed)
                 if (!isDeleted) {
-                    rows.push({
+                    const deptSet = new Set(node.departments || []);
+                    const row = {
                         'L1 Process Name': l1Name,
                         'L2 Process Name': l2Name,
                         'L3 Process Name': node.name,
                         'L3 Process Objective': node.objective || '',
                         'Use Case Mapping': node.use_case || '',
-                        'IT Release': node.it_release || ''
-                    });
+                        'IT Release': node.it_release || '',
+                        'Wave': node.wave || ''
+                    };
+                    departmentList.forEach(d => { row[d] = deptSet.has(d) ? 'X' : ''; });
+                    rows.push(row);
                 }
             }
         }
-        
-        // Process all top-level children
         if (window.hierarchyData.children) {
             window.hierarchyData.children.forEach(child => flattenHierarchy(child));
         }
@@ -51,15 +57,11 @@ function exportToExcel() {
         const wb = XLSX.utils.book_new();
         const ws = XLSX.utils.json_to_sheet(rows);
         
-        // Set column widths
-        ws['!cols'] = [
-            { wch: 30 }, // L1 Process Name
-            { wch: 40 }, // L2 Process Name
-            { wch: 50 }, // L3 Process Name
-            { wch: 80 }, // L3 Process Objective
-            { wch: 50 }, // Use Case Mapping
-            { wch: 20 }  // IT Release
+        const colWidths = [
+            { wch: 30 }, { wch: 40 }, { wch: 50 }, { wch: 80 }, { wch: 50 }, { wch: 20 }, { wch: 15 }
         ];
+        departmentList.forEach(() => colWidths.push({ wch: 15 }));
+        ws['!cols'] = colWidths;
         
         // Add worksheet to workbook
         XLSX.utils.book_append_sheet(wb, ws, 'Process Hierarchy');
@@ -136,27 +138,27 @@ function importFromExcel(event) {
                 return;
             }
             
-            // Convert flat data to hierarchy
+            const KNOWN_COLS = new Set(['L1 Process Name', 'L2 Process Name', 'L3 Process Name', 'L3 Process Objective', 'Use Case Mapping', 'IT Release', 'Wave', 'Priority']);
+            const allColumns = Object.keys(firstRow);
+
             const newHierarchy = { name: 'Process Hierarchy', children: [] };
             const l1Map = new Map();
             const l2Map = new Map();
-            
+
             jsonData.forEach(row => {
                 const l1Name = row['L1 Process Name'] || '';
                 const l2Name = row['L2 Process Name'] || '';
                 const l3Name = row['L3 Process Name'] || '';
-                
+
                 if (!l1Name || !l2Name || !l3Name) return;
-                
-                // Get or create L1
+
                 let l1Node = l1Map.get(l1Name);
                 if (!l1Node) {
                     l1Node = { name: l1Name, level: 'L1', children: [] };
                     l1Map.set(l1Name, l1Node);
                     newHierarchy.children.push(l1Node);
                 }
-                
-                // Get or create L2
+
                 const l2Key = `${l1Name}_${l2Name}`;
                 let l2Node = l2Map.get(l2Key);
                 if (!l2Node) {
@@ -164,14 +166,25 @@ function importFromExcel(event) {
                     l2Map.set(l2Key, l2Node);
                     l1Node.children.push(l2Node);
                 }
-                
-                // Create L3
+
+                const departments = [];
+                allColumns.forEach(col => {
+                    if (KNOWN_COLS.has(col)) return;
+                    const val = row[col];
+                    if (val != null && String(val).trim().toUpperCase() === 'X') {
+                        departments.push(col.trim());
+                    }
+                });
+
+                const waveVal = (row['Priority'] != null ? row['Priority'] : row['Wave']);
                 const l3Node = {
                     name: l3Name,
                     level: 'L3',
                     objective: row['L3 Process Objective'] || '',
                     use_case: row['Use Case Mapping'] || '',
-                    it_release: row['IT Release'] || ''
+                    it_release: row['IT Release'] || '',
+                    wave: waveVal != null ? String(waveVal).trim() : '',
+                    departments: departments
                 };
                 l2Node.children.push(l3Node);
             });
@@ -193,12 +206,8 @@ function importFromExcel(event) {
             window.changeHistory = [];
             window.historyIndex = -1;
             
-            // Rebuild search index
-            if (window.updateSearchIndex) {
-                window.updateSearchIndex();
-            }
-            
-            // Refresh views
+            if (window.updateSearchIndex) window.updateSearchIndex();
+            if (window.populateFilterDropdowns) window.populateFilterDropdowns(newHierarchy);
             if (window.refreshCurrentView) {
                 window.refreshCurrentView();
             }

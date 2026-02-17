@@ -35,6 +35,24 @@ def convert_excel_to_json():
         # Fill NaN values with empty strings
         df = df.fillna('')
 
+        # Known columns (not department columns). Wave/Priority is optional.
+        # Excel uses "Priority" column for Wave values (Wave 1, Wave 2, etc.)
+        KNOWN_COLUMNS = {
+            'L1 Process Name', 'L2 Process Name', 'L3 Process Name',
+            'L3 Process Objective', 'Use Case Mapping', 'IT Release', 'Wave', 'Priority'
+        }
+
+        def get_departments_for_row(row, all_columns):
+            """Extract department names from row where cell value is 'X'."""
+            depts = []
+            for col in all_columns:
+                if col in KNOWN_COLUMNS:
+                    continue
+                val = row.get(col, '')
+                if pd.notna(val) and str(val).strip().upper() == 'X':
+                    depts.append(col.strip())
+            return depts
+
         # Build Hierarchy Data
         hierarchy_data = {"name": "Process Hierarchy", "children": []}
         
@@ -55,13 +73,24 @@ def convert_excel_to_json():
                 }
                 
                 # Iterate L3 within L2 (already preserves row order)
+                all_columns = df.columns.tolist()
                 for _, row in l2_group.iterrows():
+                    row_dict = row.to_dict()
+                    wave_val = ''
+                    # Read from Priority column (Wave 1, Wave 2, etc.) or fallback to Wave
+                    if 'Priority' in df.columns and pd.notna(row.get('Priority')):
+                        wave_val = str(row.get('Priority', '')).strip()
+                    elif 'Wave' in df.columns and pd.notna(row.get('Wave')):
+                        wave_val = str(row.get('Wave', '')).strip()
+                    departments = get_departments_for_row(row_dict, all_columns)
                     l3_node = {
                         "name": row['L3 Process Name'],
                         "level": "L3",
                         "objective": row['L3 Process Objective'],
                         "use_case": row['Use Case Mapping'],
-                        "it_release": row['IT Release']
+                        "it_release": row['IT Release'],
+                        "wave": wave_val,
+                        "departments": departments
                     }
                     l2_node["children"].append(l3_node)
                 
@@ -100,7 +129,15 @@ def convert_excel_to_json():
                     seen_l2.add(l2_name)
                 
                 # Add all L3 entries for this L2 immediately after the L2 entry
+                all_columns = df.columns.tolist()
                 for _, row in l2_group.iterrows():
+                    row_dict = row.to_dict()
+                    wave_val = ''
+                    if 'Priority' in df.columns and pd.notna(row.get('Priority')):
+                        wave_val = str(row.get('Priority', '')).strip()
+                    elif 'Wave' in df.columns and pd.notna(row.get('Wave')):
+                        wave_val = str(row.get('Wave', '')).strip()
+                    departments = get_departments_for_row(row_dict, all_columns)
                     search_index.append({
                         "name": row['L3 Process Name'],
                         "level": "L3",
@@ -108,7 +145,9 @@ def convert_excel_to_json():
                         "details": {
                             "objective": row['L3 Process Objective'],
                             "use_case": row['Use Case Mapping'],
-                            "it_release": row['IT Release']
+                            "it_release": row['IT Release'],
+                            "wave": wave_val,
+                            "departments": departments
                         }
                     })
         

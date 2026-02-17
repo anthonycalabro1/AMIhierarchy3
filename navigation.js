@@ -2,14 +2,14 @@ let currentNavData = null;
 let navHistory = []; // Array of objects { name: "Root", data: ... }
 let originalNavData = null; // Store original unfiltered data
 
-function initNavigationView(data, itReleaseFilter = null, useCaseFilter = null) {
+function initNavigationView(data, itReleaseFilter = null, useCaseFilter = null, waveFilter = null, departmentFilter = null) {
     // Store original data
     originalNavData = data;
     
     // Apply combined filter if provided
     let filteredData = data;
     if (typeof filterHierarchy === 'function') {
-        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter);
+        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter, waveFilter, departmentFilter);
     }
     
     // Reset history
@@ -48,26 +48,45 @@ function setupNavFilterListeners() {
         useCaseFilter.addEventListener('change', (e) => {
             const selectedValue = e.target.value;
             window.currentUseCaseFilter = selectedValue === 'All' ? null : selectedValue;
-            
-            // Sync tree filter dropdown
             const treeUseCaseFilter = document.getElementById('tree-use-case-filter');
-            if (treeUseCaseFilter) {
-                treeUseCaseFilter.value = selectedValue;
-            }
-            
-            // Apply combined filter
+            if (treeUseCaseFilter) treeUseCaseFilter.value = selectedValue;
+            applyNavFilters();
+        });
+    }
+
+    const waveFilter = document.getElementById('nav-wave-filter');
+    if (waveFilter && waveFilter.dataset.listenerSetup !== 'true') {
+        waveFilter.dataset.listenerSetup = 'true';
+        waveFilter.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            window.currentWaveFilter = selectedValue === 'All' ? null : selectedValue;
+            const treeWaveFilter = document.getElementById('tree-wave-filter');
+            if (treeWaveFilter) treeWaveFilter.value = selectedValue;
+            applyNavFilters();
+        });
+    }
+
+    const departmentFilter = document.getElementById('nav-department-filter');
+    if (departmentFilter && departmentFilter.dataset.listenerSetup !== 'true') {
+        departmentFilter.dataset.listenerSetup = 'true';
+        departmentFilter.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            window.currentDepartmentFilter = selectedValue === 'All' ? null : selectedValue;
+            const treeDepartmentFilter = document.getElementById('tree-department-filter');
+            if (treeDepartmentFilter) treeDepartmentFilter.value = selectedValue;
             applyNavFilters();
         });
     }
 }
 
 function applyNavFilters() {
-    // Re-apply combined filter to original data
     if (originalNavData && typeof filterHierarchy === 'function') {
         const filteredData = filterHierarchy(
             originalNavData, 
             window.currentITReleaseFilter, 
-            window.currentUseCaseFilter
+            window.currentUseCaseFilter,
+            window.currentWaveFilter,
+            window.currentDepartmentFilter
         );
         
         // Update statistics with filtered data
@@ -122,12 +141,10 @@ function renderNavigationView(nodeData) {
     if (visibleChildren.length === 0) {
         let filterMessage = 'No child processes found.';
         const activeFilters = [];
-        if (window.currentITReleaseFilter) {
-            activeFilters.push(`IT Release: ${window.currentITReleaseFilter}`);
-        }
-        if (window.currentUseCaseFilter) {
-            activeFilters.push(`Use Case: ${window.currentUseCaseFilter}`);
-        }
+        if (window.currentITReleaseFilter) activeFilters.push(`IT Release: ${window.currentITReleaseFilter}`);
+        if (window.currentUseCaseFilter) activeFilters.push(`Use Case: ${window.currentUseCaseFilter}`);
+        if (window.currentWaveFilter) activeFilters.push(`Wave: ${window.currentWaveFilter}`);
+        if (window.currentDepartmentFilter) activeFilters.push(`Department: ${window.currentDepartmentFilter}`);
         if (activeFilters.length > 0) {
             filterMessage = `No processes found matching filter(s): ${activeFilters.join(', ')}`;
         }

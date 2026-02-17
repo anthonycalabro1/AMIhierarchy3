@@ -1,31 +1,24 @@
-function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = null) {
+function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = null, waveFilter = null, departmentFilter = null) {
     const containerId = "#tree-container";
     const container = document.querySelector(containerId);
     
-    // Store original data for filtering
     originalTreeData = data;
-    
-    // Clear previous
     d3.select(containerId).selectAll("*").remove();
 
     if (!container) return;
 
-    // Apply combined filter if provided
     let filteredData = data;
     if (typeof filterHierarchy === 'function') {
-        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter);
+        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter, waveFilter, departmentFilter);
     }
 
-    // Check if filtered data has any children
     if (!filteredData.children || filteredData.children.length === 0) {
         let message = 'No processes found.';
         const activeFilters = [];
-        if (itReleaseFilter) {
-            activeFilters.push(`IT Release: ${itReleaseFilter}`);
-        }
-        if (useCaseFilter) {
-            activeFilters.push(`Use Case: ${useCaseFilter}`);
-        }
+        if (itReleaseFilter) activeFilters.push(`IT Release: ${itReleaseFilter}`);
+        if (useCaseFilter) activeFilters.push(`Use Case: ${useCaseFilter}`);
+        if (waveFilter) activeFilters.push(`Wave: ${waveFilter}`);
+        if (departmentFilter) activeFilters.push(`Department: ${departmentFilter}`);
         if (activeFilters.length > 0) {
             message = `No processes found matching filter(s): ${activeFilters.join(', ')}`;
         }
@@ -523,14 +516,32 @@ function setupTreeFilterListeners() {
         useCaseFilter.addEventListener('change', (e) => {
             const selectedValue = e.target.value;
             window.currentUseCaseFilter = selectedValue === 'All' ? null : selectedValue;
-            
-            // Sync nav filter dropdown
             const navUseCaseFilter = document.getElementById('nav-use-case-filter');
-            if (navUseCaseFilter) {
-                navUseCaseFilter.value = selectedValue;
-            }
-            
-            // Apply combined filter
+            if (navUseCaseFilter) navUseCaseFilter.value = selectedValue;
+            applyTreeFilters();
+        });
+    }
+
+    const waveFilter = document.getElementById('tree-wave-filter');
+    if (waveFilter && waveFilter.dataset.listenerSetup !== 'true') {
+        waveFilter.dataset.listenerSetup = 'true';
+        waveFilter.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            window.currentWaveFilter = selectedValue === 'All' ? null : selectedValue;
+            const navWaveFilter = document.getElementById('nav-wave-filter');
+            if (navWaveFilter) navWaveFilter.value = selectedValue;
+            applyTreeFilters();
+        });
+    }
+
+    const departmentFilter = document.getElementById('tree-department-filter');
+    if (departmentFilter && departmentFilter.dataset.listenerSetup !== 'true') {
+        departmentFilter.dataset.listenerSetup = 'true';
+        departmentFilter.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            window.currentDepartmentFilter = selectedValue === 'All' ? null : selectedValue;
+            const navDepartmentFilter = document.getElementById('nav-department-filter');
+            if (navDepartmentFilter) navDepartmentFilter.value = selectedValue;
             applyTreeFilters();
         });
     }
@@ -547,16 +558,15 @@ function applyTreeFilters() {
             filteredData = filterHierarchy(
                 dataToUse,
                 window.currentITReleaseFilter,
-                window.currentUseCaseFilter
+                window.currentUseCaseFilter,
+                window.currentWaveFilter,
+                window.currentDepartmentFilter
             );
         }
-        
-        // Update statistics with filtered data
         if (typeof updateProcessStatistics === 'function') {
             updateProcessStatistics(filteredData);
         }
-        
-        initTreeVisualization(dataToUse, window.currentITReleaseFilter, window.currentUseCaseFilter);
+        initTreeVisualization(dataToUse, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
     }
 }
 

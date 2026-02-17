@@ -6,6 +6,8 @@ window.l3DetailsMap = null; // Map of L3 process names to their details (objecti
 let currentView = 'navigation';
 window.currentITReleaseFilter = null; // Track current IT Release filter state
 window.currentUseCaseFilter = null; // Track current Use Case filter state
+window.currentWaveFilter = null; // Track current Wave filter state
+window.currentDepartmentFilter = null; // Track current Department filter state
 
 // Edit Mode State
 let editMode = false;
@@ -100,11 +102,11 @@ function toggleEditMode() {
     // Refresh current view to show/hide edit controls
     if (currentView === 'navigation') {
         if (hierarchyData) {
-            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
+            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
         }
     } else if (currentView === 'tree') {
         if (hierarchyData) {
-            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
+            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
         }
     }
     
@@ -279,18 +281,79 @@ function filterHierarchyByUseCase(data, useCaseValue) {
     return filteredData;
 }
 
+// Wave Filter Utility Function
+function filterHierarchyByWave(data, waveValue) {
+    if (!waveValue || waveValue === 'All' || waveValue === '') {
+        return data;
+    }
+    function filterNode(node) {
+        const filteredNode = { ...node };
+        if (node.level === 'L3') {
+            const wave = node.wave || '';
+            return (wave && wave === waveValue) ? filteredNode : null;
+        }
+        if (node.children && node.children.length > 0) {
+            const filteredChildren = node.children
+                .map(child => filterNode(child))
+                .filter(child => child !== null);
+            if (filteredChildren.length > 0) {
+                filteredNode.children = filteredChildren;
+                return filteredNode;
+            }
+        }
+        return null;
+    }
+    const filteredData = filterNode(data);
+    if (!filteredData || !filteredData.children || filteredData.children.length === 0) {
+        return { name: data.name || "Process Hierarchy", children: [] };
+    }
+    return filteredData;
+}
+
+// Department Filter Utility Function
+function filterHierarchyByDepartment(data, departmentValue) {
+    if (!departmentValue || departmentValue === 'All' || departmentValue === '') {
+        return data;
+    }
+    function filterNode(node) {
+        const filteredNode = { ...node };
+        if (node.level === 'L3') {
+            const depts = node.departments || [];
+            return depts.includes(departmentValue) ? filteredNode : null;
+        }
+        if (node.children && node.children.length > 0) {
+            const filteredChildren = node.children
+                .map(child => filterNode(child))
+                .filter(child => child !== null);
+            if (filteredChildren.length > 0) {
+                filteredNode.children = filteredChildren;
+                return filteredNode;
+            }
+        }
+        return null;
+    }
+    const filteredData = filterNode(data);
+    if (!filteredData || !filteredData.children || filteredData.children.length === 0) {
+        return { name: data.name || "Process Hierarchy", children: [] };
+    }
+    return filteredData;
+}
+
 // Combined Filter Function
-function filterHierarchy(data, itReleaseValue, useCaseValue) {
+function filterHierarchy(data, itReleaseValue, useCaseValue, waveValue, departmentValue) {
     let filteredData = data;
 
-    // Apply IT Release filter first if provided
     if (itReleaseValue && itReleaseValue !== 'All') {
         filteredData = filterHierarchyByITRelease(filteredData, itReleaseValue);
     }
-
-    // Apply Use Case filter on the result if provided
     if (useCaseValue && useCaseValue !== 'All') {
         filteredData = filterHierarchyByUseCase(filteredData, useCaseValue);
+    }
+    if (waveValue && waveValue !== 'All') {
+        filteredData = filterHierarchyByWave(filteredData, waveValue);
+    }
+    if (departmentValue && departmentValue !== 'All') {
+        filteredData = filterHierarchyByDepartment(filteredData, departmentValue);
     }
 
     return filteredData;
@@ -345,6 +408,45 @@ function updateProcessStatistics(data) {
 }
 
 /**
+ * Populate Wave and Department filter dropdowns from hierarchy data
+ * @param {Object} hierarchyData - The hierarchy data structure
+ */
+function populateFilterDropdowns(hierarchyData) {
+    const waves = new Set();
+    const departments = new Set();
+    
+    function collectFromNode(node) {
+        if (node.level === 'L3') {
+            if (node.wave && node.wave.trim()) waves.add(node.wave.trim());
+            (node.departments || []).forEach(d => { if (d) departments.add(d); });
+        }
+        (node.children || []).forEach(collectFromNode);
+    }
+    if (hierarchyData && hierarchyData.children) {
+        hierarchyData.children.forEach(collectFromNode);
+    }
+    
+    const waveOptions = Array.from(waves).sort();
+    const deptOptions = Array.from(departments).sort();
+    
+    ['nav-wave-filter', 'tree-wave-filter'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const currentVal = sel.value;
+        sel.innerHTML = '<option value="All">All</option>' + waveOptions.map(w => `<option value="${w.replace(/"/g, '&quot;')}">${w.replace(/</g, '&lt;')}</option>`).join('');
+        if (waveOptions.includes(currentVal)) sel.value = currentVal;
+    });
+    
+    ['nav-department-filter', 'tree-department-filter'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const currentVal = sel.value;
+        sel.innerHTML = '<option value="All">All</option>' + deptOptions.map(d => `<option value="${d.replace(/"/g, '&quot;')}">${d.replace(/</g, '&lt;')}</option>`).join('');
+        if (deptOptions.includes(currentVal)) sel.value = currentVal;
+    });
+}
+
+/**
  * Build a lookup map of L3 process names to their details
  * @param {Object} hierarchyData - The hierarchy data structure
  * @returns {Map<string, {objective: string, use_case: string, it_release: string}>} Map of L3 process names to details
@@ -374,20 +476,17 @@ function buildL3LookupMap(hierarchyData) {
             // Normalize the process name (trim whitespace, lowercase for consistent lookup)
             const normalizedName = node.name ? String(node.name).trim() : '';
             if (normalizedName) {
-                // Store with original name as key, but also store normalized version for flexible lookup
-                l3Map.set(normalizedName, {
+                const details = {
                     objective: node.objective || '',
                     use_case: node.use_case || '',
-                    it_release: node.it_release || ''
-                });
-                // Also store lowercase version for case-insensitive matching
+                    it_release: node.it_release || '',
+                    wave: node.wave || '',
+                    departments: node.departments || []
+                };
+                l3Map.set(normalizedName, details);
                 const lowerName = normalizedName.toLowerCase();
                 if (lowerName !== normalizedName) {
-                    l3Map.set(lowerName, {
-                        objective: node.objective || '',
-                        use_case: node.use_case || '',
-                        it_release: node.it_release || ''
-                    });
+                    l3Map.set(lowerName, details);
                 }
             }
         }
@@ -448,8 +547,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Update statistics with initial data
         updateProcessStatistics(hierarchyData);
 
+        // Populate Wave and Department filter dropdowns from data
+        populateFilterDropdowns(hierarchyData);
+
         // Initialize Views
-        initNavigationView(hierarchyData);
+        initNavigationView(hierarchyData, null, null, null, null);
         
         // Set initial view
         switchView('navigation');
@@ -496,38 +598,36 @@ function switchView(viewName) {
     // Sync filter dropdowns with current filter state
     const navITReleaseFilter = document.getElementById('nav-it-release-filter');
     const navUseCaseFilter = document.getElementById('nav-use-case-filter');
+    const navWaveFilter = document.getElementById('nav-wave-filter');
+    const navDepartmentFilter = document.getElementById('nav-department-filter');
     const treeITReleaseFilter = document.getElementById('tree-it-release-filter');
     const treeUseCaseFilter = document.getElementById('tree-use-case-filter');
+    const treeWaveFilter = document.getElementById('tree-wave-filter');
+    const treeDepartmentFilter = document.getElementById('tree-department-filter');
     
-    if (navITReleaseFilter) {
-        navITReleaseFilter.value = window.currentITReleaseFilter || 'All';
-    }
-    if (navUseCaseFilter) {
-        navUseCaseFilter.value = window.currentUseCaseFilter || 'All';
-    }
-    if (treeITReleaseFilter) {
-        treeITReleaseFilter.value = window.currentITReleaseFilter || 'All';
-    }
-    if (treeUseCaseFilter) {
-        treeUseCaseFilter.value = window.currentUseCaseFilter || 'All';
-    }
+    if (navITReleaseFilter) navITReleaseFilter.value = window.currentITReleaseFilter || 'All';
+    if (navUseCaseFilter) navUseCaseFilter.value = window.currentUseCaseFilter || 'All';
+    if (navWaveFilter) navWaveFilter.value = window.currentWaveFilter || 'All';
+    if (navDepartmentFilter) navDepartmentFilter.value = window.currentDepartmentFilter || 'All';
+    if (treeITReleaseFilter) treeITReleaseFilter.value = window.currentITReleaseFilter || 'All';
+    if (treeUseCaseFilter) treeUseCaseFilter.value = window.currentUseCaseFilter || 'All';
+    if (treeWaveFilter) treeWaveFilter.value = window.currentWaveFilter || 'All';
+    if (treeDepartmentFilter) treeDepartmentFilter.value = window.currentDepartmentFilter || 'All';
 
     // Trigger view specific initializations with current filters
     if (viewName === 'navigation') {
         if (hierarchyData) {
-            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
-            // Update statistics with filtered data
+            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
             if (typeof filterHierarchy === 'function' && typeof updateProcessStatistics === 'function') {
-                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
+                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
                 updateProcessStatistics(filteredData);
             }
         }
     } else if (viewName === 'tree') {
         if (hierarchyData) {
-            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
-            // Update statistics with filtered data
+            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
             if (typeof filterHierarchy === 'function' && typeof updateProcessStatistics === 'function') {
-                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
+                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
                 updateProcessStatistics(filteredData);
             }
         }
@@ -725,6 +825,14 @@ function renderReadOnlyDetails(processData, processId, isDeleted, isAdded, isMod
                 <div>
                     <h4 class="font-semibold text-gray-700">IT Release</h4>
                     <p class="text-gray-600 mt-1">${processData.it_release || processData.details?.it_release || 'N/A'}</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700">Wave</h4>
+                    <p class="text-gray-600 mt-1">${processData.wave || processData.details?.wave || 'N/A'}</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700">Departments Involved</h4>
+                    <p class="text-gray-600 mt-1">${(processData.departments && processData.departments.length) ? processData.departments.join(', ') : 'None'}</p>
                 </div>
             </div>
         `;
@@ -1238,11 +1346,11 @@ function updateProcessInHierarchy(processId, newData, isAdded) {
 function refreshCurrentView() {
     if (currentView === 'navigation') {
         if (hierarchyData) {
-            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
+            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
         }
     } else if (currentView === 'tree') {
         if (hierarchyData) {
-            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter);
+            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
         }
     } else if (currentView === 'search') {
         // Search view refresh is handled by search.js if needed
@@ -1298,7 +1406,9 @@ function updateSearchIndex() {
                 details: {
                     objective: node.objective || '',
                     use_case: node.use_case || '',
-                    it_release: node.it_release || ''
+                    it_release: node.it_release || '',
+                    wave: node.wave || '',
+                    departments: node.departments || []
                 }
             });
         }
@@ -1316,7 +1426,10 @@ window.showSuccess = showSuccess;
 window.closeSuccess = closeSuccess;
 window.filterHierarchyByITRelease = filterHierarchyByITRelease;
 window.filterHierarchyByUseCase = filterHierarchyByUseCase;
+window.filterHierarchyByWave = filterHierarchyByWave;
+window.filterHierarchyByDepartment = filterHierarchyByDepartment;
 window.filterHierarchy = filterHierarchy;
+window.populateFilterDropdowns = populateFilterDropdowns;
 
 // Helper function to check if edit mode is enabled
 function isEditMode() {
