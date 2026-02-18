@@ -74,20 +74,9 @@ for filename, key in js_files:
                     elif content[pos] == '}':
                         brace_count -= 1
                     pos += 1
-                # Remove the entire block including the closing brace
-                content = content[:start_pos] + content[pos:]
-                # Ensure the search block is properly closed in switchView function
-                # Find the search block before the removed process-flow block
-                search_marker_switch = "} else if (viewName === 'search') {"
-                search_start_switch = content[:start_pos].rfind(search_marker_switch)
-                if search_start_switch != -1:
-                    # Count braces in the search block to see if it's closed
-                    search_block_switch = content[search_start_switch:start_pos]
-                    open_braces_switch = search_block_switch.count('{')
-                    close_braces_switch = search_block_switch.count('}')
-                    if open_braces_switch > close_braces_switch:
-                        # Add missing closing brace for search block in switchView
-                        content = content[:start_pos] + '    }\n' + content[start_pos:]
+                # Replace block body with stub (keeps braces balanced)
+                stub = "        // Process flow not available in standalone\n        "
+                content = content[:start_pos + len(start_marker)] + stub + content[pos - 1:]
             
             # Remove process-flow refresh logic in refreshCurrentView
             # We need to remove: "} else if (currentView === 'process-flow') { ... }"
@@ -105,22 +94,9 @@ for filename, key in js_files:
                         brace_count -= 1
                     pos += 1
                 # Now pos points to the character after the closing brace of process-flow block
-                # We want to remove from start_pos2 (start of "} else if...") to pos (after closing brace)
-                # This will leave the search block's closing brace and updateProcessStatistics intact
-                content = content[:start_pos2] + content[pos:]
-                # Ensure the search block is properly closed - add closing brace if needed
-                # Find the search block before the removed process-flow block
-                search_marker = "} else if (currentView === 'search') {"
-                search_start = content[:start_pos2].rfind(search_marker)
-                if search_start != -1:
-                    # Count braces in the search block to see if it's closed
-                    search_block = content[search_start:start_pos2]
-                    open_braces = search_block.count('{')
-                    close_braces = search_block.count('}')
-                    if open_braces > close_braces:
-                        # Add missing closing brace for search block
-                        # Insert it right before where process-flow block was (now removed)
-                        content = content[:start_pos2] + '    }\n' + content[start_pos2:]
+                # Replace block body with stub (keeps braces balanced)
+                stub2 = "        // Process flow not available in standalone\n        "
+                content = content[:start_pos2 + len(start_marker2)] + stub2 + content[pos - 1:]
             
             # Remove references to process-flow-visualization.js and related libs (entire lines)
             lines = content.split('\n')

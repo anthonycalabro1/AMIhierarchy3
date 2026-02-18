@@ -617,6 +617,7 @@ function switchView(viewName) {
     // Trigger view specific initializations with current filters
     if (viewName === 'navigation') {
         if (hierarchyData) {
+            if (typeof populateFilterDropdowns === 'function') populateFilterDropdowns(hierarchyData);
             initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
             if (typeof filterHierarchy === 'function' && typeof updateProcessStatistics === 'function') {
                 const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
@@ -625,6 +626,7 @@ function switchView(viewName) {
         }
     } else if (viewName === 'tree') {
         if (hierarchyData) {
+            if (typeof populateFilterDropdowns === 'function') populateFilterDropdowns(hierarchyData);
             initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
             if (typeof filterHierarchy === 'function' && typeof updateProcessStatistics === 'function') {
                 const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
