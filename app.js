@@ -949,7 +949,7 @@ function renderEditForm(processData, processId, isDeleted, isAdded) {
                 </div>
                 <div>
                     <label for="edit-process-departments" class="block text-sm font-medium text-gray-700">Departments Involved</label>
-                    <input type="text" id="edit-process-departments" placeholder="Comma-separated (e.g., Operations, Customer Service)" value="${(processData.departments && processData.departments.length ? processData.departments.join(', ') : '').replace(/"/g, '&quot;')}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
+                    <input type="text" id="edit-process-departments" placeholder="Comma-separated (e.g., Operations, Customer Service)" value="${(processData.departments || processData.details?.departments || []).join(', ').replace(/"/g, '&quot;')}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
                 </div>
         `;
     }
