@@ -936,6 +936,21 @@ function renderEditForm(processData, processId, isDeleted, isAdded) {
                         <option value="IT Release 3" ${(processData.it_release || processData.details?.it_release || '') === 'IT Release 3' ? 'selected' : ''}>IT Release 3</option>
                     </select>
                 </div>
+                <div>
+                    <label for="edit-process-wave" class="block text-sm font-medium text-gray-700">Wave</label>
+                    <select id="edit-process-wave" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
+                        <option value="">-- Select Wave --</option>
+                        <option value="Wave 1" ${(processData.wave || processData.details?.wave || '') === 'Wave 1' ? 'selected' : ''}>Wave 1</option>
+                        <option value="Wave 2" ${(processData.wave || processData.details?.wave || '') === 'Wave 2' ? 'selected' : ''}>Wave 2</option>
+                        <option value="Wave 3" ${(processData.wave || processData.details?.wave || '') === 'Wave 3' ? 'selected' : ''}>Wave 3</option>
+                        <option value="Wave 4" ${(processData.wave || processData.details?.wave || '') === 'Wave 4' ? 'selected' : ''}>Wave 4</option>
+                        <option value="Wave 5" ${(processData.wave || processData.details?.wave || '') === 'Wave 5' ? 'selected' : ''}>Wave 5</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="edit-process-departments" class="block text-sm font-medium text-gray-700">Departments Involved</label>
+                    <input type="text" id="edit-process-departments" placeholder="Comma-separated (e.g., Operations, Customer Service)" value="${(processData.departments && processData.departments.length ? processData.departments.join(', ') : '').replace(/"/g, '&quot;')}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
+                </div>
         `;
     }
     
@@ -1015,6 +1030,9 @@ function saveProcess(event, processId) {
         processData.objective = document.getElementById('edit-process-objective').value.trim();
         processData.use_case = document.getElementById('edit-process-use-case').value.trim();
         processData.it_release = document.getElementById('edit-process-it-release').value.trim();
+        processData.wave = document.getElementById('edit-process-wave').value.trim();
+        const deptsInput = document.getElementById('edit-process-departments').value.trim();
+        processData.departments = deptsInput ? deptsInput.split(',').map(d => d.trim()).filter(Boolean) : [];
     }
     
     // Check if this is a new process
