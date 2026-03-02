@@ -17,9 +17,15 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Meter Engineering (ME)",
-                "Meter Shop"
+                "Meter Shop",
+                "Meter Engineering",
+                "Advanced Meter Operations"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)",
+                "Hillman Pittman (ME, Mgr )"
               ]
             },
             {
@@ -28,10 +34,16 @@
               "objective": "Receive hardware shipments at utility warehouses, including verifying vendor packing lists against purchase orders in the Enterprise Asset Management (EAM) system, conducting physical inspections and statistical sample testing for conformance to technical specifications, and managing the disposition of failed or damaged assets through quarantine and vendor return workflows.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1",
-              "wave": "Wave 1",
+              "wave": "Pilot",
               "departments": [
-                "Meter Engineering (ME)",
-                "Meter Shop"
+                "Meter Shop",
+                "Supply Chain",
+                "Warehouse"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Rene Mojarro (Warehouse, Sr Sup)",
+                "Gabiela Castillo (Supply Chain, PM)"
               ]
             },
             {
@@ -40,10 +52,15 @@
               "objective": "Onboard of new metering and network assets, involving the ingestion of vendor shipment files to create serialized asset records in the EAM, and the subsequent synchronization of this master data to the Head-End System (HES) and Meter Data Management System (MDMS) to establish initial device state and cross-system linkages, including resolving data loading errors or identifier mismatches.",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1",
-              "wave": "Wave 1",
+              "wave": "Pilot",
               "departments": [
-                "Meter Engineering (ME)",
-                "Meter Shop"
+                "Meter Shop",
+                "Advanced Meter Operations"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             }
           ]
@@ -58,10 +75,16 @@
               "objective": "Manage the physical location and status of assets within the warehouse (e.g., staging, quarantine) and ensures that any changes in asset condition or availability are automatically propagated to the Head-End System and other integrated IT platforms. This ensures only available, healthy assets are released for deployment.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1",
-              "wave": "Wave 1",
+              "wave": "Pilot",
               "departments": [
-                "Meter Field Operations (MFO)",
-                "Meter Shop"
+                "Meter Shop",
+                "Supply Chain",
+                "Warehouse"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Rene Mojarro (Warehouse, Sr Sup)",
+                "Gabiela Castillo (Supply Chain, PM)"
               ]
             },
             {
@@ -72,8 +95,14 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Meter Shop"
+                "Meter Shop",
+                "Meter Field Operations",
+                "Supply Chain"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Dave Bernardo (MFO)",
+                "Rene Mojarro (Warehouse, Sr Sup)"
               ]
             }
           ]
@@ -90,8 +119,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE"
+                "Meter Shop",
+                "Supply Chain"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Rene Mojarro (Warehouse, Sr Sup)",
+                "Tyree Long (Warehouse, Sr Sup)"
               ]
             },
             {
@@ -102,7 +136,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Meter Shop"
+                "Meter Shop",
+                "Supply Chain"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Rene Mojarro (Warehouse, Sr Sup)",
+                "Tyree Long (Warehouse, Sr Sup)"
               ]
             },
             {
@@ -112,7 +152,8 @@
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -126,11 +167,14 @@
               "objective": "Define and execute statistical sampling and testing protocols for newly received meter shipments, driving requirements for automated workflows to manage test selection logic, record results against asset records, and enforce pass/fail criteria before releasing lots into inventory.",
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 1",
-              "wave": "Wave 1",
+              "wave": "Pilot",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Meter Engineering (ME)",
-                "Meter Field Operations (MFO)"
+                "Meter Shop",
+                "Supply Chain"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Gabiela Castillo (Supply Chain, PM)"
               ]
             }
           ]
@@ -153,10 +197,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Meter Shop",
+                "AMO (IT)"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             },
             {
@@ -167,9 +214,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "Customer Services (RSO - Revenue Services)",
+                "AMO"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             }
           ]
@@ -186,9 +237,10 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Customer Programs & Services (CP&S)",
-                "ICOE"
+                "Customer Services"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -199,9 +251,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Customer Programs & Services (CP&S)",
-                "ICOE"
+                "Customer Services",
+                "Vendor Management"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Kevin Lee (Deployment Strategy)"
               ]
             }
           ]
@@ -218,9 +273,15 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "Customer Services",
+                "Meter Shop",
+                "Vendor Management",
+                "Meter Field Operations"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Kevin Lee (Deployment Strategy)",
+                "Santiago Soto (MFO, SM)"
               ]
             },
             {
@@ -231,9 +292,16 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "Meter Shop",
+                "Customer Services",
+                "Meter Technical Operations",
+                "Complex Metering"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Joe Barsimo (MTO, SM)",
+                "Hector (Complex Metering, Mgr)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -244,9 +312,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "Meter Shop",
+                "Customer Services"
+              ],
+              "key_contacts": [
+                "Alex Trejo (Meter Shop, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             }
           ]
@@ -263,9 +334,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "Vendor Management",
+                "Meter Field Operations"
+              ],
+              "key_contacts": [
+                "Kevin Lee (Deployment strategy)",
+                "Santiago Soto (MFO, SM)"
               ]
             },
             {
@@ -276,9 +350,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "AMO",
+                "Customer Services"
+              ],
+              "key_contacts": [
+                "Brad Gill (AMO, PM)",
+                "Peter Spallone (RSO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             }
           ]
@@ -295,10 +373,16 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)",
-                "Meter Shop"
+                "Supply Chain",
+                "Meter Shop",
+                "Customer Services",
+                "Meter Field Operations"
+              ],
+              "key_contacts": [
+                "Gabiela Castillo (Supply Chain, PM)",
+                "Alex Trejo (Meter Shop, SM)",
+                "Santiago Soto (MFO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             }
           ]
@@ -319,12 +403,13 @@
               "objective": "Discover and register the new meter onto the RF mesh network (via the HES)  immediately following physical installation, where the Head-End System (HES) attempts to; validating its security credentials and establishing bidirectional communications, and flagging non-communicating devices for immediate network troubleshooting",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1 (retouched in IT Release 2)",
-              "wave": "Wave 1",
+              "wave": "Pilot",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "AMO"
+              ],
+              "key_contacts": [
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             },
             {
@@ -333,11 +418,15 @@
               "objective": "Transition a newly installed meter from \"installed\" status to \"billing active,\" ensuring that interval data is successfully flowing from the HES to the MDMS, that initial VEE rules are applied without critical errors, and that the MDMS and CIS are aligned on the device configuration to enable accurate future billing.",
               "use_case": "Use Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1 (retouched in IT Release 2)",
-              "wave": "Wave 1",
+              "wave": "Pilot",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Billing Ops",
-                "ICOE"
+                "AMO",
+                "Customer Services"
+              ],
+              "key_contacts": [
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)",
+                "Peter Spallone (RSO, PM)"
               ]
             }
           ]
@@ -354,10 +443,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Meter Field Operations",
+                "Distribution Operations"
+              ],
+              "key_contacts": [
+                "Dave Bernardo (Meter Operations, PM)",
+                "Santiago Soto (MFO, SM)"
               ]
             },
             {
@@ -368,8 +459,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Meter Field Operations (MFO)"
+                "Meter Field Operations",
+                "Troublemen"
+              ],
+              "key_contacts": [
+                "Dave Bernardo (Meter Operations, PM)",
+                "Santiago Soto (MFO, SM)"
               ]
             },
             {
@@ -380,9 +475,16 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "Meter Field Operations",
+                "AMO",
+                "Customer Services"
+              ],
+              "key_contacts": [
+                "Santiago Soto (MFO, SM)",
+                "Dave Bernardo",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -393,9 +495,12 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 4",
               "departments": [
-                "Meter Field Operations (MFO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "Revenue Services (RSO)",
+                "Meter Field Operations"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Roberto Salazar (MFO RP, Mgr)"
               ]
             }
           ]
@@ -412,8 +517,21 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Meter Field Operations (MFO)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "Customer Contact Center",
+                "RSO",
+                "Digital customer experience",
+                "Revenue Protection",
+                "Meter Field Operations",
+                "AMO"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Robert0 Salazar (MFO RP, Mgr)",
+                "Jennifer Grammer (Meter Operations, Sr Sup)",
+                "Grant Lintman (DCS, PM)",
+                "Cari Young (Digital Marketing Product Management , Sr Adv)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             },
             {
@@ -424,8 +542,14 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Meter Field Operations (MFO)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "Customer Contact Center",
+                "RSO",
+                "Meter Field Operations",
+                "Revenue Protection"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Roberto Salazar (MFO RP, Mgr)"
               ]
             },
             {
@@ -436,8 +560,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Meter Field Operations (MFO)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO",
+                "Meter Field Operations"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Roberto Salazar (MFO RP, Mgr)"
               ]
             },
             {
@@ -448,8 +576,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Meter Field Operations (MFO)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO",
+                "Meter Field Operations"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Roberto Salazar (MFO RP, Mgr)"
               ]
             }
           ]
@@ -466,10 +598,14 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "DGS - FAN",
-                "DGS - Grid Ops",
-                "Meter Field Operations (MFO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Meter Field Operations",
+                "Wireless Engineering"
+              ],
+              "key_contacts": [
+                "Dave Bernardo (Meter Operations, PM)",
+                "Rhoneil Hormigas (Wireless Eng, Sr Adv)",
+                "Hector Montenegro (MFO ,Mgr)",
+                "Joe Barcimo (MFO, SM)"
               ]
             },
             {
@@ -480,11 +616,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 1",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "DGS - FAN",
-                "DGS - Grid Ops",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "Wireless Engineering",
+                "Meter Field Operations"
+              ],
+              "key_contacts": [
+                "Dave Bernardo (Meter Operations, PM)",
+                "Rhoneil Hormigas (Wireless Eng)"
               ]
             },
             {
@@ -495,11 +632,15 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "DGS - FAN",
-                "DGS - Grid Ops",
-                "Meter Field Operations (MFO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "TBD:  AMO",
+                "GDS - FAN",
+                "GDS - Grid Ops",
+                "Wireless Engineering",
+                "MFO",
+                "DOC"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -509,7 +650,8 @@
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         }
@@ -529,10 +671,13 @@
               "objective": "Manage the end-to-end acquisition of interval, voltage, and event data from Head-End Systems, including initial intake validation, automated resolution of transmission gaps or anomalies, and the final persistence of validated data into the MDMS and analytics repositories for downstream use.",
               "use_case": "Use Case 1 \u2013 Meter-to-Cash\nUse Case 10 \u2013 Performance and Health of Distribution System Assets\nUse Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 1 (retouched in IT Release 2)",
-              "wave": "Wave 2",
+              "wave": "Pilot",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "AMO (Advanced Meter Operations)"
+              ],
+              "key_contacts": [
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             },
             {
@@ -543,9 +688,14 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Billing Ops",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Customer Services (RSO)",
+                "AMO"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)",
+                "Krishna Sivaramakrishna Chaitanya Marudhuri (CS backoffice, Advisor)"
               ]
             },
             {
@@ -556,8 +706,14 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Billing Ops"
+                "RSO",
+                "IT (within RSO)"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)",
+                "Krishna (Sivaramakrishna Chaitanya Marudhuri)"
               ]
             },
             {
@@ -568,9 +724,10 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Information Governance"
+              ],
+              "key_contacts": [
+                "TBD (start with Murthy Vijjapu)"
               ]
             },
             {
@@ -581,9 +738,15 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 4",
               "departments": [
-                "Billing Ops",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO",
+                "MFO",
+                "AMO"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Santiago Soto (MFO, SM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             }
           ]
@@ -606,9 +769,11 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Billing Ops",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "Customer Services (RSO)"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Kelly Garcia (Billing Operations, PM)"
               ]
             },
             {
@@ -619,9 +784,11 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Billing Ops",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "Customer Services (RSO)"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Kelly Garcia (Billing Operations, PM)"
               ]
             },
             {
@@ -631,7 +798,8 @@
               "use_case": "Use Case 1 \u2013 Meter-to-Cash",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Resolve AMI billing data mismatches",
@@ -641,9 +809,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Billing Ops",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO",
+                "IT"
+              ],
+              "key_contacts": [
+                "Krishna Sivaramakrishna Chaitanya Marudhuri (CS backoffice, Advisor)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             },
             {
@@ -654,7 +826,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Billing Ops"
+                "RSO",
+                "Bill Presentment/Inserts"
+              ],
+              "key_contacts": [
+                "Kelly Garcia (Billing Operations, PM)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -665,11 +842,14 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Billing Ops",
-                "ICOE",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO",
+                "IT",
+                "AMO"
+              ],
+              "key_contacts": [
+                "Krishna Sivaramakrishna Chaitanya Marudhuri (CS backoffice, Advisor)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             },
             {
@@ -679,7 +859,8 @@
               "use_case": "Use Case 1 \u2013 Meter-to-Cash",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Manage Customer Billing Disputes & High Bill Investigations",
@@ -689,9 +870,15 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Billing Ops",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO",
+                "Contact Center",
+                "AMO"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Kelly Garcia (Billing Operations, PM)",
+                "Brad Gill (AMO, PM)",
+                "Chris Chavez (AMO, Sr Adv)"
               ]
             },
             {
@@ -702,8 +889,11 @@
               "it_release": "IT Release 1",
               "wave": "Wave 2",
               "departments": [
-                "Billing Ops",
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Kelly Garcia (Billing Operations, PM)"
               ]
             }
           ]
@@ -720,8 +910,11 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Billing Ops",
-                "Customer Programs & Services (CP&S)"
+                "RSO"
+              ],
+              "key_contacts": [
+                "Mugdha Garde (RSO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -732,8 +925,11 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Billing Ops",
-                "Customer Programs & Services (CP&S)"
+                "RSO"
+              ],
+              "key_contacts": [
+                "Mugdha Garde (RSO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -744,8 +940,11 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Billing Ops"
+                "RSO"
+              ],
+              "key_contacts": [
+                "Mugdha Garde (RSO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             }
           ]
@@ -762,8 +961,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Billing Ops",
-                "Customer Programs & Services (CP&S)"
+                "Contact Center",
+                "Community Affairs"
+              ],
+              "key_contacts": [
+                "Grant Littman",
+                "Caroline Joy",
+                "Kathy (Director External)"
               ]
             },
             {
@@ -774,8 +978,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 4",
               "departments": [
-                "Billing Ops",
-                "Customer Programs & Services (CP&S)"
+                "Customer Services",
+                "Meter Engineering"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Meter Engineering",
+                "Alex Trejo (Meter Shop, SM))"
               ]
             }
           ]
@@ -792,7 +1001,12 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 4",
               "departments": [
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "RSO",
+                "MFO Revenue Protection"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Roberto Salazar (MFO RP, Mgr)"
               ]
             }
           ]
@@ -809,9 +1023,18 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Customer Programs & Services (CP&S)",
-                "ICOE"
+                "Regulatory",
+                "Customer Services",
+                "Contact Center",
+                "MFO",
+                "IT",
+                "MIV Vendor"
+              ],
+              "key_contacts": [
+                "John Rankin (Reg, SM)",
+                "Peter Spallone (RSO, PM)",
+                "Santiago Soto (MFO, SM)",
+                "Kevin Lee (Deployment Strategy)"
               ]
             },
             {
@@ -822,9 +1045,16 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Customer Programs & Services (CP&S)",
-                "ICOE"
+                "Customer Services",
+                "Contact Center",
+                "MFO",
+                "IT",
+                "MIV Vendor"
+              ],
+              "key_contacts": [
+                "Peter Spallone (RSO, PM)",
+                "Santiago Soto (MFO, SM)",
+                "Kevin Lee (Deployment Strategy)"
               ]
             },
             {
@@ -835,9 +1065,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "MFO",
+                "Customer Services"
+              ],
+              "key_contacts": [
+                "Santiago Soto (MFO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -848,9 +1081,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Meter Field Operations (MFO)"
+                "MFO",
+                "Customer Services"
+              ],
+              "key_contacts": [
+                "Santiago Soto (MFO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -861,8 +1097,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Customer Programs & Services (CP&S)"
+                "Customer Services",
+                "Contact Center",
+                "MFO"
+              ],
+              "key_contacts": [
+                "Santiago Soto (MFO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             },
             {
@@ -873,7 +1114,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Customer Programs & Services (CP&S)"
+                "Customer Services",
+                "Contact Center",
+                "MFO"
+              ],
+              "key_contacts": [
+                "Santiago Soto (MFO, SM)",
+                "Peter Spallone (RSO, PM)"
               ]
             }
           ]
@@ -889,7 +1136,8 @@
               "use_case": "Use Case 3 \u2013 Improve Customer Experience",
               "it_release": "IT Release 2 (retouched in IT Release 3)",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -904,7 +1152,8 @@
               "use_case": "Foundational \u2013 Not Directly Mapped to SCE Use Case",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -920,7 +1169,12 @@
               "it_release": "IT Release 1 (retouched in IT Release 3)",
               "wave": "Wave 4",
               "departments": [
-                "Revenue Services Organization (RSO \u2013 SRT)"
+                "Customer Programs",
+                "Customer Portal"
+              ],
+              "key_contacts": [
+                "Eva Muller (Pricing Implementation, SM)",
+                "Eric Selio (Customer Programs, PM)"
               ]
             },
             {
@@ -931,7 +1185,10 @@
               "it_release": "IT Release 1",
               "wave": "Wave 5",
               "departments": [
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Demand Response Programs"
+              ],
+              "key_contacts": [
+                "Chetna smith (DR Program, PM)"
               ]
             },
             {
@@ -941,7 +1198,8 @@
               "use_case": "Use Case 3 \u2013 Improve Customer Experience\nUse Case 7 \u2013 Long-Term Grid Planning",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -957,9 +1215,10 @@
               "it_release": "IT Release 1",
               "wave": "Wave 5",
               "departments": [
-                "Meter Engineering (ME)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
-              ]
+                "Customer Services",
+                "Information Governance"
+              ],
+              "key_contacts": []
             }
           ]
         }
@@ -980,7 +1239,8 @@
               "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring\nUse Case 18 - Grid Ops: Situational Awareness",
               "it_release": "IT Release 2 (retouched in IT Release 3)",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Detect and Reconcile Phase Assignment Errors",
@@ -989,7 +1249,8 @@
               "use_case": "Use Case 11 \u2013 Distribution Connectivity Model & Monitoring",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1004,7 +1265,8 @@
               "use_case": "Use Case 9 \u2013 Environmental Monitoring",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1019,7 +1281,8 @@
               "use_case": "Use Case 18 \u2013 Grid Ops: Situational Awareness",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Detect rooftop solar (PV) generation",
@@ -1028,7 +1291,8 @@
               "use_case": "Use Case 18 \u2013 Grid Ops: Situational Awareness",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Detect battery storage operation",
@@ -1037,7 +1301,8 @@
               "use_case": "Use Case 18 \u2013 Grid Ops: Situational Awareness",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Correlate load changes with customer profiles",
@@ -1046,7 +1311,8 @@
               "use_case": "Use Case 7 \u2013 Long-Term Grid Planning\nUse Case 18 - Grid Ops: Situational Awareness",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Detect Unapproved DER Interconnection",
@@ -1055,7 +1321,8 @@
               "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM\nUse Case 4 \u2013 Revenue Protection",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1071,7 +1338,16 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 5",
               "departments": [
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Distribution Engineering",
+                "Grid Ops",
+                "Data Science"
+              ],
+              "key_contacts": [
+                "Joseph Jacunski",
+                "Ryan Spavi",
+                "Scott Quinn",
+                "Ronel Hormigas",
+                "Ray Fujere"
               ]
             },
             {
@@ -1081,7 +1357,8 @@
               "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Execute Automated Corrective Switching (FLISR/ADMS)",
@@ -1090,7 +1367,8 @@
               "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1106,8 +1384,12 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 5",
               "departments": [
-                "Grid Operations",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "Distribution Engineering",
+                "Automation",
+                "Power Quality"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1118,8 +1400,11 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 5",
               "departments": [
-                "Grid Operations",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "TBD: Grid Operations",
+                "DOC"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1129,7 +1414,8 @@
               "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 2 (retouched in IT Release 3)",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Execute Closed-Loop (Autonomous) Volt/VAR Optimization",
@@ -1138,7 +1424,8 @@
               "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1153,7 +1440,8 @@
               "use_case": "Use Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
               "it_release": "IT Release 2 (retouched in IT Release 3)",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1168,7 +1456,8 @@
               "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Identify and Resolve Neutral Connection Issues",
@@ -1177,7 +1466,8 @@
               "use_case": "Use Case 8 \u2013 Anomaly & Fault Detection BTM\nUse Case 10 \u2013 Performance and Health of Distribution System Assets",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1192,7 +1482,8 @@
               "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Coordinate Operational Response and Cross-Team Alignment",
@@ -1201,7 +1492,8 @@
               "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
               "it_release": "IT Release 2",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1216,7 +1508,8 @@
               "use_case": "Use Case 5 \u2013 Advanced Outage Identification and Location Awareness",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Execute and Verify Power Restoration",
@@ -1225,7 +1518,8 @@
               "use_case": "Use Case 12 \u2013 Switching Support, Outage Selection, and Controlled Restoration",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1240,7 +1534,8 @@
               "use_case": "Use Case 3 \u2013 Improve Customer Experience\nUse Case 5 \u2013 Advanced Outage Identification",
               "it_release": "IT Release 2 (retouched in IT Release 3)",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1255,7 +1550,8 @@
               "use_case": "Use Case 10 \u2013 Performance and Health of Distribution System Assets\nUse Case 13 \u2013 Post Event Analysis",
               "it_release": "IT Release 2 (retouched in IT Release 3)",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Perform Post-Event Forensic Analysis and Root Cause Investigation",
@@ -1264,7 +1560,8 @@
               "use_case": "Use Case 13 \u2013 Post Event Analysis",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         }
@@ -1286,10 +1583,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 5",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Meter Engineering (ME)",
-                "Meter Field Operations (MFO)",
+                "TBD: AMO",
+                "Meter Engineering",
+                "MFO",
                 "Meter Shop"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1300,10 +1600,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 5",
               "departments": [
-                "Cyber Security",
-                "Meter Engineering (ME)",
-                "Meter Field Operations (MFO)",
+                "TBD: Cyber Security",
+                "Meter Engineering",
+                "MFO",
                 "Meter Shop"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1314,10 +1617,13 @@
               "it_release": "IT Release 1",
               "wave": "Wave 5",
               "departments": [
-                "Cyber Security",
-                "Meter Engineering (ME)",
-                "Meter Field Operations (MFO)",
+                "TBD: Cyber Security",
+                "Meter Engineering",
+                "MFO",
                 "Meter Shop"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1328,9 +1634,12 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 5",
               "departments": [
-                "Meter Engineering (ME)",
-                "Meter Field Operations (MFO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "TBD: Meter Engineering",
+                "MFO",
+                "DOC"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             }
           ]
@@ -1347,7 +1656,11 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)"
+                "TBD: AMO",
+                "Customer Servies"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1358,7 +1671,10 @@
               "it_release": "IT Release 1",
               "wave": "Wave 3",
               "departments": [
-                "Advanced Meter Operations (AMO)"
+                "TBD: AMO"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1369,7 +1685,10 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 2",
               "departments": [
-                "Advanced Meter Operations (AMO)"
+                "TBD: AMO"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             }
           ]
@@ -1392,9 +1711,12 @@
               "it_release": "IT Release 1 (retouched in IT Release 2 and 3)",
               "wave": "Wave 5",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "TBD: AMO",
+                "IT",
+                "DOC"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             }
           ]
@@ -1411,9 +1733,12 @@
               "it_release": "IT Release 1",
               "wave": "Wave 5",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "ICOE",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "TBD: AMO",
+                "IT",
+                "DOC"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             }
           ]
@@ -1430,8 +1755,11 @@
               "it_release": "IT Release 1 (retouched in IT Release 3)",
               "wave": "Wave 4",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "TBD: AMO",
+                "DOC"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             },
             {
@@ -1441,7 +1769,8 @@
               "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 14 \u2013 AMI 2.0 Interoperability",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Identify cross-system anomalies",
@@ -1450,7 +1779,8 @@
               "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 15 \u2013 Fault & Incipient Fault Identification on the Distribution System",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         },
@@ -1466,9 +1796,12 @@
               "it_release": "IT Release 1 (retouched in IT Release 2 and 3)",
               "wave": "Wave 5",
               "departments": [
-                "Advanced Meter Operations (AMO)",
+                "TBD: AMO",
                 "Cyber Security",
-                "ICOE"
+                "IT"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             }
           ]
@@ -1485,8 +1818,11 @@
               "it_release": "IT Release 1 (retouched in IT Release 2)",
               "wave": "Wave 5",
               "departments": [
-                "Advanced Meter Operations (AMO)",
-                "Reliability Operations \u2013 Distribution Ops Center (DOC)"
+                "TBD: AMO",
+                "DOC"
+              ],
+              "key_contacts": [
+                "TBD"
               ]
             }
           ]
@@ -1502,7 +1838,14 @@
               "use_case": "Use Case 6 \u2013 3rd Party Meter Data Access",
               "it_release": "IT Release 1",
               "wave": "Wave 5",
-              "departments": []
+              "departments": [
+                "TBD: AMO",
+                "Customer Servies",
+                "IT"
+              ],
+              "key_contacts": [
+                "TBD"
+              ]
             }
           ]
         },
@@ -1517,7 +1860,8 @@
               "use_case": "Use Case 13 \u2013 Post Event Analysis\nUse Case 18 \u2013 Grid Ops: Situational Awareness",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             },
             {
               "name": "Automate recurring reports and analytics",
@@ -1526,7 +1870,8 @@
               "use_case": "Use Case 13 \u2013 Post Event Analysis",
               "it_release": "IT Release 3",
               "wave": "",
-              "departments": []
+              "departments": [],
+              "key_contacts": []
             }
           ]
         }

@@ -8,6 +8,7 @@ window.currentITReleaseFilter = null; // Track current IT Release filter state
 window.currentUseCaseFilter = null; // Track current Use Case filter state
 window.currentWaveFilter = null; // Track current Wave filter state
 window.currentDepartmentFilter = null; // Track current Department filter state
+window.currentKeyContactFilter = null; // Track current Key Contact filter state
 
 // Edit Mode State
 let editMode = false;
@@ -102,11 +103,11 @@ function toggleEditMode() {
     // Refresh current view to show/hide edit controls
     if (currentView === 'navigation') {
         if (hierarchyData) {
-            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
         }
     } else if (currentView === 'tree') {
         if (hierarchyData) {
-            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
         }
     }
     
@@ -339,8 +340,37 @@ function filterHierarchyByDepartment(data, departmentValue) {
     return filteredData;
 }
 
+// Key Contact Filter Utility Function
+function filterHierarchyByKeyContact(data, keyContactValue) {
+    if (!keyContactValue || keyContactValue === 'All' || keyContactValue === '') {
+        return data;
+    }
+    function filterNode(node) {
+        const filteredNode = { ...node };
+        if (node.level === 'L3') {
+            const contacts = node.key_contacts || [];
+            return contacts.includes(keyContactValue) ? filteredNode : null;
+        }
+        if (node.children && node.children.length > 0) {
+            const filteredChildren = node.children
+                .map(child => filterNode(child))
+                .filter(child => child !== null);
+            if (filteredChildren.length > 0) {
+                filteredNode.children = filteredChildren;
+                return filteredNode;
+            }
+        }
+        return null;
+    }
+    const filteredData = filterNode(data);
+    if (!filteredData || !filteredData.children || filteredData.children.length === 0) {
+        return { name: data.name || "Process Hierarchy", children: [] };
+    }
+    return filteredData;
+}
+
 // Combined Filter Function
-function filterHierarchy(data, itReleaseValue, useCaseValue, waveValue, departmentValue) {
+function filterHierarchy(data, itReleaseValue, useCaseValue, waveValue, departmentValue, keyContactValue) {
     let filteredData = data;
 
     if (itReleaseValue && itReleaseValue !== 'All') {
@@ -354,6 +384,9 @@ function filterHierarchy(data, itReleaseValue, useCaseValue, waveValue, departme
     }
     if (departmentValue && departmentValue !== 'All') {
         filteredData = filterHierarchyByDepartment(filteredData, departmentValue);
+    }
+    if (keyContactValue && keyContactValue !== 'All') {
+        filteredData = filterHierarchyByKeyContact(filteredData, keyContactValue);
     }
 
     return filteredData;
@@ -408,17 +441,19 @@ function updateProcessStatistics(data) {
 }
 
 /**
- * Populate Wave and Department filter dropdowns from hierarchy data
+ * Populate Wave, Department, and Key Contact filter dropdowns from hierarchy data
  * @param {Object} hierarchyData - The hierarchy data structure
  */
 function populateFilterDropdowns(hierarchyData) {
     const waves = new Set();
     const departments = new Set();
+    const keyContacts = new Set();
     
     function collectFromNode(node) {
         if (node.level === 'L3') {
             if (node.wave && node.wave.trim()) waves.add(node.wave.trim());
             (node.departments || []).forEach(d => { if (d) departments.add(d); });
+            (node.key_contacts || []).forEach(k => { if (k) keyContacts.add(k); });
         }
         (node.children || []).forEach(collectFromNode);
     }
@@ -428,6 +463,7 @@ function populateFilterDropdowns(hierarchyData) {
     
     const waveOptions = Array.from(waves).sort();
     const deptOptions = Array.from(departments).sort();
+    const keyContactOptions = Array.from(keyContacts).sort();
     
     ['nav-wave-filter', 'tree-wave-filter'].forEach(id => {
         const sel = document.getElementById(id);
@@ -443,6 +479,14 @@ function populateFilterDropdowns(hierarchyData) {
         const currentVal = sel.value;
         sel.innerHTML = '<option value="All">All</option>' + deptOptions.map(d => `<option value="${d.replace(/"/g, '&quot;')}">${d.replace(/</g, '&lt;')}</option>`).join('');
         if (deptOptions.includes(currentVal)) sel.value = currentVal;
+    });
+    
+    ['nav-key-contact-filter', 'tree-key-contact-filter'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const currentVal = sel.value;
+        sel.innerHTML = '<option value="All">All</option>' + keyContactOptions.map(k => `<option value="${k.replace(/"/g, '&quot;')}">${k.replace(/</g, '&lt;')}</option>`).join('');
+        if (keyContactOptions.includes(currentVal)) sel.value = currentVal;
     });
 }
 
@@ -481,7 +525,8 @@ function buildL3LookupMap(hierarchyData) {
                     use_case: node.use_case || '',
                     it_release: node.it_release || '',
                     wave: node.wave || '',
-                    departments: node.departments || []
+                    departments: node.departments || [],
+                    key_contacts: node.key_contacts || []
                 };
                 l3Map.set(normalizedName, details);
                 const lowerName = normalizedName.toLowerCase();
@@ -551,7 +596,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         populateFilterDropdowns(hierarchyData);
 
         // Initialize Views
-        initNavigationView(hierarchyData, null, null, null, null);
+        initNavigationView(hierarchyData, null, null, null, null, null);
         
         // Set initial view
         switchView('navigation');
@@ -600,36 +645,40 @@ function switchView(viewName) {
     const navUseCaseFilter = document.getElementById('nav-use-case-filter');
     const navWaveFilter = document.getElementById('nav-wave-filter');
     const navDepartmentFilter = document.getElementById('nav-department-filter');
+    const navKeyContactFilter = document.getElementById('nav-key-contact-filter');
     const treeITReleaseFilter = document.getElementById('tree-it-release-filter');
     const treeUseCaseFilter = document.getElementById('tree-use-case-filter');
     const treeWaveFilter = document.getElementById('tree-wave-filter');
     const treeDepartmentFilter = document.getElementById('tree-department-filter');
+    const treeKeyContactFilter = document.getElementById('tree-key-contact-filter');
     
     if (navITReleaseFilter) navITReleaseFilter.value = window.currentITReleaseFilter || 'All';
     if (navUseCaseFilter) navUseCaseFilter.value = window.currentUseCaseFilter || 'All';
     if (navWaveFilter) navWaveFilter.value = window.currentWaveFilter || 'All';
     if (navDepartmentFilter) navDepartmentFilter.value = window.currentDepartmentFilter || 'All';
+    if (navKeyContactFilter) navKeyContactFilter.value = window.currentKeyContactFilter || 'All';
     if (treeITReleaseFilter) treeITReleaseFilter.value = window.currentITReleaseFilter || 'All';
     if (treeUseCaseFilter) treeUseCaseFilter.value = window.currentUseCaseFilter || 'All';
     if (treeWaveFilter) treeWaveFilter.value = window.currentWaveFilter || 'All';
     if (treeDepartmentFilter) treeDepartmentFilter.value = window.currentDepartmentFilter || 'All';
+    if (treeKeyContactFilter) treeKeyContactFilter.value = window.currentKeyContactFilter || 'All';
 
     // Trigger view specific initializations with current filters
     if (viewName === 'navigation') {
         if (hierarchyData) {
             if (typeof populateFilterDropdowns === 'function') populateFilterDropdowns(hierarchyData);
-            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
             if (typeof filterHierarchy === 'function' && typeof updateProcessStatistics === 'function') {
-                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
                 updateProcessStatistics(filteredData);
             }
         }
     } else if (viewName === 'tree') {
         if (hierarchyData) {
             if (typeof populateFilterDropdowns === 'function') populateFilterDropdowns(hierarchyData);
-            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
             if (typeof filterHierarchy === 'function' && typeof updateProcessStatistics === 'function') {
-                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+                const filteredData = filterHierarchy(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
                 updateProcessStatistics(filteredData);
             }
         }
@@ -836,6 +885,10 @@ function renderReadOnlyDetails(processData, processId, isDeleted, isAdded, isMod
                     <h4 class="font-semibold text-gray-700">Departments Involved</h4>
                     <p class="text-gray-600 mt-1">${(processData.departments && processData.departments.length) ? processData.departments.join(', ') : 'None'}</p>
                 </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700">Key Contacts</h4>
+                    <p class="text-gray-600 mt-1">${((processData.key_contacts || processData.details?.key_contacts || []).length) ? (processData.key_contacts || processData.details?.key_contacts || []).join(', ') : 'None'}</p>
+                </div>
             </div>
         `;
     }
@@ -951,6 +1004,10 @@ function renderEditForm(processData, processId, isDeleted, isAdded) {
                     <label for="edit-process-departments" class="block text-sm font-medium text-gray-700">Departments Involved</label>
                     <input type="text" id="edit-process-departments" placeholder="Comma-separated (e.g., Operations, Customer Service)" value="${(processData.departments || processData.details?.departments || []).join(', ').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
                 </div>
+                <div>
+                    <label for="edit-process-key-contacts" class="block text-sm font-medium text-gray-700">Key Contacts</label>
+                    <input type="text" id="edit-process-key-contacts" placeholder="Comma-separated (e.g., John Doe, Jane Smith)" value="${(processData.key_contacts || processData.details?.key_contacts || []).join(', ').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 min-h-[44px]">
+                </div>
         `;
     }
     
@@ -1033,6 +1090,8 @@ function saveProcess(event, processId) {
         processData.wave = document.getElementById('edit-process-wave').value.trim();
         const deptsInput = document.getElementById('edit-process-departments').value.trim();
         processData.departments = deptsInput ? deptsInput.split(',').map(d => d.trim()).filter(Boolean) : [];
+        const keyContactsInput = document.getElementById('edit-process-key-contacts');
+        processData.key_contacts = keyContactsInput && keyContactsInput.value.trim() ? keyContactsInput.value.split(',').map(k => k.trim()).filter(Boolean) : [];
     }
     
     // Check if this is a new process
@@ -1366,11 +1425,11 @@ function updateProcessInHierarchy(processId, newData, isAdded) {
 function refreshCurrentView() {
     if (currentView === 'navigation') {
         if (hierarchyData) {
-            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+            initNavigationView(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
         }
     } else if (currentView === 'tree') {
         if (hierarchyData) {
-            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+            initTreeVisualization(hierarchyData, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
         }
     } else if (currentView === 'search') {
         // Search view refresh is handled by search.js if needed
@@ -1428,7 +1487,8 @@ function updateSearchIndex() {
                     use_case: node.use_case || '',
                     it_release: node.it_release || '',
                     wave: node.wave || '',
-                    departments: node.departments || []
+                    departments: node.departments || [],
+                    key_contacts: node.key_contacts || []
                 }
             });
         }
@@ -1448,6 +1508,7 @@ window.filterHierarchyByITRelease = filterHierarchyByITRelease;
 window.filterHierarchyByUseCase = filterHierarchyByUseCase;
 window.filterHierarchyByWave = filterHierarchyByWave;
 window.filterHierarchyByDepartment = filterHierarchyByDepartment;
+window.filterHierarchyByKeyContact = filterHierarchyByKeyContact;
 window.filterHierarchy = filterHierarchy;
 window.populateFilterDropdowns = populateFilterDropdowns;
 

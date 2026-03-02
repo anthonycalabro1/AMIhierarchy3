@@ -9,19 +9,6 @@ function exportToExcel() {
     }
     
     try {
-        const KNOWN_COLS = ['L1 Process Name', 'L2 Process Name', 'L3 Process Name', 'L3 Process Objective', 'Use Case Mapping', 'IT Release', 'Wave'];
-        const allDepartments = new Set();
-        function collectDepartments(node) {
-            if (node.level === 'L3' && node.departments) {
-                node.departments.forEach(d => allDepartments.add(d));
-            }
-            (node.children || []).forEach(collectDepartments);
-        }
-        if (window.hierarchyData.children) {
-            window.hierarchyData.children.forEach(collectDepartments);
-        }
-        const departmentList = Array.from(allDepartments).sort();
-
         const rows = [];
         function flattenHierarchy(node, l1Name = '', l2Name = '') {
             if (node.level === 'L1') {
@@ -34,7 +21,8 @@ function exportToExcel() {
                 const processId = window.getProcessId ? window.getProcessId(node) : `${node.level}_${node.name}`;
                 const isDeleted = window.pendingChanges && window.pendingChanges.deleted && window.pendingChanges.deleted.has(processId);
                 if (!isDeleted) {
-                    const deptSet = new Set(node.departments || []);
+                    const depts = node.departments || [];
+                    const keyContacts = node.key_contacts || [];
                     const row = {
                         'L1 Process Name': l1Name,
                         'L2 Process Name': l2Name,
@@ -42,9 +30,10 @@ function exportToExcel() {
                         'L3 Process Objective': node.objective || '',
                         'Use Case Mapping': node.use_case || '',
                         'IT Release': node.it_release || '',
-                        'Wave': node.wave || ''
+                        'Wave': node.wave || '',
+                        'Departments Involved': depts.join(', '),
+                        'Key Contacts': keyContacts.join(', ')
                     };
-                    departmentList.forEach(d => { row[d] = deptSet.has(d) ? 'X' : ''; });
                     rows.push(row);
                 }
             }
@@ -58,9 +47,9 @@ function exportToExcel() {
         const ws = XLSX.utils.json_to_sheet(rows);
         
         const colWidths = [
-            { wch: 30 }, { wch: 40 }, { wch: 50 }, { wch: 80 }, { wch: 50 }, { wch: 20 }, { wch: 15 }
+            { wch: 30 }, { wch: 40 }, { wch: 50 }, { wch: 80 }, { wch: 50 }, { wch: 20 }, { wch: 15 },
+            { wch: 40 }, { wch: 40 }
         ];
-        departmentList.forEach(() => colWidths.push({ wch: 15 }));
         ws['!cols'] = colWidths;
         
         // Add worksheet to workbook
@@ -138,8 +127,30 @@ function importFromExcel(event) {
                 return;
             }
             
-            const KNOWN_COLS = new Set(['L1 Process Name', 'L2 Process Name', 'L3 Process Name', 'L3 Process Objective', 'Use Case Mapping', 'IT Release', 'Wave', 'Priority']);
+            const KNOWN_COLS = new Set(['L1 Process Name', 'L2 Process Name', 'L3 Process Name', 'L3 Process Objective', 'Use Case Mapping', 'IT Release', 'Wave', 'Priority', 'Departments Involved', 'Business Units Involved', 'Key Contacts']);
             const allColumns = Object.keys(firstRow);
+
+            function parseCommaDelimited(val) {
+                if (val == null || String(val).trim() === '') return [];
+                const s = String(val);
+                const parts = [];
+                let current = [];
+                let depth = 0;
+                for (const char of s) {
+                    if (char === ',' && depth === 0) {
+                        const part = current.join('').trim();
+                        if (part) parts.push(part);
+                        current = [];
+                    } else {
+                        if (char === '(') depth++;
+                        else if (char === ')') depth--;
+                        current.push(char);
+                    }
+                }
+                const part = current.join('').trim();
+                if (part) parts.push(part);
+                return parts;
+            }
 
             const newHierarchy = { name: 'Process Hierarchy', children: [] };
             const l1Map = new Map();
@@ -167,14 +178,21 @@ function importFromExcel(event) {
                     l1Node.children.push(l2Node);
                 }
 
-                const departments = [];
-                allColumns.forEach(col => {
-                    if (KNOWN_COLS.has(col)) return;
-                    const val = row[col];
-                    if (val != null && String(val).trim().toUpperCase() === 'X') {
-                        departments.push(col.trim());
-                    }
-                });
+                let departments = [];
+                const deptCol = firstRow.hasOwnProperty('Departments Involved') ? 'Departments Involved' : (firstRow.hasOwnProperty('Business Units Involved') ? 'Business Units Involved' : null);
+                if (deptCol && row[deptCol] != null && String(row[deptCol]).trim() !== '') {
+                    departments = parseCommaDelimited(row[deptCol]);
+                } else {
+                    allColumns.forEach(col => {
+                        if (KNOWN_COLS.has(col)) return;
+                        const val = row[col];
+                        if (val != null && String(val).trim().toUpperCase() === 'X') {
+                            departments.push(col.trim());
+                        }
+                    });
+                }
+
+                const keyContacts = firstRow.hasOwnProperty('Key Contacts') ? parseCommaDelimited(row['Key Contacts']) : [];
 
                 const waveVal = (row['Priority'] != null ? row['Priority'] : row['Wave']);
                 const l3Node = {
@@ -184,7 +202,8 @@ function importFromExcel(event) {
                     use_case: row['Use Case Mapping'] || '',
                     it_release: row['IT Release'] || '',
                     wave: waveVal != null ? String(waveVal).trim() : '',
-                    departments: departments
+                    departments: departments,
+                    key_contacts: keyContacts
                 };
                 l2Node.children.push(l3Node);
             });

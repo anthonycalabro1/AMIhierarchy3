@@ -2,14 +2,14 @@ let currentNavData = null;
 let navHistory = []; // Array of objects { name: "Root", data: ... }
 let originalNavData = null; // Store original unfiltered data
 
-function initNavigationView(data, itReleaseFilter = null, useCaseFilter = null, waveFilter = null, departmentFilter = null) {
+function initNavigationView(data, itReleaseFilter = null, useCaseFilter = null, waveFilter = null, departmentFilter = null, keyContactFilter = null) {
     // Store original data
     originalNavData = data;
     
     // Apply combined filter if provided
     let filteredData = data;
     if (typeof filterHierarchy === 'function') {
-        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter, waveFilter, departmentFilter);
+        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter, waveFilter, departmentFilter, keyContactFilter);
     }
     
     // Reset history
@@ -77,6 +77,18 @@ function setupNavFilterListeners() {
             applyNavFilters();
         });
     }
+
+    const keyContactFilter = document.getElementById('nav-key-contact-filter');
+    if (keyContactFilter && keyContactFilter.dataset.listenerSetup !== 'true') {
+        keyContactFilter.dataset.listenerSetup = 'true';
+        keyContactFilter.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            window.currentKeyContactFilter = selectedValue === 'All' ? null : selectedValue;
+            const treeKeyContactFilter = document.getElementById('tree-key-contact-filter');
+            if (treeKeyContactFilter) treeKeyContactFilter.value = selectedValue;
+            applyNavFilters();
+        });
+    }
 }
 
 function applyNavFilters() {
@@ -86,7 +98,8 @@ function applyNavFilters() {
             window.currentITReleaseFilter, 
             window.currentUseCaseFilter,
             window.currentWaveFilter,
-            window.currentDepartmentFilter
+            window.currentDepartmentFilter,
+            window.currentKeyContactFilter
         );
         
         // Update statistics with filtered data
@@ -145,6 +158,7 @@ function renderNavigationView(nodeData) {
         if (window.currentUseCaseFilter) activeFilters.push(`Use Case: ${window.currentUseCaseFilter}`);
         if (window.currentWaveFilter) activeFilters.push(`Wave: ${window.currentWaveFilter}`);
         if (window.currentDepartmentFilter) activeFilters.push(`Department: ${window.currentDepartmentFilter}`);
+        if (window.currentKeyContactFilter) activeFilters.push(`Key Contact: ${window.currentKeyContactFilter}`);
         if (activeFilters.length > 0) {
             filterMessage = `No processes found matching filter(s): ${activeFilters.join(', ')}`;
         }

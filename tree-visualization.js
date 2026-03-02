@@ -1,4 +1,4 @@
-function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = null, waveFilter = null, departmentFilter = null) {
+function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = null, waveFilter = null, departmentFilter = null, keyContactFilter = null) {
     const containerId = "#tree-container";
     const container = document.querySelector(containerId);
     
@@ -9,7 +9,7 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
 
     let filteredData = data;
     if (typeof filterHierarchy === 'function') {
-        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter, waveFilter, departmentFilter);
+        filteredData = filterHierarchy(data, itReleaseFilter, useCaseFilter, waveFilter, departmentFilter, keyContactFilter);
     }
 
     if (!filteredData.children || filteredData.children.length === 0) {
@@ -19,6 +19,7 @@ function initTreeVisualization(data, itReleaseFilter = null, useCaseFilter = nul
         if (useCaseFilter) activeFilters.push(`Use Case: ${useCaseFilter}`);
         if (waveFilter) activeFilters.push(`Wave: ${waveFilter}`);
         if (departmentFilter) activeFilters.push(`Department: ${departmentFilter}`);
+        if (keyContactFilter) activeFilters.push(`Key Contact: ${keyContactFilter}`);
         if (activeFilters.length > 0) {
             message = `No processes found matching filter(s): ${activeFilters.join(', ')}`;
         }
@@ -545,6 +546,18 @@ function setupTreeFilterListeners() {
             applyTreeFilters();
         });
     }
+
+    const keyContactFilter = document.getElementById('tree-key-contact-filter');
+    if (keyContactFilter && keyContactFilter.dataset.listenerSetup !== 'true') {
+        keyContactFilter.dataset.listenerSetup = 'true';
+        keyContactFilter.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            window.currentKeyContactFilter = selectedValue === 'All' ? null : selectedValue;
+            const navKeyContactFilter = document.getElementById('nav-key-contact-filter');
+            if (navKeyContactFilter) navKeyContactFilter.value = selectedValue;
+            applyTreeFilters();
+        });
+    }
 }
 
 function applyTreeFilters() {
@@ -560,13 +573,14 @@ function applyTreeFilters() {
                 window.currentITReleaseFilter,
                 window.currentUseCaseFilter,
                 window.currentWaveFilter,
-                window.currentDepartmentFilter
+                window.currentDepartmentFilter,
+                window.currentKeyContactFilter
             );
         }
         if (typeof updateProcessStatistics === 'function') {
             updateProcessStatistics(filteredData);
         }
-        initTreeVisualization(dataToUse, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter);
+        initTreeVisualization(dataToUse, window.currentITReleaseFilter, window.currentUseCaseFilter, window.currentWaveFilter, window.currentDepartmentFilter, window.currentKeyContactFilter);
     }
 }
 
